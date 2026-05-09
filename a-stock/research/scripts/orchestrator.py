@@ -689,6 +689,7 @@ def generate_brief(strategies_data, known_facts):
 **Market**: {MARKET_DIR.name.upper()}
 **Topic Directory**: `experiments/{topic_slug}/`
 **Experiment Workspace**: `experiments/{topic_slug}/{exp_id}/`
+**📚 Knowledge Base Path**: `../../../knowledge_base.md` (Relative to workspace)
 
 ---
 
