@@ -250,6 +250,25 @@ def get_tools_and_data(market):
 - **⚠️ 无分钟级数据**: 只有日线及以上粒度
 - **覆盖**: 5729 只股票，2019-12-30 至 2026-05-07，753 万+条日线记录
 - **📖 表结构文档**: 加载 `tushare-db-fast` Skill 查看所有 167 张表的结构、关键字段和 SQL 示例
+
+#### 🚨 Schema 防呆卡 (Schema Cheat Sheet) — 严禁张冠李戴!
+**AI 写代码前必须查阅此表，若需的字段不在对应表中，必须换表查询，严禁幻觉!**
+
+| 字段名 | 正确归属表 | 常见错误 | 说明 |
+| :--- | :--- | :--- | :--- |
+| `turnover_rate` (换手率) | **`daily_basic`** | ❌ 误用于 `tushare_stock_daily` | 包含 pe, pb, total_mv, circ_mv |
+| `open`, `high`, `low`, `close` | **`tushare_stock_daily`** | ❌ 误用于 `daily_basic` | 基础行情 OHLC |
+| `vol`, `amount`, `pct_chg` | **`tushare_stock_daily`** | ❌ 误用于 `daily_basic` | 成交量、成交额、涨跌幅 |
+| `pe`, `pe_ttm`, `pb`, `ps` | **`daily_basic`** | ❌ 误用于 `tushare_stock_daily` | 估值指标 |
+| `buy_sm_vol`, `sell_lg_vol` | **`moneyflow`** | ❌ 误用于 `tushare_stock_daily` | 资金流向 (小/中/大/超大单) |
+| `limit_type`, `first_time` | **`limit_list_d`** | ❌ 误用于 `tushare_stock_daily` | 涨跌停统计 |
+| `concept_name`, `ts_code` | **`concept_detail`** |  误用于 `tushare_stock_daily` | 概念成分股 |
+
+**🔒 铁律**: 
+1. 写 SQL 前，**必须先确认字段在哪个表**。
+2. 如果不确定，**先去查 `daily_basic`**，不要默认都在行情表里。
+3. 使用 `JOIN` 时需通过 `ts_code` 和 `trade_date` 关联，且两表都要加 `FINAL`。
+
 - **主要数据类别**:
   - 日线行情: `tushare_stock_daily`, `daily_basic` (PE/PB/市值/换手率), `adj_factor` (复权)
   - 资金流向: `moneyflow` (小/中/大/超大单), `moneyflow_hsgt` (北向资金), `moneyflow_ths` (同花顺板块)
@@ -310,6 +329,20 @@ def get_tools_and_data(market):
 - 用 ClickHouse 直接 SQL 查询获取大量历史数据 (极快)
 - 用 pandas 做连板分析、溢价率统计、量价关系
 - 用 numpy 做显著性检验、相关性分析
+
+### 🚨 SCHEMA CHEAT SHEET (MUST CHECK)
+**CRITICAL**: `turnover_rate` (换手率), `pe`, `pb` are **NOT** in `tushare_stock_daily`!
+You MUST use `tushare_daily_basic` for these fields.
+
+| Field | Table Name |
+|-------|------------|
+| `turnover_rate`, `pe`, `pb`, `total_mv` | `tushare.tushare_daily_basic FINAL` |
+| `open`, `high`, `low`, `close`, `vol` | `tushare.tushare_stock_daily FINAL` |
+| `buy_sm_vol`, `sell_lg_vol` | `tushare.tushare_moneyflow FINAL` |
+| `limit_times`, `limit_type` | `tushare.tushare_limit_list_d FINAL` |
+| `concept_name`, `ts_code` | `tushare.tushare_concept_detail FINAL` |
+
+**Rule**: Always check this table before writing SQL. If you hallucinate a field in the wrong table, the backtest will fail.
 """
 
     return futures_tools if market.upper() == "FUTURES" else a_stock_tools
