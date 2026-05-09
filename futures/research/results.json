@@ -1,0 +1,33 @@
+{
+  "total_bars": 8704,
+  "compression_count": 8,
+  "compression_pct": 0.1,
+  "forward_returns": {
+    "4h": {
+      "comp_mean": -0.0135,
+      "comp_std": 0.6071,
+      "normal_mean": 0.0294,
+      "normal_std": 0.6042
+    },
+    "8h": {
+      "comp_mean": -0.2418,
+      "comp_std": 0.6435,
+      "normal_mean": 0.0592,
+      "normal_std": 0.8574
+    },
+    "12h": {
+      "comp_mean": -0.0698,
+      "comp_std": 0.4399,
+      "normal_mean": 0.0887,
+      "normal_std": 1.0608
+    },
+    "24h": {
+      "comp_mean": 0.0717,
+      "comp_std": 0.4592,
+      "normal_mean": 0.1796,
+      "normal_std": 1.5454
+    }
+  },
+  "big_move_ratio": 0.95,
+  "comp_directional_bias": -0.2418
+}

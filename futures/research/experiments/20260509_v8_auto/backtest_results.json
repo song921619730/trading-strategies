@@ -1,0 +1,103 @@
+{
+  "h1": {
+    "h1_daily": {
+      "gsr_mean_in_regime": 80.1996726769754,
+      "gsr_mean_out_regime": 82.03206281452393,
+      "gsr_delta": -1.8323901375485292,
+      "silver_annualized_excess_in": -63.848766781253275,
+      "silver_annualized_excess_out": 8.056215012303012,
+      "gsr_t_stat": 2.1929347852850185,
+      "gsr_p_value": 0.030141405274576955,
+      "gsr_cohens_d": 0.17243753200516573,
+      "excess_t_stat": -2.1929347852850136,
+      "excess_p_value": 0.030141405274577305,
+      "excess_cohens_d": -0.17243753200516526,
+      "n_regime_days": 94,
+      "n_normal_days": 1173
+    },
+    "h1_20day": {
+      "gsr_20d_t_stat": 5.844276079868085,
+      "gsr_20d_p_value": 4.232685898530623e-08,
+      "se_20d_t_stat": -5.844276079868074,
+      "se_20d_p_value": 4.232685898530848e-08,
+      "se_20d_mean_in": -2.640649544697351,
+      "se_20d_mean_out": 0.3799686621530392
+    },
+    "h1_oil_only": {
+      "silver_annualized_excess_high_oil": -15.331252208400795,
+      "silver_annualized_excess_no_oil": 5.3681619816783295,
+      "t_stat": -0.7429997437076725,
+      "p_value": 0.4581551099353628
+    }
+  },
+  "h2": {
+    "h2_correlation": {
+      "corr_20d": -0.7566311892140267,
+      "corr_60d": -0.4138203958351928
+    },
+    "h2_regression": {
+      "slope": -0.7173388443304789,
+      "intercept": -0.008606414030749451,
+      "r_squared": 0.5724907564914323,
+      "p_value": 0.0,
+      "std_error": 0.013674358163957663,
+      "n_observations": 2057
+    },
+    "h2_quintiles": {
+      "Q1": {
+        "mean_relative_return_pct": 5.925757897353287,
+        "count": 412
+      },
+      "Q2": {
+        "mean_relative_return_pct": 0.0028161395295824123,
+        "count": 411
+      },
+      "Q3": {
+        "mean_relative_return_pct": -1.0751335201529102,
+        "count": 411
+      },
+      "Q4": {
+        "mean_relative_return_pct": -2.7555895759998243,
+        "count": 411
+      },
+      "Q5": {
+        "mean_relative_return_pct": -6.1288432793194865,
+        "count": 412
+      }
+    },
+    "h2_quintile_test": {
+      "t_stat": 27.745206841047462,
+      "p_value": 1.8311959269724637e-118
+    },
+    "h2_strategy": {
+      "total_return": 60.87324820240748,
+      "sharpe_ratio": 2.1955457287015157,
+      "gold_total_return": 1.7647445137559061,
+      "gold_sharpe": 0.8426771151882662,
+      "n_trading_days": 2077
+    }
+  },
+  "cross_asset": {
+    "correlations": {
+      "gold_oil_in": 0.3953933073898661,
+      "gold_oil_out": 0.12042622051566028,
+      "silver_oil_in": 0.34789191678906245,
+      "silver_oil_out": 0.1791760250481969,
+      "gold_silver_in": 0.8185987378345354,
+      "gold_silver_out": 0.7767651420233253
+    },
+    "volatility": {
+      "silver_vol_in": 0.32233959377143134,
+      "silver_vol_out": 0.32564548840384855,
+      "gold_vol_in": 0.17770252402343323,
+      "gold_vol_out": 0.15892196539576958
+    }
+  },
+  "metadata": {
+    "gold_range": "2014-01-14 to 2026-05-08",
+    "silver_range": "2018-06-28 to 2026-05-08",
+    "oil_range": "2020-01-13 to 2026-05-08",
+    "usdchf_range": "2018-07-03 to 2026-05-08",
+    "analysis_date": "2026-05-09 15:09"
+  }
+}
