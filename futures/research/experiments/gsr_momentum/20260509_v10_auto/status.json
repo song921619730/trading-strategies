@@ -1,0 +1,17 @@
+{
+  "exp_id": "20260509_v10_auto",
+  "created_at": "2026-05-09T19:00:52.305385+08:00",
+  "status": "completed",
+  "brief": "20260509_1900.md",
+  "market": "FUTURES",
+  "report_done": true,
+  "proposal_done": true,
+  "key_findings": [
+    "H1(黄金避险)被拒绝: 鹰派+冲突期黄金年化11.48% < 正常期20.24%, p=0.725",
+    "H2(GSR预测力)确认: GSR_chg20对US500/USTEC前瞻20日r>0.16, p<1e-10",
+    "GSR策略在UKOILm上年化65.67%, 夏普1.03, 最大回撤-25.10%",
+    "当前GSR Z-Score=-2.15, 布油$98.79, 风险偏好环境"
+  ],
+  "proposal": "GSR跨资产风险情绪信号层 (原油方向 + 股指预警)",
+  "completed_at": "2026-05-09T19:30:00+08:00"
+}

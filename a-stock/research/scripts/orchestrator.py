@@ -664,7 +664,21 @@ def generate_brief(strategies_data, known_facts):
     if 'selected_topic' not in locals(): selected_topic = None
 
     exp_id = f"{now.strftime('%Y%m%d')}_v{exp_version}{topic_suffix}"
-    exp_path = EXPERIMENTS_DIR / exp_id
+    
+    # Determine topic directory name
+    if selected_topic:
+        topic_slug = selected_topic.get("slug", selected_topic["name"].lower().replace(" ", "_")[:50])
+    elif use_user_topic and user_topic.exists():
+        first_line = user_topic.read_text(encoding="utf-8").splitlines()[0].strip().lower()
+        topic_slug = first_line[:50].replace(" ", "_").replace("#", "").strip("_")
+    else:
+        # For auto mode, create a new topic directory for each run
+        topic_slug = f"topic_{now.strftime('%Y%m%d_%H%M')}"
+    
+    topic_dir = EXPERIMENTS_DIR / topic_slug
+    topic_dir.mkdir(parents=True, exist_ok=True)
+    
+    exp_path = topic_dir / exp_id
     exp_path.mkdir(parents=True, exist_ok=True)
     
     # Initialize experiment files
@@ -673,7 +687,8 @@ def generate_brief(strategies_data, known_facts):
     md = f"""# 📡 Research Brief ({"User-Specified" if use_user_topic else "Auto-Generated"})
 **Time**: {now_str}
 **Market**: {MARKET_DIR.name.upper()}
-**Experiment Workspace**: `experiments/{exp_id}/`
+**Topic Directory**: `experiments/{topic_slug}/`
+**Experiment Workspace**: `experiments/{topic_slug}/{exp_id}/`
 
 ---
 

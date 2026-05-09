@@ -1,0 +1,27 @@
+{
+  "name": "macro-risk-layer",
+  "market": "futures",
+  "status": "incubating",
+  "mode": "shadow",
+  "created_at": "2026-05-09",
+  "source_experiment": "20260509_v7_auto",
+  "signals": [],
+  "stats": {
+    "total_signals": 0,
+    "win_count": 0,
+    "loss_count": 0,
+    "win_rate": null,
+    "avg_rr": null,
+    "profit_factor": null,
+    "max_drawdown_pct": null,
+    "equity_curve": []
+  },
+  "upgrade_threshold": {
+    "min_signals": 20,
+    "min_win_rate": 0.5,
+    "min_profit_factor": 1.2
+  },
+  "cron_job_id": null,
+  "promoted_to": null,
+  "notes": "Shadow mode — recording signals only, no actual trades"
+}

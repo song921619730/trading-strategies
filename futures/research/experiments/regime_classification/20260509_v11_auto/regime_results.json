@@ -1,0 +1,478 @@
+{
+  "XAUUSDm": {
+    "RISK_ON": {
+      "n_days": 1051,
+      "ann_return": 0.220117151053838,
+      "ann_vol": 0.16587295927014353,
+      "sharpe": 1.327022511820938,
+      "max_dd": -0.14834153197822714,
+      "win_rate": 0.5537583254043768
+    },
+    "RISK_OFF": {
+      "n_days": 257,
+      "ann_return": 0.9273308184508899,
+      "ann_vol": 0.19950506809026575,
+      "sharpe": 4.6481566976099105,
+      "max_dd": -0.06153531536582272,
+      "win_rate": 0.5992217898832685
+    },
+    "STAGFLATION": {
+      "n_days": 18,
+      "ann_return": null,
+      "ann_vol": null,
+      "sharpe": null,
+      "max_dd": null,
+      "win_rate": null
+    },
+    "NORMAL": {
+      "n_days": 305,
+      "ann_return": -0.30806629635723437,
+      "ann_vol": 0.1846749267410241,
+      "sharpe": -1.668154425691183,
+      "max_dd": -0.4068738265703401,
+      "win_rate": 0.46557377049180326
+    }
+  },
+  "XAGUSDm": {
+    "RISK_ON": {
+      "n_days": 1051,
+      "ann_return": 0.6825443754946039,
+      "ann_vol": 0.35454310243486603,
+      "sharpe": 1.9251379333208034,
+      "max_dd": -0.33546833784807145,
+      "win_rate": 0.5528068506184586
+    },
+    "RISK_OFF": {
+      "n_days": 257,
+      "ann_return": 0.2226787159874415,
+      "ann_vol": 0.44220528585211843,
+      "sharpe": 0.5035641208095132,
+      "max_dd": -0.2508116068141504,
+      "win_rate": 0.5252918287937743
+    },
+    "STAGFLATION": {
+      "n_days": 18,
+      "ann_return": null,
+      "ann_vol": null,
+      "sharpe": null,
+      "max_dd": null,
+      "win_rate": null
+    },
+    "NORMAL": {
+      "n_days": 305,
+      "ann_return": -0.5445475746576293,
+      "ann_vol": 0.39473483081952704,
+      "sharpe": -1.3795275515136811,
+      "max_dd": -0.6575468828460022,
+      "win_rate": 0.43934426229508194
+    }
+  },
+  "EURUSDm": {
+    "RISK_ON": {
+      "n_days": 1051,
+      "ann_return": 0.049526495592394415,
+      "ann_vol": 0.06741402602261229,
+      "sharpe": 0.7346615906871077,
+      "max_dd": -0.07967773709918428,
+      "win_rate": 0.5128449096098954
+    },
+    "RISK_OFF": {
+      "n_days": 257,
+      "ann_return": 0.1609003245135585,
+      "ann_vol": 0.08144356472449925,
+      "sharpe": 1.9756051329265758,
+      "max_dd": -0.036479239478277956,
+      "win_rate": 0.5058365758754864
+    },
+    "STAGFLATION": {
+      "n_days": 18,
+      "ann_return": null,
+      "ann_vol": null,
+      "sharpe": null,
+      "max_dd": null,
+      "win_rate": null
+    },
+    "NORMAL": {
+      "n_days": 305,
+      "ann_return": -0.1677422014188844,
+      "ann_vol": 0.08540743466465879,
+      "sharpe": -1.964023414091553,
+      "max_dd": -0.21731768853828143,
+      "win_rate": 0.46229508196721314
+    }
+  },
+  "GBPUSDm": {
+    "RISK_ON": {
+      "n_days": 1051,
+      "ann_return": 0.112047769496467,
+      "ann_vol": 0.07576713586994684,
+      "sharpe": 1.4788439368857142,
+      "max_dd": -0.07556719256174102,
+      "win_rate": 0.5290199809705043
+    },
+    "RISK_OFF": {
+      "n_days": 257,
+      "ann_return": 0.05057505883341973,
+      "ann_vol": 0.08435021152507975,
+      "sharpe": 0.5995842561507069,
+      "max_dd": -0.07047262478540534,
+      "win_rate": 0.5175097276264592
+    },
+    "STAGFLATION": {
+      "n_days": 18,
+      "ann_return": null,
+      "ann_vol": null,
+      "sharpe": null,
+      "max_dd": null,
+      "win_rate": null
+    },
+    "NORMAL": {
+      "n_days": 305,
+      "ann_return": -0.23987146935215953,
+      "ann_vol": 0.11886387956126024,
+      "sharpe": -2.018035001360815,
+      "max_dd": -0.2867964670774167,
+      "win_rate": 0.43278688524590164
+    }
+  },
+  "USDJPYm": {
+    "RISK_ON": {
+      "n_days": 1051,
+      "ann_return": 0.025821078247896256,
+      "ann_vol": 0.08664099897253626,
+      "sharpe": 0.29802378266761564,
+      "max_dd": -0.1363426385529884,
+      "win_rate": 0.5375832540437678
+    },
+    "RISK_OFF": {
+      "n_days": 257,
+      "ann_return": -0.2091299775573746,
+      "ann_vol": 0.10512183662536138,
+      "sharpe": -1.9894056674702403,
+      "max_dd": -0.2501055638391426,
+      "win_rate": 0.48638132295719844
+    },
+    "STAGFLATION": {
+      "n_days": 18,
+      "ann_return": null,
+      "ann_vol": null,
+      "sharpe": null,
+      "max_dd": null,
+      "win_rate": null
+    },
+    "NORMAL": {
+      "n_days": 305,
+      "ann_return": 0.2999591988768411,
+      "ann_vol": 0.10103118708182776,
+      "sharpe": 2.968976288815615,
+      "max_dd": -0.038309411074039776,
+      "win_rate": 0.5737704918032787
+    }
+  },
+  "AUDUSDm": {
+    "RISK_ON": {
+      "n_days": 1051,
+      "ann_return": 0.15398192006210376,
+      "ann_vol": 0.09607136974801596,
+      "sharpe": 1.6027867664006503,
+      "max_dd": -0.09976311053300901,
+      "win_rate": 0.5423406279733587
+    },
+    "RISK_OFF": {
+      "n_days": 257,
+      "ann_return": -0.0046828305947986815,
+      "ann_vol": 0.1126209869329406,
+      "sharpe": -0.041580443595180365,
+      "max_dd": -0.09956706527825453,
+      "win_rate": 0.5214007782101168
+    },
+    "STAGFLATION": {
+      "n_days": 18,
+      "ann_return": null,
+      "ann_vol": null,
+      "sharpe": null,
+      "max_dd": null,
+      "win_rate": null
+    },
+    "NORMAL": {
+      "n_days": 305,
+      "ann_return": -0.29553854977101524,
+      "ann_vol": 0.12847704330830634,
+      "sharpe": -2.300321848641951,
+      "max_dd": -0.35337654822517034,
+      "win_rate": 0.4065573770491803
+    }
+  },
+  "USDCHFm": {
+    "RISK_ON": {
+      "n_days": 1051,
+      "ann_return": -0.07569690815854313,
+      "ann_vol": 0.07226114346539911,
+      "sharpe": -1.0475465032571645,
+      "max_dd": -0.29766469222241687,
+      "win_rate": 0.49191246431969554
+    },
+    "RISK_OFF": {
+      "n_days": 257,
+      "ann_return": -0.18109640486418377,
+      "ann_vol": 0.09237256358290029,
+      "sharpe": -1.9604999346116205,
+      "max_dd": -0.1923081961122067,
+      "win_rate": 0.4396887159533074
+    },
+    "STAGFLATION": {
+      "n_days": 18,
+      "ann_return": null,
+      "ann_vol": null,
+      "sharpe": null,
+      "max_dd": null,
+      "win_rate": null
+    },
+    "NORMAL": {
+      "n_days": 305,
+      "ann_return": 0.21504929884842405,
+      "ann_vol": 0.08511558355968178,
+      "sharpe": 2.5265561235051,
+      "max_dd": -0.058122958136766274,
+      "win_rate": 0.5934426229508196
+    }
+  },
+  "USOILm": {
+    "RISK_ON": {
+      "n_days": 1051,
+      "ann_return": 0.31329710848379144,
+      "ann_vol": 0.4180914106428799,
+      "sharpe": 0.7493507412698311,
+      "max_dd": -0.5049286585640667,
+      "win_rate": 0.5404376784015223
+    },
+    "RISK_OFF": {
+      "n_days": 257,
+      "ann_return": -0.4396849355862037,
+      "ann_vol": 0.45533951353115276,
+      "sharpe": -0.9656199879875392,
+      "max_dd": -0.541102124190998,
+      "win_rate": 0.48249027237354086
+    },
+    "STAGFLATION": {
+      "n_days": 18,
+      "ann_return": null,
+      "ann_vol": null,
+      "sharpe": null,
+      "max_dd": null,
+      "win_rate": null
+    },
+    "NORMAL": {
+      "n_days": 305,
+      "ann_return": -0.09355759169708733,
+      "ann_vol": 0.549628386568395,
+      "sharpe": -0.17021972296812068,
+      "max_dd": -0.356384517075593,
+      "win_rate": 0.521311475409836
+    }
+  },
+  "UKOILm": {
+    "RISK_ON": {
+      "n_days": 1050,
+      "ann_return": 0.2523172919458143,
+      "ann_vol": 0.33489069429638096,
+      "sharpe": 0.7534317801094571,
+      "max_dd": -0.39172083607157004,
+      "win_rate": 0.5428571428571428
+    },
+    "RISK_OFF": {
+      "n_days": 257,
+      "ann_return": -0.4496492516354733,
+      "ann_vol": 0.4840435301895672,
+      "sharpe": -0.9289438316826093,
+      "max_dd": -0.6186354334770925,
+      "win_rate": 0.47470817120622566
+    },
+    "STAGFLATION": {
+      "n_days": 18,
+      "ann_return": null,
+      "ann_vol": null,
+      "sharpe": null,
+      "max_dd": null,
+      "win_rate": null
+    },
+    "NORMAL": {
+      "n_days": 305,
+      "ann_return": -0.05213924467581588,
+      "ann_vol": 0.5008075569504591,
+      "sharpe": -0.10411033929540643,
+      "max_dd": -0.31129762087496077,
+      "win_rate": 0.5311475409836065
+    }
+  },
+  "USTECm": {
+    "RISK_ON": {
+      "n_days": 1051,
+      "ann_return": 0.8181676222895733,
+      "ann_vol": 0.1814767109555385,
+      "sharpe": 4.5083890818917425,
+      "max_dd": -0.09599288946497583,
+      "win_rate": 0.6022835394862036
+    },
+    "RISK_OFF": {
+      "n_days": 257,
+      "ann_return": -0.42232098699838705,
+      "ann_vol": 0.31765880024753396,
+      "sharpe": -1.3294798905910858,
+      "max_dd": -0.4543392069299214,
+      "win_rate": 0.42412451361867703
+    },
+    "STAGFLATION": {
+      "n_days": 18,
+      "ann_return": null,
+      "ann_vol": null,
+      "sharpe": null,
+      "max_dd": null,
+      "win_rate": null
+    },
+    "NORMAL": {
+      "n_days": 305,
+      "ann_return": -0.3254672976318892,
+      "ann_vol": 0.3379039989330734,
+      "sharpe": -0.9631945720072775,
+      "max_dd": -0.45346585962206065,
+      "win_rate": 0.5081967213114754
+    }
+  },
+  "US30m": {
+    "RISK_ON": {
+      "n_days": 1051,
+      "ann_return": 0.47193715960087146,
+      "ann_vol": 0.13208235073573452,
+      "sharpe": 3.5730523947526183,
+      "max_dd": -0.0794434421498554,
+      "win_rate": 0.5727878211227403
+    },
+    "RISK_OFF": {
+      "n_days": 257,
+      "ann_return": -0.29858585208394994,
+      "ann_vol": 0.2486923788678935,
+      "sharpe": -1.200623249667655,
+      "max_dd": -0.33284946307349095,
+      "win_rate": 0.4357976653696498
+    },
+    "STAGFLATION": {
+      "n_days": 18,
+      "ann_return": null,
+      "ann_vol": null,
+      "sharpe": null,
+      "max_dd": null,
+      "win_rate": null
+    },
+    "NORMAL": {
+      "n_days": 305,
+      "ann_return": -0.33385326345589195,
+      "ann_vol": 0.2669532124637992,
+      "sharpe": -1.2506059034639445,
+      "max_dd": -0.41186432998245254,
+      "win_rate": 0.46229508196721314
+    }
+  },
+  "US500m": {
+    "RISK_ON": {
+      "n_days": 1051,
+      "ann_return": 0.623966237011736,
+      "ann_vol": 0.13421832739575912,
+      "sharpe": 4.648889977386586,
+      "max_dd": -0.061105169340463596,
+      "win_rate": 0.6051379638439581
+    },
+    "RISK_OFF": {
+      "n_days": 257,
+      "ann_return": -0.3668363640449952,
+      "ann_vol": 0.2632131486764504,
+      "sharpe": -1.393685558223847,
+      "max_dd": -0.39972687556485476,
+      "win_rate": 0.40077821011673154
+    },
+    "STAGFLATION": {
+      "n_days": 18,
+      "ann_return": null,
+      "ann_vol": null,
+      "sharpe": null,
+      "max_dd": null,
+      "win_rate": null
+    },
+    "NORMAL": {
+      "n_days": 305,
+      "ann_return": -0.3238531549954877,
+      "ann_vol": 0.2795195017871939,
+      "sharpe": -1.1586066550807115,
+      "max_dd": -0.4234361518822203,
+      "win_rate": 0.46885245901639344
+    }
+  },
+  "JP225m": {
+    "RISK_ON": {
+      "n_days": 1051,
+      "ann_return": 0.597749614397487,
+      "ann_vol": 0.169536839547167,
+      "sharpe": 3.5257800959017316,
+      "max_dd": -0.08149901223583877,
+      "win_rate": 0.5642245480494766
+    },
+    "RISK_OFF": {
+      "n_days": 257,
+      "ann_return": -0.4627729756323936,
+      "ann_vol": 0.2880886074450564,
+      "sharpe": -1.6063563906137894,
+      "max_dd": -0.5038020577311709,
+      "win_rate": 0.4280155642023346
+    },
+    "STAGFLATION": {
+      "n_days": 18,
+      "ann_return": null,
+      "ann_vol": null,
+      "sharpe": null,
+      "max_dd": null,
+      "win_rate": null
+    },
+    "NORMAL": {
+      "n_days": 305,
+      "ann_return": -0.1117034333432817,
+      "ann_vol": 0.26016588800801066,
+      "sharpe": -0.42935464829210157,
+      "max_dd": -0.3060401940801852,
+      "win_rate": 0.46557377049180326
+    }
+  },
+  "HK50m": {
+    "RISK_ON": {
+      "n_days": 1005,
+      "ann_return": 0.2403993237148938,
+      "ann_vol": 0.24520768878220844,
+      "sharpe": 0.9803906431678601,
+      "max_dd": -0.21550071092120038,
+      "win_rate": 0.536318407960199
+    },
+    "RISK_OFF": {
+      "n_days": 246,
+      "ann_return": 0.01906917779585937,
+      "ann_vol": 0.26068379714310347,
+      "sharpe": 0.07315060623192958,
+      "max_dd": -0.23385900232667167,
+      "win_rate": 0.491869918699187
+    },
+    "STAGFLATION": {
+      "n_days": 17,
+      "ann_return": null,
+      "ann_vol": null,
+      "sharpe": null,
+      "max_dd": null,
+      "win_rate": null
+    },
+    "NORMAL": {
+      "n_days": 285,
+      "ann_return": -0.5176395819860549,
+      "ann_vol": 0.3084821298770382,
+      "sharpe": -1.678021291516586,
+      "max_dd": -0.5493887367827662,
+      "win_rate": 0.45263157894736844
+    }
+  }
+}

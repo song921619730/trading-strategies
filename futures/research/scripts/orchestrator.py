@@ -183,6 +183,33 @@ def get_tools_and_data(market):
     futures_tools = """
 ## 🛠️ Available Tools & Data (Futures)
 
+### ⭐ 0. 🌍 全品种池 (MANDATORY — 14 Symbols)
+**所有研究必须在全部 14 个品种上进行测试，不得遗漏。**
+
+| 分类 | 品种代码 | MT5 Symbol (Exness) | 说明 |
+|------|----------|---------------------|------|
+| **贵金属** | XAUUSD | `XAUUSDm` | 现货黄金 |
+| | XAGUSD | `XAGUSDm` | 现货白银 |
+| **外汇** | EURUSD | `EURUSDm` | 欧元/美元 |
+| | GBPUSD | `GBPUSDm` | 英镑/美元 |
+| | USDJPY | `USDJPYm` | 美元/日元 |
+| | AUDUSD | `AUDUSDm` | 澳元/美元 |
+| | USDCHF | `USDCHFm` | 美元/瑞郎 |
+| **原油** | USOIL | `USOILm` | WTI 原油 |
+| | UKOIL | `UKOILm` | 布伦特原油 |
+| **股指** | USTEC | `USTECm` | 纳斯达克 100 |
+| | US30 | `US30m` | 道琼斯 30 |
+| | US500 | `US500m` | 标普 500 |
+| | JP225 | `JP225m` | 日经 225 |
+| | HK50 | `HK50m` | 恒生指数 |
+
+**⚠️ 相关性分组** (同组内品种高度相关，需合并分析):
+- USD 空头组: EURUSD, GBPUSD, AUDUSD
+- USD 多头组: USDJPY, USDCHF
+- 原油组: USOIL, UKOIL
+- 美股指数组: USTEC, US500, US30
+- 亚太股指: JP225, HK50
+
 ### ⭐ 1. MT5 (MetaTrader 5) — 主数据源
 **优先级最高。所有期货行情、历史 K 线、跨品种分析优先使用 MT5。**
 - **路径**: `C:\\\\Program Files\\\\MetaTrader 5\\\\terminal64.exe`
@@ -190,7 +217,7 @@ def get_tools_and_data(market):
 - **Python**: `import MetaTrader5 as mt5`
 - **可用数据**: D1/H1/M15/M5 K 线、tick 价格、账户净值/保证金、持仓/SL/TP
 - **获取历史**: `mt5.copy_rates_from_pos(symbol, mt5.TIMEFRAME_D1, 0, N)`
-- **参考脚本**: `../single-agent/pure-ai-cio/scripts/pre_analyze.py` (可直接复制修改)
+- **参考脚本**: `../single-agent/keylevel-trend/scripts/pre_analyze.py` (完整 14 品种数据获取脚本，可直接复制修改)
 
 ### 2. Global Futures (Yahoo Finance) — 备用数据源
 **仅当 MT5 不可用时使用。可能触发限速。**
@@ -257,7 +284,7 @@ def get_tools_and_data(market):
 3. **Confusion**: Do NOT mix Yahoo codes (CL=F) with MT5 functions.
 
 ### 🚨 MANDATORY REPORTING RULES
-1. **🌍 UNIVERSE**: Must declare exactly which symbols were tested (e.g., "Tested on all 14 major MT5 symbols: XAUUSDm, USOILm..."). Do not hide limited sample sizes.
+1. **🌍 UNIVERSE**: Must test on ALL 14 symbols: XAUUSDm, XAGUSDm, EURUSDm, GBPUSDm, USDJPYm, AUDUSDm, USDCHFm, USOILm, UKOILm, USTECm, US30m, US500m, JP225m, HK50m. Do NOT hide limited sample sizes — if a strategy only works on 2 symbols, say so explicitly.
 2. **📊 TRANSPARENCY**: You **MUST** fill out the `Data & Methodology` table in `report.md`. Experiments without declared data range, symbol list, and indicators will be rejected.
 3. **📅 HISTORY**: Use maximum available history (min 2 years recommended). Declare exact start/end dates.
 """
@@ -358,7 +385,7 @@ def _init_experiment_workspace(exp_path, brief_path):
 | Item | Description |
 |------|-------------|
 | 📅 **Data Range** | e.g., `2020-01-01` to `2026-05-08` (X Years) |
-| 🌍 **Universe / Pool** | **Futures**: List specific symbols tested (e.g., XAUUSDm, USOILm, USTECm). Must declare if tested on limited symbols or all available. |
+| 🌍 **Universe / Pool** | **Futures**: MUST test on ALL 14 symbols (XAUUSDm, XAGUSDm, EURUSDm, GBPUSDm, USDJPYm, AUDUSDm, USDCHFm, USOILm, UKOILm, USTECm, US30m, US500m, JP225m, HK50m). Declare any symbols excluded and why. |
 | 📦 **Data Sources** | e.g., MT5 (H1/D1), Yahoo Finance, News Pipeline |
 | 📈 **Key Indicators** | List all indicators/factors used (e.g., ATR, MACD, Volume Profile, Correlation) |
 | 🔍 **Filters** | Any exclusions? (e.g., Exclude Asian session, Exclude high spread periods) |
@@ -520,12 +547,26 @@ def generate_brief(strategies_data, known_facts):
     existing = sorted(EXPERIMENTS_DIR.glob("2026*"))
     exp_version = len([e for e in existing if e.is_dir() and not e.name.startswith("0000")]) + 1
     
-    # Create experiment workspace
+    # Determine topic directory name
+    if use_user_topic:
+        # Extract a slug from user topic filename or first line
+        topic_slug = "user-topic"
+        if user_topic.exists():
+            first_line = user_topic.read_text(encoding="utf-8").splitlines()[0].strip().lower()
+            topic_slug = first_line[:50].replace(" ", "_").replace("#", "").strip("_")
+    else:
+        # For auto mode, create a new topic directory for each run
+        topic_slug = f"topic_{now.strftime('%Y%m%d_%H%M')}"
+    
+    topic_dir = EXPERIMENTS_DIR / topic_slug
+    topic_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Create experiment workspace under topic directory
     if use_user_topic:
         exp_id = f"{now.strftime('%Y%m%d')}_v{exp_version}_user"
     else:
         exp_id = f"{now.strftime('%Y%m%d')}_v{exp_version}_auto"
-    exp_path = EXPERIMENTS_DIR / exp_id
+    exp_path = topic_dir / exp_id
     exp_path.mkdir(parents=True, exist_ok=True)
     
     # Initialize experiment files
@@ -534,7 +575,8 @@ def generate_brief(strategies_data, known_facts):
     md = f"""# 📡 Research Brief ({"User-Specified" if use_user_topic else "Auto-Generated"})
 **Time**: {now_str}
 **Market**: {MARKET_DIR.name.upper()}
-**Experiment Workspace**: `experiments/{exp_id}/`
+**Topic Directory**: `experiments/{topic_slug}/`
+**Experiment Workspace**: `experiments/{topic_slug}/{exp_id}/`
 
 ---
 

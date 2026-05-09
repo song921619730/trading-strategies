@@ -1,0 +1,15 @@
+{
+  "exp_id": "20260509_v7_auto",
+  "created_at": "2026-05-09T13:00:25.545750+08:00",
+  "status": "completed",
+  "brief": "20260509_1300.md",
+  "market": "FUTURES",
+  "report_done": true,
+  "proposal_done": true,
+  "hypotheses_tested": [
+    "H1: 复合宏观风险信号(高油价+美元走强)对股指期货下行预测能力",
+    "H2: 黄金在复合风险环境下的对冲效果"
+  ],
+  "key_finding": "复合鹰派信号(高油价+美元走强)在20日窗口对USTEC/US500/US30负收益预测高度显著(p<0.001, d=0.76-0.94)，远优于单一油价信号(p=0.255)",
+  "recommendation": "为pure-ai-cio策略添加复合宏观风险预警层，影子模式验证后启用"
+}

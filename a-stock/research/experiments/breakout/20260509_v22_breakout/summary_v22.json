@@ -1,0 +1,15 @@
+{
+  "total_signals": 20070,
+  "bull_signals": 14108,
+  "bear_signals": 5962,
+  "all_ret_20_mean": 0.015323757360162298,
+  "all_ret_20_median": -0.002617801047120394,
+  "all_ret_20_std": 0.11858261882299934,
+  "all_ret_20_winrate": 0.48348784765722874,
+  "bull_ret_20_mean": 0.021095017263246255,
+  "bull_ret_20_median": 0.0026385224274405594,
+  "bull_ret_20_winrate": 0.5106094163034937,
+  "bear_ret_20_mean": 0.001765461814095474,
+  "bear_ret_20_median": -0.01303659569922233,
+  "bear_ret_20_winrate": 0.41977173548170527
+}
