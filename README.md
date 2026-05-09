@@ -68,7 +68,23 @@ strategies/
 
 ---
 
-## 🛠️ 策略内部标准结构 (Standard Template)
+## 逻辑角色矩阵 (Logical Role Matrix)
+
+在 Hermes 系统中，我们采用 **“物理 Profile (工人) + 逻辑 Role (岗位)”** 的设计。不需要为每个功能创建新的 Profile，而是通过 Skill 挂载，让同一个工人扮演不同的角色。
+
+| 逻辑角色 (Logical Role) | 物理 Profile | 职责描述 | 适用场景 |
+| :--- | :--- | :--- | :--- |
+| **宏观定调师** (Macro Strategist) | `researcher` | 判断市场情绪 (Risk On/Off)、宏观周期。 | 期货/外汇 (受宏观驱动大) |
+| **数据侦察兵** (Data Scout) | `researcher` | 获取行情数据、清洗、计算指标。 | 所有策略 (T1 节点) |
+| **形态分析师** (Pattern Analyst) | `analyst` | 寻找符合策略的技术形态 (如 H1 回调)。 | 所有策略 (T2-T5 节点) |
+| **风控官** (Risk Officer) | `risk_manager` | 计算动态仓位、检查相关性、拦截高风险交易。 | 所有策略 (T6 节点) |
+| **合规官** (Compliance Officer) | `risk_manager` | 检查交易时段、流动性、重大新闻回避。 | 期货 (夜盘/交割月) / A 股 (T+1) |
+| **CIO / 交易员** (CIO / Trader) | `trader` | 最终决策、生成交易计划、执行。 | 所有策略 (T7 节点) |
+| **报告员** (Reporter) | `writer` | *(可选)* 生成复盘报告、日报、周报。 | 需要详细文字输出的策略 |
+
+> **💡 优势**: 新增角色只需写 Skill，无需重启服务或配置新 Profile。
+
+## 策略内部标准结构 (Standard Template)
 
 每个策略目录内部应包含以下标准文件：
 
