@@ -255,6 +255,11 @@ def get_tools_and_data(market):
 1. **Wrong Symbol**: `mt5.copy_rates_from_pos("UKOIL", ...)` will FAIL. Use `UKOILm`.
 2. **Timestamp**: MT5 returns `time` as Unix timestamp (int). Convert with `pd.to_datetime(df.time, unit='s')`.
 3. **Confusion**: Do NOT mix Yahoo codes (CL=F) with MT5 functions.
+
+### 🚨 MANDATORY REPORTING RULES
+1. **🌍 UNIVERSE**: Must declare exactly which symbols were tested (e.g., "Tested on all 14 major MT5 symbols: XAUUSDm, USOILm..."). Do not hide limited sample sizes.
+2. **📊 TRANSPARENCY**: You **MUST** fill out the `Data & Methodology` table in `report.md`. Experiments without declared data range, symbol list, and indicators will be rejected.
+3. **📅 HISTORY**: Use maximum available history (min 2 years recommended). Declare exact start/end dates.
 """
 
     a_stock_tools = """
@@ -348,17 +353,29 @@ def _init_experiment_workspace(exp_path, brief_path):
 
 ---
 
+## 📊 Data & Methodology (MANDATORY)
+<!-- ⚠️ MUST FILL OUT THIS SECTION FOR REPRODUCIBILITY ⚠️ -->
+| Item | Description |
+|------|-------------|
+| 📅 **Data Range** | e.g., `2020-01-01` to `2026-05-08` (X Years) |
+| 🌍 **Universe / Pool** | **Futures**: List specific symbols tested (e.g., XAUUSDm, USOILm, USTECm). Must declare if tested on limited symbols or all available. |
+| 📦 **Data Sources** | e.g., MT5 (H1/D1), Yahoo Finance, News Pipeline |
+| 📈 **Key Indicators** | List all indicators/factors used (e.g., ATR, MACD, Volume Profile, Correlation) |
+| 🔍 **Filters** | Any exclusions? (e.g., Exclude Asian session, Exclude high spread periods) |
+
+---
+
 ## 🎯 Research Question
 
 <!-- What hypothesis are you testing? -->
 
-## 📐 Methodology
+## 📐 Methodology Details
 
-<!-- How did you test it? Data sources, scripts, statistical methods. -->
+<!-- Detailed explanation of how you tested it. Statistical methods, backtest logic. -->
 
 ## 📈 Results
 
-<!-- Key findings, backtest performance, statistical significance. -->
+<!-- Key findings, backtest performance, statistical significance. Include tables/charts. -->
 
 ## 💡 Conclusion
 

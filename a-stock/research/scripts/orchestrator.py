@@ -343,6 +343,11 @@ You MUST use `tushare_daily_basic` for these fields.
 | `concept_name`, `ts_code` | `tushare.tushare_concept_detail FINAL` |
 
 **Rule**: Always check this table before writing SQL. If you hallucinate a field in the wrong table, the backtest will fail.
+
+### 🚨 MANDATORY REPORTING RULES
+1. ** UNIVERSE**: A-Stock research **MUST** cover the **Full Market** (All Tickers). Sampling only specific indices (e.g., CSI 300) or hot stocks introduces severe survivorship bias.
+2. **📊 TRANSPARENCY**: You **MUST** fill out the `Data & Methodology` table in `report.md`. Experiments without declared data range, universe, and indicators will be rejected.
+3. **📅 HISTORY**: Use maximum available history (min 3 years recommended). Declare exact start/end dates.
 """
 
     return futures_tools if market.upper() == "FUTURES" else a_stock_tools
@@ -364,17 +369,29 @@ def _init_experiment_workspace(exp_path, brief_path):
 
 ---
 
+## 📊 Data & Methodology (MANDATORY)
+<!-- ⚠️ MUST FILL OUT THIS SECTION FOR REPRODUCIBILITY ⚠️ -->
+| Item | Description |
+|------|-------------|
+| 📅 **Data Range** | e.g., `2020-01-01` to `2026-05-08` (X Years) |
+| 🌍 **Universe / Pool** | **A 股**: Must be Full Market (全市场). **Futures**: List specific symbols (e.g., XAUUSDm, USOILm). |
+| 📦 **Data Sources** | e.g., Tushare ClickHouse (Table: daily_basic), MT5, News Pipeline |
+| 📈 **Key Indicators** | List all indicators/factors used (e.g., ATR, Turnover Rate, Volume Ratio, MACD, Chip Distribution) |
+| 🔍 **Filters** | Any exclusions? (e.g., Exclude ST, Exclude IPO < 1 year) |
+
+---
+
 ## 🎯 Research Question
 
 <!-- What hypothesis are you testing? -->
 
-## 📐 Methodology
+## 📐 Methodology Details
 
-<!-- How did you test it? Data sources, scripts, statistical methods. -->
+<!-- Detailed explanation of how you tested it. Statistical methods, backtest logic. -->
 
 ## 📈 Results
 
-<!-- Key findings, backtest performance, statistical significance. -->
+<!-- Key findings, backtest performance, statistical significance. Include tables/charts. -->
 
 ## 💡 Conclusion
 
