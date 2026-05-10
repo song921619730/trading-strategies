@@ -98,9 +98,6 @@ for ts_code in all_codes:
     
     # True Range
     sdf['prev_close'] = sdf['close'].shift(1)
-    sdf['tr'] = sdf[['sdf.high - sdf.prev_close', 'sdf.prev_close - sdf.low', 'sdf.high - sdf.low']].max(axis=1, skipna=False)
-    
-    # Actually compute TR properly
     sdf['tr'] = np.maximum(
         sdf['high'] - sdf['low'],
         np.maximum(
@@ -331,7 +328,7 @@ signal_summary = {
 }
 
 import json
-with open('/mnt/f/AIcoding_space/Hermes/strategies/a-stock/research/experiments/20260509_v23_breakout/results.json', 'w') as f:
+with open('/mnt/f/AIcoding_space/Hermes/strategies/a-stock/research/experiments/breakout/20260509_v23_breakout/results.json', 'w') as f:
     json.dump(signal_summary, f, indent=2, ensure_ascii=False)
 
 print(f"\n结果已保存至 results.json")

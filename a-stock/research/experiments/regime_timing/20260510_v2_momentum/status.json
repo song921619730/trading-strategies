@@ -1,0 +1,14 @@
+{
+  "exp_id": "20260510_v2_momentum",
+  "created_at": "2026-05-10T04:00:00+08:00",
+  "status": "completed",
+  "brief": "20260510_timing.md",
+  "market": "A-STOCK",
+  "report_done": true,
+  "proposal_done": true,
+  "summary": {
+    "topic": "择时+动量策略 (周度再平衡, 含交易成本)",
+    "key_finding": "MOM5_TOP5%年化139.23%, 最大回撤-17.61%, 全年度非负。短期动量(5日)最优, 集中度越高收益越高。择时是核心风控(2022空仓)。",
+    "sample_size": 1535
+  }
+}

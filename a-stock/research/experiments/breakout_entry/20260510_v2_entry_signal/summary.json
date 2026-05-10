@@ -1,0 +1,9 @@
+{
+  "total_signals": 16251,
+  "ret_5d_mean": 0.232716,
+  "ret_10d_mean": 0.230503,
+  "ret_20d_mean": 0.226098,
+  "ret_20d_median": -0.332342,
+  "ret_20d_winrate": 0.3735,
+  "sample_size": 16251
+}

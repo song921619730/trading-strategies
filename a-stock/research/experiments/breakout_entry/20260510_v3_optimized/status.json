@@ -1,0 +1,14 @@
+{
+  "exp_id": "20260510_v3_optimized",
+  "created_at": "2026-05-10T03:30:00+08:00",
+  "status": "completed",
+  "brief": "20260510_0303.md",
+  "market": "A-STOCK",
+  "report_done": true,
+  "proposal_done": false,
+  "summary": {
+    "topic": "入场信号优化对比 (5种策略)",
+    "key_finding": "最佳策略S1胜率46.7%, 均值+1.54%, 中位-0.62%。所有策略胜率<47%, 中位收益为负。不具备独立交易价值。",
+    "sample_size": 1744
+  }
+}

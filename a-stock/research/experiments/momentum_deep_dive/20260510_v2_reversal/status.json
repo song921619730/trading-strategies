@@ -1,0 +1,14 @@
+{
+  "exp_id": "20260510_v2_reversal",
+  "created_at": "2026-05-10T06:00:00+08:00",
+  "status": "completed",
+  "brief": "20260510_0503.md",
+  "market": "A-STOCK",
+  "report_done": true,
+  "proposal_done": false,
+  "summary": {
+    "topic": "动量策略V2 — 短期反转策略",
+    "key_finding": "反转策略最佳: 反转MOM1_low_vol, 年化75.53%, 回撤-23.03%",
+    "sample_size": 7539250
+  }
+}

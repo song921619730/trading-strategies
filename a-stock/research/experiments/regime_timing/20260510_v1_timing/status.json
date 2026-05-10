@@ -1,0 +1,14 @@
+{
+  "exp_id": "20260510_v1_timing",
+  "created_at": "2026-05-10T03:50:00+08:00",
+  "status": "completed",
+  "brief": "20260510_timing.md",
+  "market": "A-STOCK",
+  "report_done": true,
+  "proposal_done": false,
+  "summary": {
+    "topic": "市场择时信号研究",
+    "key_finding": "CSI500>MA100最佳(年化44.3% vs 基准38.2%)。择时+动量组合年化318%(含前视偏差,需进一步验证)。中小盘指数择时优于大盘。",
+    "sample_size": 1534
+  }
+}

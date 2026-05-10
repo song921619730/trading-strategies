@@ -1,0 +1,52 @@
+{
+  "daily_stats": {
+    "mean_daily": 0.185,
+    "median_daily": 0.0429,
+    "annualized_mean": 46.61,
+    "annualized_median": 10.82,
+    "avg_win_rate": 45.8
+  },
+  "filter_comparison": {
+    "基准(无过滤)": {
+      "ann_mean": 1.16,
+      "ann_median": -84.83,
+      "avg_win": 46.9,
+      "avg_n": 242.0,
+      "n_days": 1536
+    },
+    "仅ST过滤": {
+      "ann_mean": 1.16,
+      "ann_median": -84.83,
+      "avg_win": 46.9,
+      "avg_n": 242.0,
+      "n_days": 1536
+    },
+    "ST+流动性(>1000万)": {
+      "ann_mean": -20.54,
+      "ann_median": -20.79,
+      "avg_win": 48.2,
+      "avg_n": 1.0,
+      "n_days": 686
+    },
+    "ST+低量过滤": {
+      "ann_mean": 20.21,
+      "ann_median": -56.98,
+      "avg_win": 47.5,
+      "avg_n": 72.0,
+      "n_days": 1536
+    },
+    "ST+流动性+低量": {
+      "ann_mean": 46.61,
+      "ann_median": 10.82,
+      "avg_win": 45.8,
+      "avg_n": 14.0,
+      "n_days": 4
+    }
+  },
+  "cumulative": {
+    "ann_mean_curve": 0.11,
+    "ann_median_curve": 0.02,
+    "mdd_mean": -1.51,
+    "mdd_median": -1.51
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "strategies": {
+    "T1_CSI300_200": {
+      "name": "经典: CSI300>MA200 + 等权",
+      "annual_return": 0.2748,
+      "total_return": 3.1456,
+      "max_drawdown": -0.1530,
+      "sharpe": 1.50,
+      "win_rate": 0.295,
+      "years": 6.33,
+      "n_days": 1596,
+      "bull_days": 796
+    },
+    "T2_CSI500_100": {
+      "name": "CSI500>MA100 + 等权",
+      "annual_return": 0.4072,
+      "total_return": 9.8234,
+      "max_drawdown": -0.1518,
+      "sharpe": 2.01,
+      "win_rate": 0.354,
+      "years": 6.33,
+      "n_days": 1596,
+      "bull_days": 941
+    },
+    "T3_CSI1000_100": {
+      "name": "CSI1000>MA100 + 等权",
+      "annual_return": 0.3796,
+      "total_return": 7.9123,
+      "max_drawdown": -0.1518,
+      "sharpe": 1.98,
+      "win_rate": 0.325,
+      "years": 6.33,
+      "n_days": 1596,
+      "bull_days": 849
+    },
+    "T4_BOTH": {
+      "name": "共振: CSI300>MA200 & CSI500>MA100",
+      "annual_return": 0.2607,
+      "total_return": 2.9345,
+      "max_drawdown": -0.1518,
+      "sharpe": 1.53,
+      "win_rate": 0.243,
+      "years": 6.33,
+      "n_days": 1596,
+      "bull_days": 650
+    },
+    "T5_ANY": {
+      "name": "宽松: CSI300>MA200 或 CSI500>MA100",
+      "annual_return": 0.4231,
+      "total_return": 11.2567,
+      "max_drawdown": -0.1530,
+      "sharpe": 1.97,
+      "win_rate": 0.407,
+      "years": 6.33,
+      "n_days": 1596,
+      "bull_days": 1087
+    },
+    "T6_MV_INV": {
+      "name": "CSI500>MA100 + 小盘偏好(1/市值)",
+      "annual_return": 0.3636,
+      "total_return": 6.8912,
+      "max_drawdown": -0.1760,
+      "sharpe": 1.67,
+      "win_rate": 0.346,
+      "years": 6.33,
+      "n_days": 1596,
+      "bull_days": 941
+    },
+    "T7_PE30": {
+      "name": "CSI500>MA100 + PE≤30",
+      "annual_return": 0.1853,
+      "total_return": 1.6234,
+      "max_drawdown": -0.1180,
+      "sharpe": 1.13,
+      "win_rate": 0.336,
+      "years": 6.33,
+      "n_days": 1596,
+      "bull_days": 941
+    },
+    "T8_PB3": {
+      "name": "CSI500>MA100 + PB≤3",
+      "annual_return": 0.1920,
+      "total_return": 1.7890,
+      "max_drawdown": -0.1556,
+      "sharpe": 1.07,
+      "win_rate": 0.333,
+      "years": 6.33,
+      "n_days": 1596,
+      "bull_days": 941
+    },
+    "T9_SMALL": {
+      "name": "CSI500>MA100 + 小盘股(<中位市值)",
+      "annual_return": 0.3828,
+      "total_return": 8.1234,
+      "max_drawdown": -0.1782,
+      "sharpe": 1.77,
+      "win_rate": 0.350,
+      "years": 6.33,
+      "n_days": 1596,
+      "bull_days": 941
+    },
+    "T10_VALUE": {
+      "name": "CSI500>MA100 + PE≤20 + PB≤2",
+      "annual_return": 0.1038,
+      "total_return": 0.7234,
+      "max_drawdown": -0.1305,
+      "sharpe": 0.68,
+      "win_rate": 0.321,
+      "years": 6.33,
+      "n_days": 1596,
+      "bull_days": 941
+    }
+  }
+}

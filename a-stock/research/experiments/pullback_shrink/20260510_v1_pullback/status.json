@@ -1,0 +1,14 @@
+{
+  "exp_id": "20260510_v1_pullback",
+  "created_at": "2026-05-10T03:40:00+08:00",
+  "status": "completed",
+  "brief": "20260510_0320_pullback.md",
+  "market": "A-STOCK",
+  "report_done": true,
+  "proposal_done": false,
+  "summary": {
+    "topic": "缩量回调买入策略 (7种变体)",
+    "key_finding": "最佳胜率43.1%(S4缩量十字星), 均值+0.18%, 中位-1.2%。所有策略胜率<44%, 中位收益为负。与突破策略结论一致：纯技术信号无Alpha。",
+    "sample_size": 160457
+  }
+}

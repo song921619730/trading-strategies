@@ -1,0 +1,857 @@
+{
+  "timing_strategies": {
+    "CSI300>MA100": {
+      "ann_timing": 31.89,
+      "ann_bench": 38.2,
+      "total_timing": 478.99,
+      "total_bench": 678.45,
+      "max_dd_timing": -15.18,
+      "max_dd_bench": -30.71,
+      "hold_pct": 51.4,
+      "by_year": {
+        "2020": {
+          "timing": 49.08,
+          "benchmark": 66.68,
+          "hold_days": 187,
+          "total_days": 243
+        },
+        "2021": {
+          "timing": 17.02,
+          "benchmark": 46.75,
+          "hold_days": 73,
+          "total_days": 243
+        },
+        "2022": {
+          "timing": 10.8,
+          "benchmark": 37.11,
+          "hold_days": 48,
+          "total_days": 242
+        },
+        "2023": {
+          "timing": 5.8,
+          "benchmark": 14.1,
+          "hold_days": 82,
+          "total_days": 242
+        },
+        "2024": {
+          "timing": 37.22,
+          "benchmark": 15.2,
+          "hold_days": 142,
+          "total_days": 242
+        },
+        "2025": {
+          "timing": 42.82,
+          "benchmark": 40.94,
+          "hold_days": 197,
+          "total_days": 243
+        },
+        "2026": {
+          "timing": 21.25,
+          "benchmark": 12.38,
+          "hold_days": 60,
+          "total_days": 79
+        }
+      }
+    },
+    "CSI300>MA120": {
+      "ann_timing": 28.23,
+      "ann_bench": 38.2,
+      "total_timing": 384.31,
+      "total_bench": 678.45,
+      "max_dd_timing": -15.3,
+      "max_dd_bench": -30.71,
+      "hold_pct": 50.3,
+      "by_year": {
+        "2020": {
+          "timing": 49.69,
+          "benchmark": 66.68,
+          "hold_days": 190,
+          "total_days": 243
+        },
+        "2021": {
+          "timing": 17.72,
+          "benchmark": 46.75,
+          "hold_days": 72,
+          "total_days": 243
+        },
+        "2022": {
+          "timing": 2.02,
+          "benchmark": 37.11,
+          "hold_days": 16,
+          "total_days": 242
+        },
+        "2023": {
+          "timing": 5.93,
+          "benchmark": 14.1,
+          "hold_days": 86,
+          "total_days": 242
+        },
+        "2024": {
+          "timing": 34.38,
+          "benchmark": 15.2,
+          "hold_days": 143,
+          "total_days": 242
+        },
+        "2025": {
+          "timing": 39.14,
+          "benchmark": 40.94,
+          "hold_days": 202,
+          "total_days": 243
+        },
+        "2026": {
+          "timing": 17.04,
+          "benchmark": 12.38,
+          "hold_days": 62,
+          "total_days": 79
+        }
+      }
+    },
+    "CSI300>MA200": {
+      "ann_timing": 31.4,
+      "ann_bench": 38.2,
+      "total_timing": 465.29,
+      "total_bench": 678.45,
+      "max_dd_timing": -15.3,
+      "max_dd_bench": -30.71,
+      "hold_pct": 52.9,
+      "by_year": {
+        "2020": {
+          "timing": 47.39,
+          "benchmark": 66.68,
+          "hold_days": 202,
+          "total_days": 243
+        },
+        "2021": {
+          "timing": 26.17,
+          "benchmark": 46.75,
+          "hold_days": 129,
+          "total_days": 243
+        },
+        "2022": {
+          "timing": 0.0,
+          "benchmark": 37.11,
+          "hold_days": 0,
+          "total_days": 242
+        },
+        "2023": {
+          "timing": 8.2,
+          "benchmark": 14.1,
+          "hold_days": 68,
+          "total_days": 242
+        },
+        "2024": {
+          "timing": 31.99,
+          "benchmark": 15.2,
+          "hold_days": 97,
+          "total_days": 242
+        },
+        "2025": {
+          "timing": 49.31,
+          "benchmark": 40.94,
+          "hold_days": 240,
+          "total_days": 243
+        },
+        "2026": {
+          "timing": 18.33,
+          "benchmark": 12.38,
+          "hold_days": 76,
+          "total_days": 79
+        }
+      }
+    },
+    "CSI300>MA250": {
+      "ann_timing": 32.44,
+      "ann_bench": 38.2,
+      "total_timing": 494.24,
+      "total_bench": 678.45,
+      "max_dd_timing": -15.3,
+      "max_dd_bench": -30.71,
+      "hold_pct": 51.2,
+      "by_year": {
+        "2020": {
+          "timing": 52.44,
+          "benchmark": 66.68,
+          "hold_days": 205,
+          "total_days": 243
+        },
+        "2021": {
+          "timing": 24.17,
+          "benchmark": 46.75,
+          "hold_days": 135,
+          "total_days": 243
+        },
+        "2022": {
+          "timing": 0.0,
+          "benchmark": 37.11,
+          "hold_days": 0,
+          "total_days": 242
+        },
+        "2023": {
+          "timing": 11.8,
+          "benchmark": 14.1,
+          "hold_days": 50,
+          "total_days": 242
+        },
+        "2024": {
+          "timing": 36.22,
+          "benchmark": 15.2,
+          "hold_days": 77,
+          "total_days": 242
+        },
+        "2025": {
+          "timing": 49.31,
+          "benchmark": 40.94,
+          "hold_days": 240,
+          "total_days": 243
+        },
+        "2026": {
+          "timing": 12.38,
+          "benchmark": 12.38,
+          "hold_days": 79,
+          "total_days": 79
+        }
+      }
+    },
+    "CSI1000>MA100": {
+      "ann_timing": 40.79,
+      "ann_bench": 38.2,
+      "total_timing": 775.86,
+      "total_bench": 678.45,
+      "max_dd_timing": -15.18,
+      "max_dd_bench": -30.71,
+      "hold_pct": 52.8,
+      "by_year": {
+        "2020": {
+          "timing": 59.67,
+          "benchmark": 66.68,
+          "hold_days": 164,
+          "total_days": 243
+        },
+        "2021": {
+          "timing": 47.63,
+          "benchmark": 46.75,
+          "hold_days": 158,
+          "total_days": 243
+        },
+        "2022": {
+          "timing": 11.23,
+          "benchmark": 37.11,
+          "hold_days": 71,
+          "total_days": 242
+        },
+        "2023": {
+          "timing": 5.08,
+          "benchmark": 14.1,
+          "hold_days": 66,
+          "total_days": 242
+        },
+        "2024": {
+          "timing": 36.05,
+          "benchmark": 15.2,
+          "hold_days": 83,
+          "total_days": 242
+        },
+        "2025": {
+          "timing": 49.12,
+          "benchmark": 40.94,
+          "hold_days": 201,
+          "total_days": 243
+        },
+        "2026": {
+          "timing": 16.2,
+          "benchmark": 12.38,
+          "hold_days": 67,
+          "total_days": 79
+        }
+      }
+    },
+    "CSI1000>MA120": {
+      "ann_timing": 36.57,
+      "ann_bench": 38.2,
+      "total_timing": 622.24,
+      "total_bench": 678.45,
+      "max_dd_timing": -15.3,
+      "max_dd_bench": -30.71,
+      "hold_pct": 54.0,
+      "by_year": {
+        "2020": {
+          "timing": 58.76,
+          "benchmark": 66.68,
+          "hold_days": 187,
+          "total_days": 243
+        },
+        "2021": {
+          "timing": 38.02,
+          "benchmark": 46.75,
+          "hold_days": 156,
+          "total_days": 243
+        },
+        "2022": {
+          "timing": 12.39,
+          "benchmark": 37.11,
+          "hold_days": 73,
+          "total_days": 242
+        },
+        "2023": {
+          "timing": 2.22,
+          "benchmark": 14.1,
+          "hold_days": 62,
+          "total_days": 242
+        },
+        "2024": {
+          "timing": 35.17,
+          "benchmark": 15.2,
+          "hold_days": 72,
+          "total_days": 242
+        },
+        "2025": {
+          "timing": 41.52,
+          "benchmark": 40.94,
+          "hold_days": 207,
+          "total_days": 243
+        },
+        "2026": {
+          "timing": 17.89,
+          "benchmark": 12.38,
+          "hold_days": 71,
+          "total_days": 79
+        }
+      }
+    },
+    "CSI1000>MA200": {
+      "ann_timing": 33.04,
+      "ann_bench": 38.2,
+      "total_timing": 511.64,
+      "total_bench": 678.45,
+      "max_dd_timing": -15.3,
+      "max_dd_bench": -30.71,
+      "hold_pct": 57.8,
+      "by_year": {
+        "2020": {
+          "timing": 50.69,
+          "benchmark": 66.68,
+          "hold_days": 236,
+          "total_days": 243
+        },
+        "2021": {
+          "timing": 34.3,
+          "benchmark": 46.75,
+          "hold_days": 163,
+          "total_days": 243
+        },
+        "2022": {
+          "timing": 10.51,
+          "benchmark": 37.11,
+          "hold_days": 42,
+          "total_days": 242
+        },
+        "2023": {
+          "timing": 4.56,
+          "benchmark": 14.1,
+          "hold_days": 63,
+          "total_days": 242
+        },
+        "2024": {
+          "timing": 25.14,
+          "benchmark": 15.2,
+          "hold_days": 62,
+          "total_days": 242
+        },
+        "2025": {
+          "timing": 52.18,
+          "benchmark": 40.94,
+          "hold_days": 241,
+          "total_days": 243
+        },
+        "2026": {
+          "timing": 12.38,
+          "benchmark": 12.38,
+          "hold_days": 79,
+          "total_days": 79
+        }
+      }
+    },
+    "CSI1000>MA250": {
+      "ann_timing": 39.83,
+      "ann_bench": 38.2,
+      "total_timing": 738.86,
+      "total_bench": 678.45,
+      "max_dd_timing": -15.3,
+      "max_dd_bench": -30.71,
+      "hold_pct": 58.8,
+      "by_year": {
+        "2020": {
+          "timing": 50.69,
+          "benchmark": 66.68,
+          "hold_days": 236,
+          "total_days": 243
+        },
+        "2021": {
+          "timing": 40.1,
+          "benchmark": 46.75,
+          "hold_days": 175,
+          "total_days": 243
+        },
+        "2022": {
+          "timing": 43.77,
+          "benchmark": 37.11,
+          "hold_days": 45,
+          "total_days": 242
+        },
+        "2023": {
+          "timing": 4.55,
+          "benchmark": 14.1,
+          "hold_days": 64,
+          "total_days": 242
+        },
+        "2024": {
+          "timing": 25.14,
+          "benchmark": 15.2,
+          "hold_days": 62,
+          "total_days": 242
+        },
+        "2025": {
+          "timing": 52.18,
+          "benchmark": 40.94,
+          "hold_days": 241,
+          "total_days": 243
+        },
+        "2026": {
+          "timing": 12.38,
+          "benchmark": 12.38,
+          "hold_days": 79,
+          "total_days": 79
+        }
+      }
+    },
+    "SSE>MA100": {
+      "ann_timing": 39.48,
+      "ann_bench": 38.2,
+      "total_timing": 725.37,
+      "total_bench": 678.45,
+      "max_dd_timing": -15.18,
+      "max_dd_bench": -30.71,
+      "hold_pct": 61.5,
+      "by_year": {
+        "2020": {
+          "timing": 50.66,
+          "benchmark": 66.68,
+          "hold_days": 176,
+          "total_days": 243
+        },
+        "2021": {
+          "timing": 40.2,
+          "benchmark": 46.75,
+          "hold_days": 171,
+          "total_days": 243
+        },
+        "2022": {
+          "timing": 19.44,
+          "benchmark": 37.11,
+          "hold_days": 76,
+          "total_days": 242
+        },
+        "2023": {
+          "timing": 6.56,
+          "benchmark": 14.1,
+          "hold_days": 97,
+          "total_days": 242
+        },
+        "2024": {
+          "timing": 44.56,
+          "benchmark": 15.2,
+          "hold_days": 142,
+          "total_days": 242
+        },
+        "2025": {
+          "timing": 43.9,
+          "benchmark": 40.94,
+          "hold_days": 219,
+          "total_days": 243
+        },
+        "2026": {
+          "timing": 14.58,
+          "benchmark": 12.38,
+          "hold_days": 62,
+          "total_days": 79
+        }
+      }
+    },
+    "SSE>MA120": {
+      "ann_timing": 35.17,
+      "ann_bench": 38.2,
+      "total_timing": 576.37,
+      "total_bench": 678.45,
+      "max_dd_timing": -15.3,
+      "max_dd_bench": -30.71,
+      "hold_pct": 61.8,
+      "by_year": {
+        "2020": {
+          "timing": 49.18,
+          "benchmark": 66.68,
+          "hold_days": 176,
+          "total_days": 243
+        },
+        "2021": {
+          "timing": 39.97,
+          "benchmark": 46.75,
+          "hold_days": 190,
+          "total_days": 243
+        },
+        "2022": {
+          "timing": 13.22,
+          "benchmark": 37.11,
+          "hold_days": 55,
+          "total_days": 242
+        },
+        "2023": {
+          "timing": 7.17,
+          "benchmark": 14.1,
+          "hold_days": 99,
+          "total_days": 242
+        },
+        "2024": {
+          "timing": 39.07,
+          "benchmark": 15.2,
+          "hold_days": 141,
+          "total_days": 242
+        },
+        "2025": {
+          "timing": 39.37,
+          "benchmark": 40.94,
+          "hold_days": 224,
+          "total_days": 243
+        },
+        "2026": {
+          "timing": 12.15,
+          "benchmark": 12.38,
+          "hold_days": 63,
+          "total_days": 79
+        }
+      }
+    },
+    "SSE>MA200": {
+      "ann_timing": 36.77,
+      "ann_bench": 38.2,
+      "total_timing": 628.77,
+      "total_bench": 678.45,
+      "max_dd_timing": -15.3,
+      "max_dd_bench": -30.71,
+      "hold_pct": 63.2,
+      "by_year": {
+        "2020": {
+          "timing": 45.66,
+          "benchmark": 66.68,
+          "hold_days": 174,
+          "total_days": 243
+        },
+        "2021": {
+          "timing": 46.1,
+          "benchmark": 46.75,
+          "hold_days": 221,
+          "total_days": 243
+        },
+        "2022": {
+          "timing": -3.3,
+          "benchmark": 37.11,
+          "hold_days": 16,
+          "total_days": 242
+        },
+        "2023": {
+          "timing": 10.51,
+          "benchmark": 14.1,
+          "hold_days": 132,
+          "total_days": 242
+        },
+        "2024": {
+          "timing": 38.77,
+          "benchmark": 15.2,
+          "hold_days": 107,
+          "total_days": 242
+        },
+        "2025": {
+          "timing": 52.18,
+          "benchmark": 40.94,
+          "hold_days": 241,
+          "total_days": 243
+        },
+        "2026": {
+          "timing": 17.52,
+          "benchmark": 12.38,
+          "hold_days": 78,
+          "total_days": 79
+        }
+      }
+    },
+    "SSE>MA250": {
+      "ann_timing": 35.45,
+      "ann_bench": 38.2,
+      "total_timing": 585.44,
+      "total_bench": 678.45,
+      "max_dd_timing": -15.3,
+      "max_dd_bench": -30.71,
+      "hold_pct": 61.4,
+      "by_year": {
+        "2020": {
+          "timing": 45.79,
+          "benchmark": 66.68,
+          "hold_days": 173,
+          "total_days": 243
+        },
+        "2021": {
+          "timing": 48.72,
+          "benchmark": 46.75,
+          "hold_days": 234,
+          "total_days": 243
+        },
+        "2022": {
+          "timing": -1.66,
+          "benchmark": 37.11,
+          "hold_days": 12,
+          "total_days": 242
+        },
+        "2023": {
+          "timing": 11.66,
+          "benchmark": 14.1,
+          "hold_days": 115,
+          "total_days": 242
+        },
+        "2024": {
+          "timing": 32.05,
+          "benchmark": 15.2,
+          "hold_days": 88,
+          "total_days": 242
+        },
+        "2025": {
+          "timing": 52.18,
+          "benchmark": 40.94,
+          "hold_days": 241,
+          "total_days": 243
+        },
+        "2026": {
+          "timing": 12.38,
+          "benchmark": 12.38,
+          "hold_days": 79,
+          "total_days": 79
+        }
+      }
+    },
+    "CSI500>MA100": {
+      "ann_timing": 44.27,
+      "ann_bench": 38.2,
+      "total_timing": 922.75,
+      "total_bench": 678.45,
+      "max_dd_timing": -15.18,
+      "max_dd_bench": -30.71,
+      "hold_pct": 58.1,
+      "by_year": {
+        "2020": {
+          "timing": 62.63,
+          "benchmark": 66.68,
+          "hold_days": 167,
+          "total_days": 243
+        },
+        "2021": {
+          "timing": 50.47,
+          "benchmark": 46.75,
+          "hold_days": 206,
+          "total_days": 243
+        },
+        "2022": {
+          "timing": 16.66,
+          "benchmark": 37.11,
+          "hold_days": 76,
+          "total_days": 242
+        },
+        "2023": {
+          "timing": 8.7,
+          "benchmark": 14.1,
+          "hold_days": 66,
+          "total_days": 242
+        },
+        "2024": {
+          "timing": 43.45,
+          "benchmark": 15.2,
+          "hold_days": 113,
+          "total_days": 242
+        },
+        "2025": {
+          "timing": 41.5,
+          "benchmark": 40.94,
+          "hold_days": 193,
+          "total_days": 243
+        },
+        "2026": {
+          "timing": 17.89,
+          "benchmark": 12.38,
+          "hold_days": 71,
+          "total_days": 79
+        }
+      }
+    },
+    "CSI500>MA120": {
+      "ann_timing": 42.46,
+      "ann_bench": 38.2,
+      "total_timing": 843.87,
+      "total_bench": 678.45,
+      "max_dd_timing": -15.3,
+      "max_dd_bench": -30.71,
+      "hold_pct": 59.0,
+      "by_year": {
+        "2020": {
+          "timing": 63.33,
+          "benchmark": 66.68,
+          "hold_days": 201,
+          "total_days": 243
+        },
+        "2021": {
+          "timing": 47.47,
+          "benchmark": 46.75,
+          "hold_days": 205,
+          "total_days": 243
+        },
+        "2022": {
+          "timing": 16.12,
+          "benchmark": 37.11,
+          "hold_days": 62,
+          "total_days": 242
+        },
+        "2023": {
+          "timing": 6.7,
+          "benchmark": 14.1,
+          "hold_days": 68,
+          "total_days": 242
+        },
+        "2024": {
+          "timing": 42.62,
+          "benchmark": 15.2,
+          "hold_days": 104,
+          "total_days": 242
+        },
+        "2025": {
+          "timing": 37.65,
+          "benchmark": 40.94,
+          "hold_days": 193,
+          "total_days": 243
+        },
+        "2026": {
+          "timing": 19.31,
+          "benchmark": 12.38,
+          "hold_days": 72,
+          "total_days": 79
+        }
+      }
+    },
+    "CSI500>MA200": {
+      "ann_timing": 34.94,
+      "ann_bench": 38.2,
+      "total_timing": 569.22,
+      "total_bench": 678.45,
+      "max_dd_timing": -15.3,
+      "max_dd_bench": -30.71,
+      "hold_pct": 60.6,
+      "by_year": {
+        "2020": {
+          "timing": 52.03,
+          "benchmark": 66.68,
+          "hold_days": 235,
+          "total_days": 243
+        },
+        "2021": {
+          "timing": 42.59,
+          "benchmark": 46.75,
+          "hold_days": 214,
+          "total_days": 243
+        },
+        "2022": {
+          "timing": -1.62,
+          "benchmark": 37.11,
+          "hold_days": 21,
+          "total_days": 242
+        },
+        "2023": {
+          "timing": 8.61,
+          "benchmark": 14.1,
+          "hold_days": 68,
+          "total_days": 242
+        },
+        "2024": {
+          "timing": 33.04,
+          "benchmark": 15.2,
+          "hold_days": 72,
+          "total_days": 242
+        },
+        "2025": {
+          "timing": 52.18,
+          "benchmark": 40.94,
+          "hold_days": 241,
+          "total_days": 243
+        },
+        "2026": {
+          "timing": 12.38,
+          "benchmark": 12.38,
+          "hold_days": 79,
+          "total_days": 79
+        }
+      }
+    },
+    "CSI500>MA250": {
+      "ann_timing": 34.94,
+      "ann_bench": 38.2,
+      "total_timing": 569.1,
+      "total_bench": 678.45,
+      "max_dd_timing": -15.3,
+      "max_dd_bench": -30.71,
+      "hold_pct": 61.5,
+      "by_year": {
+        "2020": {
+          "timing": 53.17,
+          "benchmark": 66.68,
+          "hold_days": 232,
+          "total_days": 243
+        },
+        "2021": {
+          "timing": 47.81,
+          "benchmark": 46.75,
+          "hold_days": 242,
+          "total_days": 243
+        },
+        "2022": {
+          "timing": 0.74,
+          "benchmark": 37.11,
+          "hold_days": 19,
+          "total_days": 242
+        },
+        "2023": {
+          "timing": 2.71,
+          "benchmark": 14.1,
+          "hold_days": 68,
+          "total_days": 242
+        },
+        "2024": {
+          "timing": 30.28,
+          "benchmark": 15.2,
+          "hold_days": 63,
+          "total_days": 242
+        },
+        "2025": {
+          "timing": 52.18,
+          "benchmark": 40.94,
+          "hold_days": 241,
+          "total_days": 243
+        },
+        "2026": {
+          "timing": 12.38,
+          "benchmark": 12.38,
+          "hold_days": 79,
+          "total_days": 79
+        }
+      }
+    }
+  },
+  "best": "CSI500>MA100",
+  "momentum_timing": {
+    "ann_strategy": 317.91,
+    "ann_bench": 31.07
+  }
+}
