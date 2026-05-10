@@ -385,6 +385,12 @@ def _init_experiment_workspace(exp_path, brief_path):
     if bt_template.exists():
         import shutil
         shutil.copy2(bt_template, exp_path / "backtest.py")
+        
+    # Copy Grid Search template (MANDATORY)
+    gs_template = TEMPLATES_DIR / "grid_search.py"
+    if gs_template.exists():
+        import shutil
+        shutil.copy2(gs_template, exp_path / "grid_search.py")
     
     # Create report.md skeleton
     report_content = f"""# 📊 Research Report
