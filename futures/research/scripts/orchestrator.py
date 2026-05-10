@@ -248,9 +248,22 @@ def get_tools_and_data(market):
   - **用于验证而非发现**: 当你发现价格异动后，用 News Pipeline 查"当时发生了什么"，而不是反过来
   - **研究建议**: 用 `query?symbol=关键词` 搜索特定品种/板块的历史新闻，构建事件时间线
 
-### 4. Tavily MCP — 补充搜索 (非主要)
-- **Hermes 内置**: 可用于补充搜索 Tavily 未覆盖的事件
-- **说明**: 优先使用 News Pipeline，Tavily 作为补充
+### 4. Tavily CLI (tavily_manager) — 补充搜索 (高优先级)
+**Use this for web search. Has 55 rotating API keys, much more robust than MCP.**
+- **Path**: `~/.hermes/skills/tavily-skills/`
+- **Usage**:
+  ```bash
+  cd ~/.hermes/skills/tavily-skills
+  
+  # 1. Search the web
+  python3 -m tavily_manager search "your query" --max-results 10 --depth advanced
+  
+  # 2. Deep Research (AI-powered summary)
+  python3 -m tavily_manager research "topic" --model pro
+  
+  # 3. Extract content from URL
+  python3 -m tavily_manager extract "https://example.com"
+  ```
 
 ### 5. Tushare ClickHouse (只读) — 全球期货数据
 - **URL**: `http://172.24.224.1:8123/`
@@ -344,9 +357,22 @@ def get_tools_and_data(market):
   - **用于验证而非发现**: 当你发现板块异动后，用 News Pipeline 查"当时发生了什么"，而不是反过来
   - **研究建议**: 用 `query?symbol=板块/概念名` 搜索特定板块的历史新闻，构建事件时间线
 
-### 4. Tavily MCP — 补充搜索 (非主要)
-- **Hermes 内置**: 可用于补充搜索 Tavily 未覆盖的事件
-- **说明**: 优先使用 News Pipeline，Tavily 作为补充
+### 4. Tavily CLI (tavily_manager) — 补充搜索 (高优先级)
+**Use this for web search. Has 55 rotating API keys, much more robust than MCP.**
+- **Path**: `~/.hermes/skills/tavily-skills/`
+- **Usage**:
+  ```bash
+  cd ~/.hermes/skills/tavily-skills
+  
+  # 1. Search the web
+  python3 -m tavily_manager search "your query" --max-results 10 --depth advanced
+  
+  # 2. Deep Research (AI-powered summary)
+  python3 -m tavily_manager research "topic" --model pro
+  
+  # 3. Extract content from URL
+  python3 -m tavily_manager extract "https://example.com"
+  ```
 
 ### 5. MT5 (Exness) — 全球期货/外汇 (跨市场关联分析)
 - **路径**: `C:\\Program Files\\MetaTrader 5\\terminal64.exe`
