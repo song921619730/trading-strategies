@@ -572,13 +572,30 @@ def generate_brief(strategies_data, known_facts):
     # Initialize experiment files
     _init_experiment_workspace(exp_path, brief_path)
     
+    # Check for previous experiments in the same topic directory
+    topic_history = []
+    if topic_dir.exists():
+        siblings = sorted([d for d in topic_dir.iterdir() if d.is_dir() and d.name.startswith(("20", "v"))])
+        # Get the last 3 experiments
+        for s in siblings[-3:]:
+            if s != exp_path and (s / 'report.md').exists():
+                topic_history.append(f"- **{s.name}**: `{s / 'report.md'}`")
+
+    topic_history_md = ""
+    if topic_history:
+        topic_history_md = "\n### 📜 Topic History (Previous Versions)\n"
+        topic_history_md += "⚠️ **Review these previous experiments in this topic. Do NOT repeat their mistakes. Explain how this version improves upon them.**\n"
+        for h in topic_history:
+            topic_history_md += f"{h}\n"
+        topic_history_md += "\n"
+
     md = f"""# 📡 Research Brief ({"User-Specified" if use_user_topic else "Auto-Generated"})
 **Time**: {now_str}
 **Market**: {MARKET_DIR.name.upper()}
 **Topic Directory**: `experiments/{topic_slug}/`
 **Experiment Workspace**: `experiments/{topic_slug}/{exp_id}/`
 **📚 Knowledge Base Path**: `../../../knowledge_base.md` (Relative to workspace)
-
+{topic_history_md}
 ---
 
 {get_market_context(MARKET_DIR.name)}
