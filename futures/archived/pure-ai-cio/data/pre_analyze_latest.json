@@ -1,0 +1,698 @@
+{
+  "meta": {
+    "current_time_cst": "2026-05-11 12:15:57",
+    "day_of_week": "周一",
+    "trading_session": "欧盘早盘 (European Open)",
+    "d1_session": "实体形成中 (4.3H)",
+    "magic_number": 234003,
+    "phase": "B"
+  },
+  "account": {
+    "equity": 1497.34,
+    "balance": 1497.34,
+    "risk_per_trade": 74.87,
+    "risk_pct": 0.05,
+    "account_type": "模拟"
+  },
+  "open_positions": [],
+  "symbols": {
+    "XAUUSD": {
+      "already_held": false,
+      "correlation": {
+        "BUY": {
+          "can_open": true,
+          "reason": "OK",
+          "held_in_group": []
+        },
+        "SELL": {
+          "can_open": true,
+          "reason": "OK",
+          "held_in_group": []
+        }
+      },
+      "indicators": {
+        "atr_14": 18.02543,
+        "support_14": 4669.937,
+        "resistance_14": 4749.575
+      },
+      "trade_params": {
+        "recommended_lot": 0.03,
+        "current_price": 4678.818,
+        "atr": 18.025,
+        "sl_distance": 27.038,
+        "tp_distance": 54.076,
+        "risk_usd": 74.87,
+        "buy_scenario": {
+          "sl": 4651.78,
+          "tp": 4732.894,
+          "rr": 2.0
+        },
+        "sell_scenario": {
+          "sl": 4705.856,
+          "tp": 4624.742,
+          "rr": 2.0
+        }
+      },
+      "h1_summary": {
+        "candle_count": 20,
+        "latest_close": 4678.51,
+        "latest_time": "2026-05-11 12:00"
+      },
+      "d1_summary": {
+        "candle_count": 10,
+        "latest_close": 4678.51,
+        "latest_time": "2026-05-11 08:00"
+      }
+    },
+    "XAGUSD": {
+      "already_held": false,
+      "correlation": {
+        "BUY": {
+          "can_open": true,
+          "reason": "OK",
+          "held_in_group": []
+        },
+        "SELL": {
+          "can_open": true,
+          "reason": "OK",
+          "held_in_group": []
+        }
+      },
+      "indicators": {
+        "atr_14": 0.71786,
+        "support_14": 79.087,
+        "resistance_14": 81.623
+      },
+      "trade_params": {
+        "recommended_lot": 0.01,
+        "current_price": 80.616,
+        "atr": 0.718,
+        "sl_distance": 1.077,
+        "tp_distance": 2.154,
+        "risk_usd": 74.87,
+        "buy_scenario": {
+          "sl": 79.539,
+          "tp": 82.77,
+          "rr": 2.0
+        },
+        "sell_scenario": {
+          "sl": 81.693,
+          "tp": 78.462,
+          "rr": 2.0
+        }
+      },
+      "h1_summary": {
+        "candle_count": 20,
+        "latest_close": 80.583,
+        "latest_time": "2026-05-11 12:00"
+      },
+      "d1_summary": {
+        "candle_count": 10,
+        "latest_close": 80.583,
+        "latest_time": "2026-05-11 08:00"
+      }
+    },
+    "USTEC": {
+      "already_held": false,
+      "correlation": {
+        "BUY": {
+          "can_open": true,
+          "reason": "OK",
+          "held_in_group": []
+        },
+        "SELL": {
+          "can_open": true,
+          "reason": "OK",
+          "held_in_group": []
+        }
+      },
+      "indicators": {
+        "atr_14": 74.76357,
+        "support_14": 28978.13,
+        "resistance_14": 29310.62
+      },
+      "trade_params": {
+        "recommended_lot": 0.67,
+        "current_price": 29231.33,
+        "atr": 74.76,
+        "sl_distance": 112.15,
+        "tp_distance": 224.29,
+        "risk_usd": 74.87,
+        "buy_scenario": {
+          "sl": 29119.18,
+          "tp": 29455.62,
+          "rr": 2.0
+        },
+        "sell_scenario": {
+          "sl": 29343.48,
+          "tp": 29007.04,
+          "rr": 2.0
+        }
+      },
+      "h1_summary": {
+        "candle_count": 20,
+        "latest_close": 29228.93,
+        "latest_time": "2026-05-11 12:00"
+      },
+      "d1_summary": {
+        "candle_count": 10,
+        "latest_close": 29228.93,
+        "latest_time": "2026-05-11 08:00"
+      }
+    },
+    "US30": {
+      "already_held": false,
+      "correlation": {
+        "BUY": {
+          "can_open": true,
+          "reason": "OK",
+          "held_in_group": []
+        },
+        "SELL": {
+          "can_open": true,
+          "reason": "OK",
+          "held_in_group": []
+        }
+      },
+      "indicators": {
+        "atr_14": 97.88571,
+        "support_14": 49401.4,
+        "resistance_14": 49776.7
+      },
+      "trade_params": {
+        "recommended_lot": 0.51,
+        "current_price": 49522.2,
+        "atr": 97.9,
+        "sl_distance": 146.8,
+        "tp_distance": 293.7,
+        "risk_usd": 74.87,
+        "buy_scenario": {
+          "sl": 49375.4,
+          "tp": 49815.9,
+          "rr": 2.0
+        },
+        "sell_scenario": {
+          "sl": 49669.0,
+          "tp": 49228.5,
+          "rr": 2.0
+        }
+      },
+      "h1_summary": {
+        "candle_count": 20,
+        "latest_close": 49520.1,
+        "latest_time": "2026-05-11 12:00"
+      },
+      "d1_summary": {
+        "candle_count": 10,
+        "latest_close": 49520.1,
+        "latest_time": "2026-05-11 08:00"
+      }
+    },
+    "US500": {
+      "already_held": false,
+      "correlation": {
+        "BUY": {
+          "can_open": true,
+          "reason": "OK",
+          "held_in_group": []
+        },
+        "SELL": {
+          "can_open": true,
+          "reason": "OK",
+          "held_in_group": []
+        }
+      },
+      "indicators": {
+        "atr_14": 11.90643,
+        "support_14": 7373.37,
+        "resistance_14": 7410.12
+      },
+      "trade_params": {
+        "recommended_lot": 2.0,
+        "current_price": 7394.36,
+        "atr": 11.91,
+        "sl_distance": 17.86,
+        "tp_distance": 35.72,
+        "risk_usd": 74.87,
+        "buy_scenario": {
+          "sl": 7376.5,
+          "tp": 7430.08,
+          "rr": 2.0
+        },
+        "sell_scenario": {
+          "sl": 7412.22,
+          "tp": 7358.64,
+          "rr": 2.0
+        }
+      },
+      "h1_summary": {
+        "candle_count": 20,
+        "latest_close": 7393.64,
+        "latest_time": "2026-05-11 12:00"
+      },
+      "d1_summary": {
+        "candle_count": 10,
+        "latest_close": 7393.64,
+        "latest_time": "2026-05-11 08:00"
+      }
+    },
+    "JP225": {
+      "already_held": false,
+      "correlation": {
+        "BUY": {
+          "can_open": true,
+          "reason": "OK",
+          "held_in_group": []
+        },
+        "SELL": {
+          "can_open": true,
+          "reason": "OK",
+          "held_in_group": []
+        }
+      },
+      "indicators": {
+        "atr_14": 271.68571,
+        "support_14": 62411.4,
+        "resistance_14": 63790.6
+      },
+      "trade_params": {
+        "recommended_lot": 2.0,
+        "current_price": 62596.2,
+        "atr": 271.7,
+        "sl_distance": 407.5,
+        "tp_distance": 815.1,
+        "risk_usd": 74.87,
+        "buy_scenario": {
+          "sl": 62188.7,
+          "tp": 63411.3,
+          "rr": 2.0
+        },
+        "sell_scenario": {
+          "sl": 63003.7,
+          "tp": 61781.1,
+          "rr": 2.0
+        }
+      },
+      "h1_summary": {
+        "candle_count": 20,
+        "latest_close": 62593.0,
+        "latest_time": "2026-05-11 12:00"
+      },
+      "d1_summary": {
+        "candle_count": 10,
+        "latest_close": 62593.0,
+        "latest_time": "2026-05-11 08:00"
+      }
+    },
+    "HK50": {
+      "already_held": false,
+      "correlation": {
+        "BUY": {
+          "can_open": true,
+          "reason": "OK",
+          "held_in_group": []
+        },
+        "SELL": {
+          "can_open": true,
+          "reason": "OK",
+          "held_in_group": []
+        }
+      },
+      "indicators": {
+        "atr_14": 74.29286,
+        "support_14": 26197.9,
+        "resistance_14": 26501.2
+      },
+      "trade_params": {
+        "recommended_lot": 2.0,
+        "current_price": 26334.8,
+        "atr": 74.3,
+        "sl_distance": 111.4,
+        "tp_distance": 222.9,
+        "risk_usd": 74.87,
+        "buy_scenario": {
+          "sl": 26223.4,
+          "tp": 26557.7,
+          "rr": 2.0
+        },
+        "sell_scenario": {
+          "sl": 26446.2,
+          "tp": 26111.9,
+          "rr": 2.0
+        }
+      },
+      "h1_summary": {
+        "candle_count": 20,
+        "latest_close": 26290.8,
+        "latest_time": "2026-05-11 12:00"
+      },
+      "d1_summary": {
+        "candle_count": 10,
+        "latest_close": 26290.8,
+        "latest_time": "2026-05-11 08:00"
+      }
+    },
+    "USOIL": {
+      "already_held": false,
+      "correlation": {
+        "BUY": {
+          "can_open": true,
+          "reason": "OK",
+          "held_in_group": []
+        },
+        "SELL": {
+          "can_open": true,
+          "reason": "OK",
+          "held_in_group": []
+        }
+      },
+      "indicators": {
+        "atr_14": 1.00107,
+        "support_14": 91.397,
+        "resistance_14": 96.817
+      },
+      "trade_params": {
+        "recommended_lot": 0.05,
+        "current_price": 96.725,
+        "atr": 1.001,
+        "sl_distance": 1.502,
+        "tp_distance": 3.003,
+        "risk_usd": 74.87,
+        "buy_scenario": {
+          "sl": 95.223,
+          "tp": 99.728,
+          "rr": 2.0
+        },
+        "sell_scenario": {
+          "sl": 98.227,
+          "tp": 93.722,
+          "rr": 2.0
+        }
+      },
+      "h1_summary": {
+        "candle_count": 20,
+        "latest_close": 96.705,
+        "latest_time": "2026-05-11 12:00"
+      },
+      "d1_summary": {
+        "candle_count": 10,
+        "latest_close": 96.705,
+        "latest_time": "2026-05-11 08:00"
+      }
+    },
+    "UKOIL": {
+      "already_held": false,
+      "correlation": {
+        "BUY": {
+          "can_open": true,
+          "reason": "OK",
+          "held_in_group": []
+        },
+        "SELL": {
+          "can_open": true,
+          "reason": "OK",
+          "held_in_group": []
+        }
+      },
+      "indicators": {
+        "atr_14": 1.08707,
+        "support_14": 98.001,
+        "resistance_14": 103.717
+      },
+      "trade_params": {
+        "recommended_lot": 0.05,
+        "current_price": 103.688,
+        "atr": 1.087,
+        "sl_distance": 1.631,
+        "tp_distance": 3.261,
+        "risk_usd": 74.87,
+        "buy_scenario": {
+          "sl": 102.057,
+          "tp": 106.949,
+          "rr": 2.0
+        },
+        "sell_scenario": {
+          "sl": 105.319,
+          "tp": 100.427,
+          "rr": 2.0
+        }
+      },
+      "h1_summary": {
+        "candle_count": 20,
+        "latest_close": 103.652,
+        "latest_time": "2026-05-11 12:00"
+      },
+      "d1_summary": {
+        "candle_count": 10,
+        "latest_close": 103.652,
+        "latest_time": "2026-05-11 08:00"
+      }
+    },
+    "EURUSD": {
+      "already_held": false,
+      "correlation": {
+        "BUY": {
+          "can_open": true,
+          "reason": "OK",
+          "held_in_group": []
+        },
+        "SELL": {
+          "can_open": true,
+          "reason": "OK",
+          "held_in_group": []
+        }
+      },
+      "indicators": {
+        "atr_14": 0.00203,
+        "support_14": 1.17468,
+        "resistance_14": 1.17876
+      },
+      "trade_params": {
+        "recommended_lot": 0.25,
+        "current_price": 1.1756,
+        "atr": 0.00203,
+        "sl_distance": 0.00304,
+        "tp_distance": 0.00609,
+        "risk_usd": 74.87,
+        "buy_scenario": {
+          "sl": 1.17256,
+          "tp": 1.18169,
+          "rr": 2.0
+        },
+        "sell_scenario": {
+          "sl": 1.17864,
+          "tp": 1.16951,
+          "rr": 2.0
+        }
+      },
+      "h1_summary": {
+        "candle_count": 20,
+        "latest_close": 1.17552,
+        "latest_time": "2026-05-11 12:00"
+      },
+      "d1_summary": {
+        "candle_count": 10,
+        "latest_close": 1.17552,
+        "latest_time": "2026-05-11 08:00"
+      }
+    },
+    "GBPUSD": {
+      "already_held": false,
+      "correlation": {
+        "BUY": {
+          "can_open": true,
+          "reason": "OK",
+          "held_in_group": []
+        },
+        "SELL": {
+          "can_open": true,
+          "reason": "OK",
+          "held_in_group": []
+        }
+      },
+      "indicators": {
+        "atr_14": 0.00298,
+        "support_14": 1.35436,
+        "resistance_14": 1.36365
+      },
+      "trade_params": {
+        "recommended_lot": 0.17,
+        "current_price": 1.35903,
+        "atr": 0.00298,
+        "sl_distance": 0.00447,
+        "tp_distance": 0.00894,
+        "risk_usd": 74.87,
+        "buy_scenario": {
+          "sl": 1.35456,
+          "tp": 1.36797,
+          "rr": 2.0
+        },
+        "sell_scenario": {
+          "sl": 1.3635,
+          "tp": 1.35009,
+          "rr": 2.0
+        }
+      },
+      "h1_summary": {
+        "candle_count": 20,
+        "latest_close": 1.35893,
+        "latest_time": "2026-05-11 12:00"
+      },
+      "d1_summary": {
+        "candle_count": 10,
+        "latest_close": 1.35893,
+        "latest_time": "2026-05-11 08:00"
+      }
+    },
+    "USDJPY": {
+      "already_held": false,
+      "correlation": {
+        "BUY": {
+          "can_open": true,
+          "reason": "OK",
+          "held_in_group": []
+        },
+        "SELL": {
+          "can_open": true,
+          "reason": "OK",
+          "held_in_group": []
+        }
+      },
+      "indicators": {
+        "atr_14": 0.28493,
+        "support_14": 156.414,
+        "resistance_14": 157.174
+      },
+      "trade_params": {
+        "recommended_lot": 0.28,
+        "current_price": 157.139,
+        "atr": 0.285,
+        "sl_distance": 0.427,
+        "tp_distance": 0.855,
+        "risk_usd": 74.87,
+        "buy_scenario": {
+          "sl": 156.712,
+          "tp": 157.994,
+          "rr": 2.0
+        },
+        "sell_scenario": {
+          "sl": 157.566,
+          "tp": 156.284,
+          "rr": 2.0
+        }
+      },
+      "h1_summary": {
+        "candle_count": 20,
+        "latest_close": 157.129,
+        "latest_time": "2026-05-11 12:00"
+      },
+      "d1_summary": {
+        "candle_count": 10,
+        "latest_close": 157.129,
+        "latest_time": "2026-05-11 08:00"
+      }
+    },
+    "AUDUSD": {
+      "already_held": false,
+      "correlation": {
+        "BUY": {
+          "can_open": true,
+          "reason": "OK",
+          "held_in_group": []
+        },
+        "SELL": {
+          "can_open": true,
+          "reason": "OK",
+          "held_in_group": []
+        }
+      },
+      "indicators": {
+        "atr_14": 0.00176,
+        "support_14": 0.72149,
+        "resistance_14": 0.72489
+      },
+      "trade_params": {
+        "recommended_lot": 0.28,
+        "current_price": 0.72287,
+        "atr": 0.00176,
+        "sl_distance": 0.00264,
+        "tp_distance": 0.00528,
+        "risk_usd": 74.87,
+        "buy_scenario": {
+          "sl": 0.72023,
+          "tp": 0.72815,
+          "rr": 2.0
+        },
+        "sell_scenario": {
+          "sl": 0.72551,
+          "tp": 0.71759,
+          "rr": 2.0
+        }
+      },
+      "h1_summary": {
+        "candle_count": 20,
+        "latest_close": 0.72278,
+        "latest_time": "2026-05-11 12:00"
+      },
+      "d1_summary": {
+        "candle_count": 10,
+        "latest_close": 0.72278,
+        "latest_time": "2026-05-11 08:00"
+      }
+    },
+    "USDCHF": {
+      "already_held": false,
+      "correlation": {
+        "BUY": {
+          "can_open": true,
+          "reason": "OK",
+          "held_in_group": []
+        },
+        "SELL": {
+          "can_open": true,
+          "reason": "OK",
+          "held_in_group": []
+        }
+      },
+      "indicators": {
+        "atr_14": 0.0016666666666666668,
+        "support_14": 0.77596,
+        "resistance_14": 0.77908
+      },
+      "trade_params": {
+        "recommended_lot": 0.23,
+        "current_price": 0.77914,
+        "atr": 0.00167,
+        "sl_distance": 0.0025,
+        "tp_distance": 0.005,
+        "risk_usd": 74.87,
+        "buy_scenario": {
+          "sl": 0.77664,
+          "tp": 0.78414,
+          "rr": 2.0
+        },
+        "sell_scenario": {
+          "sl": 0.78164,
+          "tp": 0.77414,
+          "rr": 2.0
+        }
+      },
+      "h1_summary": {
+        "candle_count": 20,
+        "latest_close": 0.77901,
+        "latest_time": "2026-05-11 12:00"
+      },
+      "d1_summary": {
+        "candle_count": 10,
+        "latest_close": 0.77901,
+        "latest_time": "2026-05-11 08:00"
+      }
+    }
+  },
+  "rules": {
+    "atr_sl_multiplier": 1.5,
+    "atr_tp_multiplier": 3.0,
+    "target_rr": 2.0,
+    "min_rr": 1.0
+  }
+}

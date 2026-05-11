@@ -1,0 +1,126 @@
+{
+  "date": "2026-05-08",
+  "count": 12,
+  "list": [
+    {
+      "ts_code": "600984.SH",
+      "open": 4.3,
+      "close": 4.71,
+      "reversal_ratio": 1.1,
+      "buy_lg_rate": 12.06,
+      "net_amount_wan": 1.0,
+      "net_rate": 28.11,
+      "score": 18.0
+    },
+    {
+      "ts_code": "600076.SH",
+      "open": 3.31,
+      "close": 3.6,
+      "reversal_ratio": 1.09,
+      "buy_lg_rate": 12.1,
+      "net_amount_wan": 0.0,
+      "net_rate": 32.49,
+      "score": 17.9
+    },
+    {
+      "ts_code": "000026.SZ",
+      "open": 18.48,
+      "close": 19.9,
+      "reversal_ratio": 1.08,
+      "buy_lg_rate": 10.3,
+      "net_amount_wan": 1.0,
+      "net_rate": 12.97,
+      "score": 17.1
+    },
+    {
+      "ts_code": "603637.SH",
+      "open": 17.05,
+      "close": 18.53,
+      "reversal_ratio": 1.09,
+      "buy_lg_rate": 9.43,
+      "net_amount_wan": 0.0,
+      "net_rate": 12.53,
+      "score": 16.9
+    },
+    {
+      "ts_code": "603037.SH",
+      "open": 13.72,
+      "close": 14.68,
+      "reversal_ratio": 1.07,
+      "buy_lg_rate": 8.99,
+      "net_amount_wan": 0.0,
+      "net_rate": 9.75,
+      "score": 16.4
+    },
+    {
+      "ts_code": "603028.SH",
+      "open": 8.75,
+      "close": 9.63,
+      "reversal_ratio": 1.1,
+      "buy_lg_rate": 7.49,
+      "net_amount_wan": 0.0,
+      "net_rate": 16.48,
+      "score": 16.2
+    },
+    {
+      "ts_code": "600234.SH",
+      "open": 26.0,
+      "close": 28.61,
+      "reversal_ratio": 1.1,
+      "buy_lg_rate": 7.42,
+      "net_amount_wan": 0.0,
+      "net_rate": 13.36,
+      "score": 16.2
+    },
+    {
+      "ts_code": "603773.SH",
+      "open": 66.3,
+      "close": 72.75,
+      "reversal_ratio": 1.1,
+      "buy_lg_rate": 5.85,
+      "net_amount_wan": 2.0,
+      "net_rate": 8.25,
+      "score": 15.5
+    },
+    {
+      "ts_code": "002244.SZ",
+      "open": 9.98,
+      "close": 10.8,
+      "reversal_ratio": 1.08,
+      "buy_lg_rate": 6.46,
+      "net_amount_wan": 1.0,
+      "net_rate": 11.88,
+      "score": 15.5
+    },
+    {
+      "ts_code": "600743.SH",
+      "open": 2.57,
+      "close": 2.7800000000000002,
+      "reversal_ratio": 1.08,
+      "buy_lg_rate": 6.1,
+      "net_amount_wan": 1.0,
+      "net_rate": 10.31,
+      "score": 15.4
+    },
+    {
+      "ts_code": "002997.SZ",
+      "open": 30.68,
+      "close": 33.7,
+      "reversal_ratio": 1.1,
+      "buy_lg_rate": 5.2,
+      "net_amount_wan": 1.0,
+      "net_rate": 27.62,
+      "score": 15.3
+    },
+    {
+      "ts_code": "001333.SZ",
+      "open": 23.6,
+      "close": 25.77,
+      "reversal_ratio": 1.09,
+      "buy_lg_rate": 5.02,
+      "net_amount_wan": 0.0,
+      "net_rate": 16.98,
+      "score": 15.1
+    }
+  ]
+}

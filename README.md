@@ -11,22 +11,44 @@
 ```text
 strategies/
 │
-├── 📈 futures/                    (期货/外汇/商品类)
-│   ├── 📂 single-agent/           (👉 轻量级：单智能体/单 Cron 自主决策)
-│   │   ├── pure-ai-cio/           (Magic 234003, AI 自主交易)
-│   │   └── keylevel-trend/        (关键位趋势跟踪)
+├── 📈 futures/                                (期货/外汇/商品类)
+│   ├── 📂 single-agent/                       (👉 轻量级：单智能体/单 Cron 自主决策)
+│   │   ├── pure-ai-cio/                       (Magic 234003, AI 自主交易)
+│   │   └── keylevel-trend/                    (关键位趋势跟踪)
 │   │
-│   └── ️📂 kanban/               (👉 重量级：多智能体协作流水线)
-│       ├── macro/                 (宏观定调 + 专家会诊 + 风控决策)
-│       └── arbitrage/             (预留：套利流水线)
+│   ├── 📂 kanban/                             (👉 重量级：多智能体协作流水线)
+│   │   └── macro/                             (宏观定调 + 专家会诊 + 风控决策)
+│   │
+│   ├── 📂 experimental/                       (实验性策略，验证中)
+│   │   └── macro-risk-layer/                  (宏观风险预警：能源+外汇联动保护股指期货)
+│   │
+│   └── 📂 research/                           (期货研究引擎)
+│       ├── briefs/                            (研究任务卡)
+│       ├── experiments/                       (实验代码与回测结果)
+│       ├── kanban/                            (多智能体研究管线)
+│       ├── proposals/                         (提案：待审核)
+│       ├── reports/                           (研究报告)
+│       └── single-agent/                      (单节点研究管线)
 │
-├── 🇨🇳 a-stock/                    (A 股类)
-│   ├── 📂 single-agent/           (预留：单节点策略)
-│   └── ️📂 kanban/               (👉 多智能体流水线)
-│       ├── screening/             (A 股选股/情绪监控)
-│       └── ...
+├── 🇨🇳 a-stock/                                (A 股类)
+│   ├── 📂 kanban/                             (👉 多智能体流水线)
+│   │   ├── a-stock-shortline/                 (A股短线策略)
+│   │   └── daily-limit-radar/                 (每日涨停雷达)
+│   │
+│   └── 📂 research/                           (A股研究引擎)
+│       ├── USER_TOPIC.md                      (选题库：用户指定 + AI自主发掘)
+│       ├── briefs/                            (研究任务卡)
+│       ├── experiments/                       (实验代码与回测结果)
+│       ├── kanban/                            (多智能体研究管线)
+│       ├── proposals/                         (提案：待审核)
+│       ├── reports/                           (研究报告)
+│       └── single-agent/                      (单节点研究管线)
 │
-└──  archive/                     (旧策略归档，保留历史数据)
+├── 📋 kanban-template/                        (Kanban 策略通用模板)
+│   └── task-creation-rules.md                 (任务创建规则：架构/数据源/路径/Soul/Cron)
+│
+├── validate_proposal.py                       (通用验证脚本：回测审计 + 提案审核)
+└── research_schedule.json                     (Cron 调度配置)
 ```
 
 ---
@@ -101,26 +123,39 @@ strategies/
 
 ## 🚀 如何新增一个策略？
 
+### Single-Agent 策略
+
 假设你要新增一个 **"加密货币趋势策略"** (单节点模式)：
 
 1.  **创建目录**:
-    在 `strategies/crypto/single-agent/` 下新建文件夹，如 `trend-following/`。
+    在对应市场目录下新建文件夹，如 `futures/single-agent/trend-following/`。
 2.  **编写 Skills**:
-    创建 `skills/risk-rules.md`，写入加密货币专属的风控（如"止损 2%"、"合约杠杆上限"）。
-3.  **编写 Prompt/Script**:
-    复制模板 `cron-prompts/` 和 `scripts/`，将数据源改为加密货币 API。
+    创建 `skills/risk-rules.md`，写入专属风控规则。
+3.  **编写 Script**:
+    创建 `scripts/pre_analyze.py` 数据查询脚本。
 4.  **注册 Cron Job**:
     添加 Cron 任务，设置 `workdir` 指向新目录。
+
+### Kanban 策略
+
+1.  **复制模板**:
+    将 `kanban-template/task-creation-rules.md` 复制到 `新策略/rules/task-creation-rules.md`。
+2.  **替换占位符**:
+    按实际策略替换所有 `{{占位符}}`（数据源、路径、任务依赖链、Profile 分配等）。
+3.  **创建 Cron Job**:
+    按模板中的调度配置注册 Cron，Orchestrator 统一使用 flash 模型。
 
 **优势**: 新策略完全独立，不依赖其他策略的文件，也不会被其他策略的更新误伤。
 
 ---
 
-## 📝 维护与注意事项
+## 📋 维护与注意事项
 
-1.  **Git 管理**: 每个策略目录都是独立的 Git 仓库。移动位置不影响历史记录。
-2.  **路径规范**:
+1. **单一 Git 仓库**: 整个 `strategies/` 是单一 Git 仓库，不存在嵌套子仓库。所有策略共享同一套 Git 历史。
+2. **路径规范**:
     *   脚本和 Prompt 中 **严禁使用硬编码路径**（如 `F:\...`）。
-    *   统一使用相对路径（`./scripts/`, `../skills/`），因为 Cron 系统会自动注入 `workdir`。
-3.  **Kanban DB 同步**:
+    *   Cron 系统会自动注入 `workdir`，优先使用绝对路径。Worker 的 scratch workspace 是独立的，相对路径不可靠。
+3. **Kanban DB 同步**:
     所有 Worker Profile 的 `kanban.db` 已软链接到 Orchestrator Profile，确保多智能体任务状态同步。
+4. **Kanban 新策略**:
+    新建 Kanban 策略时，复制 `kanban-template/task-creation-rules.md` 到 `新策略/rules/`，替换所有 `{{占位符}}`。该模板基于 2026-05-10 实战经验编写，包含已知陷阱清单。
