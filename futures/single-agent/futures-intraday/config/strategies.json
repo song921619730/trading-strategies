@@ -15,13 +15,30 @@
         "session": "us",
         "rsi14_max": 40,
         "atr_min_pct": 0.0025,
-        "dxy_filter": "down"        
+        "dxy_filter": "down"
       },
       "best_hold": 3,
       "min_signals_for_entry": 1,
       "win_rate": 89.7,
       "signal_count": 29,
       "priority": 1
+    },
+    {
+      "id": "tier1_eur_us_h1_oversold_raw",
+      "group": "fx_any",
+      "symbols": ["EURUSD"],
+      "timeframe": "H1",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "us",
+        "rsi14_max": 40,
+        "atr_min_pct": 0.0025
+      },
+      "best_hold": 3,
+      "min_signals_for_entry": 1,
+      "win_rate": 73.2,
+      "signal_count": 41,
+      "priority": 2
     },
     {
       "id": "tier1_gbp_us_h1_oversold_dxy",
@@ -78,6 +95,23 @@
       "priority": 4
     },
     {
+      "id": "tier1_xau_m30_oversold_raw",
+      "group": "metals_any",
+      "symbols": ["XAUUSD"],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "us",
+        "rsi14_max": 40,
+        "atr_min_pct": 0.0035
+      },
+      "best_hold": 5,
+      "min_signals_for_entry": 1,
+      "win_rate": 62.0,
+      "signal_count": 1200,
+      "priority": 5
+    },
+    {
       "id": "tier1_jp225_m30_oversold",
       "group": "indices_no_dxy",
       "symbols": ["JP225"],
@@ -111,6 +145,23 @@
       "win_rate": 62.5,
       "signal_count": 1530,
       "priority": 6
+    },
+    {
+      "id": "tier1_xau_h1_us_oversold_raw",
+      "group": "metals_any",
+      "symbols": ["XAUUSD"],
+      "timeframe": "H1",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "us",
+        "rsi14_max": 40,
+        "atr_min_pct": 0.0025
+      },
+      "best_hold": 7,
+      "min_signals_for_entry": 1,
+      "win_rate": 60.5,
+      "signal_count": 1700,
+      "priority": 7
     },
     {
       "id": "tier1_us30_h1_oversold",

@@ -1,27 +1,56 @@
 #!/usr/bin/env python3
-"""
-researcher_m30_summary.py — T1 Researcher Profile
-Loads M30 (and H1) futures data, computes indicators, prints structured summary table.
-"""
+"""Researcher: load M30 data, compute indicators, print structured summary for Analyst."""
 
 import sys
-import os
+from pathlib import Path
 
-# Ensure scripts directory is on path
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-if SCRIPT_DIR not in sys.path:
-    sys.path.insert(0, SCRIPT_DIR)
-
+import pandas as pd
 from data_loader import list_available_symbols, load_data, compute_indicators
 
+# ------------------------------------------------------------------
+# 1. Check M30 data availability
+# ------------------------------------------------------------------
+print("=" * 78)
+print("  M30 DATA LOAD — Checking available symbols")
+print("=" * 78)
 
-def print_summary(data: dict, tf: str):
-    """Print structured data summary table."""
-    print(f"\n{'='*78}")
-    print(f"  RESEARCHER DATA SUMMARY — {tf}")
-    print(f"{'='*78}")
-    print(f"  {'Symbol':<12} {'Rows':>10} {'From':<20} {'To':<20} {'Sessions':>8}")
-    print(f"  {'-'*70}")
+m30_syms = list_available_symbols(timeframe="M30")
+print(f"  M30 symbols found: {len(m30_syms)}")
+print(f"  Symbols: {m30_syms}")
+print()
+
+# ------------------------------------------------------------------
+# 2. Load raw M30 data
+# ------------------------------------------------------------------
+print("Loading M30 data ...")
+m30_raw = load_data(timeframe="M30")
+print(f"  → {len(m30_raw)} symbols loaded\n")
+
+# ------------------------------------------------------------------
+# 3. Compute indicators on all symbols
+# ------------------------------------------------------------------
+print("Computing indicators (ATR14, RSI14, MA20/50/200, BB, session, etc.) ...")
+m30_data = {}
+for sym, df in m30_raw.items():
+    try:
+        m30_data[sym] = compute_indicators(df)
+        print(f"  ✓ {sym}: {len(df)} rows → {len(m30_data[sym].columns)} columns")
+    except Exception as e:
+        print(f"  ✗ {sym}: compute_indicators FAILED — {e}")
+        m30_data[sym] = df  # passthrough raw
+print()
+
+# ------------------------------------------------------------------
+# 4. Print structured summary table
+# ------------------------------------------------------------------
+def print_m30_summary(data: dict):
+    """Print a formatted M30 data summary table for the Analyst."""
+    print("=" * 88)
+    print("  RESEARCHER DATA SUMMARY — M30 (30-Minute)")
+    print("=" * 88)
+    print(f"  {'Symbol':<12} {'Rows':>10} {'From':<22} {'To':<22} {'Sessions':>8}  {'Indicators'}")
+    print(f"  {'-' * 80}")
+    
     total_rows = 0
     for sym in sorted(data.keys()):
         df = data[sym]
@@ -29,107 +58,91 @@ def print_summary(data: dict, tf: str):
         total_rows += rows
         start = df.index[0].strftime('%Y-%m-%d %H:%M')
         end = df.index[-1].strftime('%Y-%m-%d %H:%M')
-        sessions = df['session'].nunique() if 'session' in df.columns else '?'
-        print(f"  {sym:<12} {rows:>10} {start:<20} {end:<20} {sessions:>8}")
-    print(f"  {'-'*70}")
-    print(f"  {'TOTAL':<12} {total_rows:>10}  ({len(data)} symbols, {tf})")
-    print(f"{'='*78}\n")
-
-
-def main():
-    print("=" * 78)
-    print("  RESEARCHER PROFILE (T1) — Data Preparation for Analyst")
-    print("=" * 78)
-
-    # Step 1: Check data availability
-    print("\n[1] Checking data availability ...")
-    h1_syms = list_available_symbols(timeframe="H1")
-    m30_syms = list_available_symbols(timeframe="M30")
-    print(f"  H1 symbols:  {len(h1_syms)} — {h1_syms}")
-    print(f"  M30 symbols: {len(m30_syms)} — {m30_syms}")
-
-    # Confirm data exists (14 symbols expected)
-    if len(m30_syms) < 14:
-        print(f"  WARNING: Expected 14 M30 symbols, found {len(m30_syms)}")
-    if len(h1_syms) < 14:
-        print(f"  WARNING: Expected 14 H1 symbols, found {len(h1_syms)}")
-
-    # Step 2: Load M30 data
-    print("\n[2] Loading M30 data ...")
-    m30_raw = load_data(timeframe="M30")
-    print(f"  → {len(m30_raw)} symbols loaded")
-
-    # Step 3: Load H1 data (also kept ready for Analyst)
-    print("\n[3] Loading H1 data ...")
-    h1_raw = load_data(timeframe="H1")
-    print(f"  → {len(h1_raw)} symbols loaded")
-
-    # Step 4: Compute indicators (M30)
-    print("\n[4] Computing indicators (M30) ...")
-    m30_data = {sym: compute_indicators(df) for sym, df in m30_raw.items()}
-    print(f"  → Indicators computed for {len(m30_data)} symbols")
-
-    # Step 5: Compute indicators (H1)
-    print("\n[5] Computing indicators (H1) ...")
-    h1_data = {sym: compute_indicators(df) for sym, df in h1_raw.items()}
-    print(f"  → Indicators computed for {len(h1_data)} symbols")
-
-    # Step 6: Print structured summary tables
-    print("\n[6] Data Summary Tables")
-    print_summary(m30_data, "M30")
-    print_summary(h1_data, "H1")
-
-    # Step 7: Extra statistics — bull ratio, avg ATR, session distribution
-    print("[7] Extra Statistics")
-    print("=" * 78)
-    print(f"  {'Symbol':<12} {'Bull Ratio':>12} {'Avg ATR14':>12} {'Avg MA20':>12}")
-    print(f"  {'-'*60}")
-    for sym in sorted(m30_data.keys()):
-        df = m30_data[sym]
-        bull_ratio = (df['close'] > df['open']).mean()
-        avg_atr = df['atr14'].mean()
-        avg_ma20 = df['ma20'].mean()
-        print(f"  {sym:<12} {bull_ratio:>11.2%} {avg_atr:>12.5f} {avg_ma20:>12.2f}")
-    print(f"  {'-'*60}")
-
-    # Session distribution
-    print(f"\n  {'='*78}")
-    print(f"  {'Trading Session Distribution (M30)':^78}")
-    print(f"  {'='*78}")
-    print(f"  {'Symbol':<12} {'Asia':>8} {'Europe':>8} {'US':>8} {'Total':>8}")
-    print(f"  {'-'*48}")
-    for sym in sorted(m30_data.keys()):
-        df = m30_data[sym]
-        session_counts = df['session'].value_counts()
-        asia = session_counts.get('asia', 0)
-        europe = session_counts.get('europe', 0)
-        us = session_counts.get('us', 0)
-        total = asia + europe + us
-        print(f"  {sym:<12} {asia:>8} {europe:>8} {us:>8} {total:>8}")
-    print(f"  {'-'*48}")
-    total_asia = sum(df['session'].value_counts().get('asia', 0) for df in m30_data.values())
-    total_europe = sum(df['session'].value_counts().get('europe', 0) for df in m30_data.values())
-    total_us = sum(df['session'].value_counts().get('us', 0) for df in m30_data.values())
-    grand_total = total_asia + total_europe + total_us
-    print(f"  {'TOTAL':<12} {total_asia:>8} {total_europe:>8} {total_us:>8} {grand_total:>8}")
-
-    # RSI extremes
-    print(f"\n  {'='*78}")
-    print(f"  {'RSI14 Extremes (M30) — Last 50 Bars':^78}")
-    print(f"  {'='*78}")
-    for sym in sorted(m30_data.keys()):
-        df = m30_data[sym]
-        recent = df.tail(50)
-        rsi_min = recent['rsi14'].min()
-        rsi_max = recent['rsi14'].max()
-        rsi_last = recent['rsi14'].iloc[-1]
-        print(f"  {sym:<12}  last_rsi={rsi_last:>6.2f}  min_rsi_50={rsi_min:>6.2f}  max_rsi_50={rsi_max:>6.2f}")
-
+        
+        # Count unique trading sessions present
+        if 'session' in df.columns:
+            sessions = df['session'].nunique()
+            session_str = str(sessions)
+        else:
+            session_str = '?'
+        
+        # List extra indicator columns (beyond OHLCV)
+        base_cols = {'open', 'high', 'low', 'close', 'tick_volume', 'spread', 'real_volume'}
+        indicator_cols = [c for c in df.columns if c not in base_cols]
+        indicator_str = ', '.join(indicator_cols[:8])  # show first 8
+        if len(indicator_cols) > 8:
+            indicator_str += f' … +{len(indicator_cols)-8} more'
+        
+        print(f"  {sym:<12} {rows:>10,}  {start:<22} {end:<22} {session_str:>8}  {indicator_str}")
+    
+    print(f"  {'-' * 80}")
+    print(f"  {'TOTAL':<12} {total_rows:>10,}  ({len(data)} symbols, M30)")
+    print(f"  {'-' * 80}")
+    
+    # Extra stats
+    print(f"\n  Data range (earliest → latest across all symbols):")
+    earliest = min(df.index[0] for df in data.values())
+    latest = max(df.index[-1] for df in data.values())
+    print(f"    Global start: {earliest.strftime('%Y-%m-%d %H:%M')} UTC")
+    print(f"    Global end:   {latest.strftime('%Y-%m-%d %H:%M')} UTC")
+    print(f"    Total M30 bars: {total_rows:,}")
+    print(f"    Avg rows/symbol: {total_rows // len(data):,}")
+    
+    print(f"\n  Session coverage:")
+    all_sessions = set()
+    for df in data.values():
+        if 'session' in df.columns:
+            all_sessions.update(df['session'].unique())
+    if all_sessions:
+        print(f"    Sessions present: {sorted(all_sessions)}")
+    
+    print(f"  Indicator columns available (on enriched DataFrames):")
+    all_indicator_cols = set()
+    for df in data.values():
+        all_indicator_cols.update(c for c in df.columns if c not in base_cols)
+    if all_indicator_cols:
+        print(f"    {sorted(all_indicator_cols)}")
+    else:
+        print(f"    (indicators not computed)")
+    
+    print("=" * 88)
     print()
-    print("=" * 78)
-    print("  Data preparation complete. Ready for Analyst.")
-    print("=" * 78)
 
+print_m30_summary(m30_data)
 
-if __name__ == "__main__":
-    main()
+# ------------------------------------------------------------------
+# 5. Report readiness for Analyst
+# ------------------------------------------------------------------
+print(f"Ready for Analyst. M30: {len(m30_data)} symbols loaded and enriched.")
+print("All DataFrames available in memory.")
+
+# Quick validation
+print()
+print("=" * 78)
+print("  VALIDATION CHECKS")
+print("=" * 78)
+all_ok = True
+for sym, df in m30_data.items():
+    issues = []
+    if df.index.name != 'time':
+        issues.append(f"index name is '{df.index.name}', expected 'time'")
+    if not isinstance(df.index, pd.DatetimeIndex):
+        issues.append("index is not DatetimeIndex")
+    if 'session' not in df.columns:
+        issues.append("missing 'session' column")
+    if 'rsi14' not in df.columns:
+        issues.append("missing 'rsi14' column")
+    if 'atr14' not in df.columns:
+        issues.append("missing 'atr14' column")
+    
+    if issues:
+        all_ok = False
+        print(f"  ✗ {sym}: {', '.join(issues)}")
+    else:
+        print(f"  ✓ {sym}: {len(df)} rows, {len(df.columns)} cols, session ✓, indicators ✓")
+
+if all_ok:
+    print(f"\n  All {len(m30_data)} symbols passed validation ✓")
+else:
+    print(f"\n  Some validation issues found — see above")
+print("=" * 78)
