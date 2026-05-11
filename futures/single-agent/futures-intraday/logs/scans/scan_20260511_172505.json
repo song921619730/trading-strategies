@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-05-11T17:25:05.610448",
+  "account": {
+    "balance": 2000.0,
+    "equity": 2000.0
+  },
+  "magic": 234010,
+  "signals": [],
+  "total_signals": 0
+}

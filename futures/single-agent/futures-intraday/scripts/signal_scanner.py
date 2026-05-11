@@ -93,7 +93,7 @@ def detected_consecutive_bears(bars: list[dict]) -> int:
 
 
 # ─── 信号匹配 ───
-def scan_strategy(mt5, symbol: str, config: dict, account: dict) -> list[dict]:
+def scan_strategy(mt5, symbol: str, config: dict, account: dict, dxy_data: list | None = None) -> list:
     """对单个品种扫描一个策略配置，返回匹配的信号列表"""
     signals = []
     strategy_id = config["id"]
@@ -173,7 +173,7 @@ def scan_strategy(mt5, symbol: str, config: dict, account: dict) -> list[dict]:
             match_reasons.append(f"连阴={consecutive_bears}")
     
     if matched and match_reasons:
-        signals.append({
+        signal = {
             "strategy_id": strategy_id,
             "symbol": symbol,
             "timeframe": tf_name,
@@ -187,7 +187,35 @@ def scan_strategy(mt5, symbol: str, config: dict, account: dict) -> list[dict]:
             "utc_hour": current_utc_hour,
             "match_reasons": "; ".join(match_reasons),
             "detected_at_utc": datetime.utcnow().isoformat(),
-        })
+        }
+        
+        # ── DXY 过滤 ──
+        dxy_filter = cond.get("dxy_filter")
+        if dxy_filter and dxy_data is not None:
+            dxy_recent = dxy_data[-6:]  # 最近6根DXY K线看趋势
+            if dxy_filter == "down":
+                # DXY 下跌：最后一根 close < 倒数第2根 close
+                dxy_down = dxy_recent[-1]["close"] < dxy_recent[-2]["close"]
+                signal["dxy_check"] = {
+                    "required": dxy_filter,
+                    "passed": dxy_down,
+                    "current": dxy_recent[-1]["close"],
+                    "prev": dxy_recent[-2]["close"],
+                    "change_pct": round((dxy_recent[-1]["close"] - dxy_recent[-2]["close"]) / dxy_recent[-2]["close"] * 100, 3)
+                }
+                signal["match_reasons"] += f"; DXY{'↓' if dxy_down else '↑'}"
+            elif dxy_filter == "up":
+                dxy_up = dxy_recent[-1]["close"] > dxy_recent[-2]["close"]
+                signal["dxy_check"] = {
+                    "required": dxy_filter,
+                    "passed": dxy_up,
+                    "current": dxy_recent[-1]["close"],
+                    "prev": dxy_recent[-2]["close"],
+                    "change_pct": round((dxy_recent[-1]["close"] - dxy_recent[-2]["close"]) / dxy_recent[-2]["close"] * 100, 3)
+                }
+                signal["match_reasons"] += f"; DXY{'↑' if dxy_up else '↓'}"
+        
+        signals.append(signal)
     
     return signals
 
@@ -209,6 +237,15 @@ def main():
         return
     
     try:
+        # ── 获取 DXY 数据（用于过滤） ──
+        dxy_bars = None
+        try:
+            dxy_raw = mt5.copy_rates_from_pos("DXY", mt5.TIMEFRAME_H1, 0, 20)
+            if dxy_raw is not None and len(dxy_raw) >= 6:
+                dxy_bars = [{"time": b.time, "open": b.open, "high": b.high, "low": b.low, "close": b.close} for b in dxy_raw]
+        except:
+            pass  # DXY 不可用时，不带过滤运行
+        
         # 品种列表（去重）
         symbols_set = set()
         for s in all_signals:
@@ -224,7 +261,7 @@ def main():
             for sym in strategy.get("symbols", []):
                 sym_mt5 = f"{sym}m"
                 try:
-                    sigs = scan_strategy(mt5, sym_mt5, strategy, account)
+                    sigs = scan_strategy(mt5, sym_mt5, strategy, account, dxy_bars)
                     detected.extend(sigs)
                 except Exception as e:
                     pass  # silently skip symbol errors
