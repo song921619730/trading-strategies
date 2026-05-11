@@ -1,0 +1,40 @@
+{
+  "timestamp": "2026-05-11T16:58:54.894026",
+  "account": {
+    "balance": 2000.0,
+    "equity": 2000.0
+  },
+  "magic": 234010,
+  "signals": [],
+  "total_signals": 0,
+  "risk_config": {
+    "max_position_per_group": 1,
+    "max_total_positions": 4,
+    "risk_per_trade_pct": 0.02,
+    "max_portfolio_risk_pct": 0.08,
+    "pos_validation": {
+      "symposium_groups": {
+        "precious_metals": [
+          "XAUUSD",
+          "XAGUSD"
+        ],
+        "us_indices": [
+          "US30",
+          "US500",
+          "USTEC"
+        ],
+        "major_fx": [
+          "EURUSD",
+          "GBPUSD",
+          "USDJPY",
+          "AUDUSD",
+          "USDCHF"
+        ],
+        "oils": [
+          "USOIL",
+          "UKOIL"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,192 @@
+{
+  "description": "Futures Intraday Algo — 策略配置参数",
+  "discovered_at": "2026-05-12",
+  "source": "research/kanban/futures-intraday (Round 1-32)",
+  "status": "converged",
+
+  "signals": [
+    {
+      "id": "tier1_eur_us_h1_oversold",
+      "group": "us_session_reversal",
+      "symbols": ["EURUSD"],
+      "timeframe": "H1",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "us",
+        "rsi14_max": 40,
+        "atr_min_pct": 0.0025
+      },
+      "best_hold": 10,
+      "min_signals_for_entry": 1,
+      "win_rate": 67.4,
+      "signal_count": 193,
+      "priority": 1
+    },
+    {
+      "id": "tier1_xau_m30_oversold",
+      "group": "us_session_reversal",
+      "symbols": ["XAUUSD"],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "us",
+        "rsi14_max": 40,
+        "atr_min_pct": 0.0035
+      },
+      "best_hold": 5,
+      "min_signals_for_entry": 1,
+      "win_rate": 65.8,
+      "signal_count": 664,
+      "priority": 2
+    },
+    {
+      "id": "tier1_jp225_m30_oversold",
+      "group": "us_session_reversal",
+      "symbols": ["JP225"],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "us",
+        "rsi14_max": 40,
+        "atr_min_pct": 0.0025
+      },
+      "best_hold": 5,
+      "min_signals_for_entry": 1,
+      "win_rate": 63.8,
+      "signal_count": 583,
+      "priority": 3
+    },
+    {
+      "id": "tier1_xau_h1_us_oversold",
+      "group": "us_session_reversal",
+      "symbols": ["XAUUSD"],
+      "timeframe": "H1",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "us",
+        "rsi14_max": 40,
+        "atr_min_pct": 0.0025
+      },
+      "best_hold": 7,
+      "min_signals_for_entry": 1,
+      "win_rate": 62.5,
+      "signal_count": 1530,
+      "priority": 4
+    },
+    {
+      "id": "tier1_us30_h1_oversold",
+      "group": "us_session_reversal",
+      "symbols": ["US30"],
+      "timeframe": "H1",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "us",
+        "rsi14_max": 40,
+        "atr_min_pct": 0.0025
+      },
+      "best_hold": 7,
+      "min_signals_for_entry": 1,
+      "win_rate": 61.1,
+      "signal_count": 517,
+      "priority": 5
+    },
+    {
+      "id": "tier2_eur_m30_relaxed",
+      "group": "us_session_reversal",
+      "symbols": ["EURUSD"],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "us",
+        "rsi14_max": 50,
+        "atr_min_pct": 0.0020
+      },
+      "best_hold": 20,
+      "min_signals_for_entry": 1,
+      "win_rate": 59.3,
+      "signal_count": 329,
+      "priority": 6
+    },
+    {
+      "id": "tier2_aud_h1_oversold",
+      "group": "us_session_reversal",
+      "symbols": ["AUDUSD"],
+      "timeframe": "H1",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "us",
+        "rsi14_max": 40,
+        "atr_min_pct": 0.0025
+      },
+      "best_hold": 10,
+      "min_signals_for_entry": 1,
+      "win_rate": 60.6,
+      "signal_count": 94,
+      "priority": 7
+    },
+    {
+      "id": "tier2_hk50_m30_oversold",
+      "group": "us_session_reversal",
+      "symbols": ["HK50"],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "us",
+        "rsi14_max": 40,
+        "atr_min_pct": 0.0025
+      },
+      "best_hold": 5,
+      "min_signals_for_entry": 1,
+      "win_rate": 60.5,
+      "signal_count": 223,
+      "priority": 8
+    },
+    {
+      "id": "tier3_us500_3consecutive",
+      "group": "consecutive_bear_reversal",
+      "symbols": ["US500"],
+      "timeframe": "H1",
+      "direction": "long",
+      "entry_conditions": {
+        "consecutive_bear": 3
+      },
+      "best_hold": 8,
+      "min_signals_for_entry": 1,
+      "win_rate": 55.7,
+      "signal_count": 3025,
+      "priority": 9
+    },
+    {
+      "id": "tier3_usdjpy_3consecutive",
+      "group": "consecutive_bear_reversal",
+      "symbols": ["USDJPY"],
+      "timeframe": "H1",
+      "direction": "long",
+      "entry_conditions": {
+        "consecutive_bear": 3
+      },
+      "best_hold": 3,
+      "min_signals_for_entry": 1,
+      "win_rate": 55.3,
+      "signal_count": 3405,
+      "priority": 10
+    }
+  ],
+
+  "risk": {
+    "max_position_per_group": 1,
+    "max_total_positions": 4,
+    "risk_per_trade_pct": 0.02,
+    "max_portfolio_risk_pct": 0.08,
+    "pos_validation": {
+      "symposium_groups": {
+        "precious_metals": ["XAUUSD", "XAGUSD"],
+        "us_indices": ["US30", "US500", "USTEC"],
+        "major_fx": ["EURUSD", "GBPUSD", "USDJPY", "AUDUSD", "USDCHF"],
+        "oils": ["USOIL", "UKOIL"]
+      }
+    }
+  },
+
+  "magic_number": 234010
+}
