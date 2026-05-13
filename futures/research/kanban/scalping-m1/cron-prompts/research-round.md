@@ -66,8 +66,9 @@ for sym, sym_res in results.items():
 ```
 
 ### Step 4: 解读
-- **win_rate > 55%** + **n >= 50** → promising
-- **win_rate > 60%** + **n >= 100** → strong，加入 best_findings
+- **WR > 68% 且 n ≥ 60** → 直接达标 auto_inject 门槛，加入 best_findings
+- **WR > 60% 且 n ≥ 50** → promising，继续优化或调整参数
+- **WR > 50% 且 n ≥ 30** → 有潜力，加入下一轮假设队列精化
 - **n < 30** → inconclusive
 - **注意：M1/M5 的 avg_return 天然比 H1 小**，0.01%~0.05% 也算正期望
 
@@ -83,6 +84,25 @@ for sym, sym_res in results.items():
 
 ### Step 7: 写报告
 写入 `reports/round_{当前轮次:03d}.md`
+
+### Step 8: 自动注入（自动执行）
+将新发现的强信号注入到交易系统：
+```bash
+cd /mnt/f/AIcoding_space/Hermes/strategies/futures/research/kanban/scalping-m1/scripts
+python3 auto_inject_scalping.py
+```
+- 只注入 WR>68% 且 n≥60 的信号
+- 已有策略不重复注入（`_injected_sources` 去重）
+- 注入到 `scalping/config/scalping_strategies.json`（不干扰 H1 策略）
+- 自动计算 SL=ATR×2.5, TP=ATR×3.75
+
+## 注入门槛（与 auto_inject_scalping.py 一致）
+| 条件 | 门槛 |
+|:----|:----:|
+| 最低胜率 WR | > 68% |
+| 最低样本量 n | ≥ 60 |
+| 最低平均收益 avg_return_pct | ≥ 0.01% |
+| Sharpe | 仅参考，非硬性门槛 |
 
 ## 研究方向重点
 

@@ -273,6 +273,31 @@ def run_once() -> dict:
     all_signals = cfg.get("signals", [])
     risk_cfg = cfg.get("risk", {})
 
+    # ── 001: 检查新研究发现并自动注入 ──
+    # 三层兜底：研究cron→小时cron→autopilot自检
+    try:
+        import subprocess
+        import sys as _sys
+        auto_inject_script = os.path.join(
+            os.path.dirname(BASE), "..", "..", "research", "kanban",
+            "scalping-m1", "scripts", "auto_inject_scalping.py"
+        )
+        if os.path.exists(auto_inject_script):
+            windows_py = "/mnt/c/Users/gj/AppData/Local/Programs/Python/Python312/python.exe"
+            if os.path.exists(windows_py):
+                result = subprocess.run(
+                    [windows_py, auto_inject_script],
+                    capture_output=True, text=True, timeout=30
+                )
+                if result.returncode == 0 and "✅ 已注入" in result.stdout:
+                    log_msg(f"🔄 Auto-inject: {result.stdout.split(chr(10))[-2].strip()}", "INFO")
+                    # 重载配置
+                    cfg = load_config()
+                    all_signals = cfg.get("signals", [])
+                    risk_cfg = cfg.get("risk", {})
+    except Exception as e:
+        log_msg(f"Auto-inject check failed: {e}", "WARN")
+
     # 1. 连接 MT5
     mt5, account = connect_mt5()
     if mt5 is None:
