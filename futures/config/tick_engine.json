@@ -1,13 +1,14 @@
 {
-  "_comment": "统一 Tick Engine 配置",
+  "_comment": "统一 Tick Engine 配置 v2 — 加 M30 + DXY",
   "symbols": [
     "XAUUSD","XAGUSD","USTEC","US30","US500",
     "JP225","HK50","USOIL","UKOIL",
-    "EURUSD","GBPUSD","USDJPY","AUDUSD","USDCHF"
+    "EURUSD","GBPUSD","USDJPY","AUDUSD","USDCHF",
+    "DXY"
   ],
-  "timeframes": ["M1","M5","H1"],
-  "loop_interval_sec": 1.5,
+  "timeframes": ["M1","M5","M15","M30","H1"],
+  "loop_interval_sec": 1.0,
   "shared_dir": "F:/AIcoding_space/Hermes/strategies/futures/data/tick",
-  "indicator_bars": 50,
+  "indicator_bars": 100,
   "heartbeat_max_age_sec": 10
 }
