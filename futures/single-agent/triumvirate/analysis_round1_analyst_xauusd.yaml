@@ -1,0 +1,21 @@
+analysis:
+  symbol: XAUUSD
+  direction: BUY
+  structural_score: 6
+  entry_zone: "4700-4715"
+  stop_loss: 4660
+  take_profit: 4775
+  reward_risk: "1:1.6"
+  reasoning:
+    - "D1 first leg: 4500→4773 (+273pts, May4→May12). Correction: 4773→4638 (-135pts, 49.7% retracement — within healthy 30-50% range)"
+    - "H1 correction from 4773→4638 completed with long lower wick (May12 23:00 candle L:4638 C:4666), indicating rejection of lower levels"
+    - "H1 recovery from 4638 shows textbook impulse structure: slow accumulation (00:00-01:00), explosive mark-up (02:00-03:00, +36pts in 2 candles), consolidation above 4710-4715 (04:00-07:00), then continuation to new high 4727 (08:00)"
+    - "Consolidation zone at 4710-4715 (tested 4 times across 04:00-07:00 candles) provides a defined support base for pullback entry"
+    - "D1/H1 direction aligned (both bullish) — D1 uptrend from 4500 intact, H1 rallying from 4638 correction low"
+    - "Major structural resistance at 4770-4773 (D1 high) is ~45pts above current price (>2 ATR), providing sufficient runway for the trade"
+  risk_flags:
+    - "Minor H1 resistance at 4727 (current candle high) is being tested — second leg not fully confirmed until clean break above 4727"
+    - "On pure H1 basis, the 4773→4638 correction exceeded 100% retracement of the prior H1 impulse — the H1 wave structure is deeper than ideal"
+    - "Entry near 4700-4715 means immediate H1 resistance at 4727 is ~12-27pts away (<1.5 ATR) — tight proximity to near-term selling pressure"
+    - "Second leg is still early-stage (only ~9 hours old) — limited track record for continuation confidence"
+  verdict: PASS

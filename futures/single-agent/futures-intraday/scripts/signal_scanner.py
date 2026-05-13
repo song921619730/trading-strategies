@@ -14,6 +14,7 @@ import json
 import os
 import sys
 import math
+import numpy as np
 from datetime import datetime, timezone, timedelta
 
 # ─── 路径 ───
@@ -44,8 +45,14 @@ def connect_mt5():
 # ─── 技术指标 ───
 SESSION_MAP = {
     "asia":  (0, 8),    # 00:00-08:00 UTC
-    "london":(8, 16),   # 08:00-16:00 UTC
-    "us":    (13, 22),  # 13:00-22:00 UTC
+    "europe":(8, 13),   # 08:00-13:00 UTC（纯欧盘，美盘开盘前）
+    "us":    (13, 22),  # 13:00-22:00 UTC（美盘+欧盘重叠期归美盘）
+}
+
+# 兼容旧名 "london" 和 "europe"
+SESSION_ALIAS = {
+    "london": "europe",
+    "europe": "europe",
 }
 
 def get_session(utc_hour: int) -> str:
@@ -110,19 +117,19 @@ def scan_strategy(mt5, symbol: str, config: dict, account: dict, dxy_data: list 
     # 获取数据（需要 extra bars 用于指标计算）
     needed = 40 if "consecutive_bear" in cond else 30
     bars = mt5.copy_rates_from_pos(symbol, mt5_tf, 0, needed)
-    if bars is None or len(bars) < needed:
+    if bars is None or len(bars) < 20:
         return signals
     
-    # 转换
+    # 转换（numpy void → dict，兼容新旧 MT5 API）
     bars_list = []
     for b in bars:
         bars_list.append({
-            "time": b.time,
-            "open": b.open,
-            "high": b.high,
-            "low": b.low,
-            "close": b.close,
-            "volume": b.tick_volume,
+            "time": b["time"] if isinstance(b, (dict, np.void)) else b.time,
+            "open": b["open"] if isinstance(b, (dict, np.void)) else b.open,
+            "high": b["high"] if isinstance(b, (dict, np.void)) else b.high,
+            "low": b["low"] if isinstance(b, (dict, np.void)) else b.low,
+            "close": b["close"] if isinstance(b, (dict, np.void)) else b.close,
+            "volume": b["tick_volume"] if isinstance(b, (dict, np.void)) else b.tick_volume,
         })
     
     # 取最新 K 线
@@ -142,7 +149,9 @@ def scan_strategy(mt5, symbol: str, config: dict, account: dict, dxy_data: list 
     match_reasons = []
     
     if "session" in cond and cond["session"]:
-        if session != cond["session"]:
+        # 统一 session 名称：兼容 "europe"/"london"
+        required_session = SESSION_ALIAS.get(cond["session"], cond["session"])
+        if required_session != session:
             matched = False
         else:
             match_reasons.append(f"session={session}")
@@ -179,12 +188,12 @@ def scan_strategy(mt5, symbol: str, config: dict, account: dict, dxy_data: list 
             "timeframe": tf_name,
             "direction": direction,
             "current_price": current_close,
-            "rsi": round(rsi, 2) if rsi else None,
-            "atr": round(atr, 5) if atr else None,
-            "atr_pct": round(atr / current_close * 100, 3) if atr and current_close > 0 else None,
+            "rsi": float(round(rsi, 2)) if rsi else None,
+            "atr": float(round(atr, 5)) if atr else None,
+            "atr_pct": float(round(atr / current_close * 100, 3)) if atr and current_close > 0 else None,
             "session": session,
-            "consecutive_bears": consecutive_bears,
-            "utc_hour": current_utc_hour,
+            "consecutive_bears": int(consecutive_bears),
+            "utc_hour": int(current_utc_hour),
             "match_reasons": "; ".join(match_reasons),
             "detected_at_utc": datetime.utcnow().isoformat(),
         }
@@ -198,9 +207,9 @@ def scan_strategy(mt5, symbol: str, config: dict, account: dict, dxy_data: list 
                 dxy_down = dxy_recent[-1]["close"] < dxy_recent[-2]["close"]
                 signal["dxy_check"] = {
                     "required": dxy_filter,
-                    "passed": dxy_down,
-                    "current": dxy_recent[-1]["close"],
-                    "prev": dxy_recent[-2]["close"],
+                    "passed": bool(dxy_down),
+                    "current": float(dxy_recent[-1]["close"]),
+                    "prev": float(dxy_recent[-2]["close"]),
                     "change_pct": round((dxy_recent[-1]["close"] - dxy_recent[-2]["close"]) / dxy_recent[-2]["close"] * 100, 3)
                 }
                 signal["match_reasons"] += f"; DXY{'↓' if dxy_down else '↑'}"
@@ -208,9 +217,9 @@ def scan_strategy(mt5, symbol: str, config: dict, account: dict, dxy_data: list 
                 dxy_up = dxy_recent[-1]["close"] > dxy_recent[-2]["close"]
                 signal["dxy_check"] = {
                     "required": dxy_filter,
-                    "passed": dxy_up,
-                    "current": dxy_recent[-1]["close"],
-                    "prev": dxy_recent[-2]["close"],
+                    "passed": bool(dxy_up),
+                    "current": float(dxy_recent[-1]["close"]),
+                    "prev": float(dxy_recent[-2]["close"]),
                     "change_pct": round((dxy_recent[-1]["close"] - dxy_recent[-2]["close"]) / dxy_recent[-2]["close"] * 100, 3)
                 }
                 signal["match_reasons"] += f"; DXY{'↑' if dxy_up else '↓'}"
@@ -242,9 +251,18 @@ def main():
         try:
             dxy_raw = mt5.copy_rates_from_pos("DXY", mt5.TIMEFRAME_H1, 0, 20)
             if dxy_raw is not None and len(dxy_raw) >= 6:
-                dxy_bars = [{"time": b.time, "open": b.open, "high": b.high, "low": b.low, "close": b.close} for b in dxy_raw]
+                dxy_bars = []
+                for b in dxy_raw:
+                    if isinstance(b, (dict, np.void)):
+                        dxy_bars.append({"time": b["time"], "open": b["open"],
+                                         "high": b["high"], "low": b["low"],
+                                         "close": b["close"]})
+                    else:
+                        dxy_bars.append({"time": b.time, "open": b.open,
+                                         "high": b.high, "low": b.low,
+                                         "close": b.close})
         except:
-            pass  # DXY 不可用时，不带过滤运行
+            pass
         
         # 品种列表（去重）
         symbols_set = set()
@@ -259,9 +277,8 @@ def main():
         detected = []
         for strategy in all_signals:
             for sym in strategy.get("symbols", []):
-                sym_mt5 = f"{sym}m"
                 try:
-                    sigs = scan_strategy(mt5, sym_mt5, strategy, account, dxy_bars)
+                    sigs = scan_strategy(mt5, sym, strategy, account, dxy_bars)
                     detected.extend(sigs)
                 except Exception as e:
                     pass  # silently skip symbol errors

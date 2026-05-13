@@ -13,7 +13,7 @@ export MT5_SERVER=""
 # Remove previous minute's trigger to prevent double-read
 rm -f /mnt/f/AIcoding_space/Hermes/strategies/futures/single-agent/futures-intraday/logs/triggers/.latest
 
-"$WINDOWS_PYTHON" "$SCRIPT" >> /dev/null 2>&1
+"$WINDOWS_PYTHON" "$SCRIPT" >> /mnt/f/AIcoding_space/Hermes/strategies/futures/single-agent/futures-intraday/logs/scanner_debug.log 2>&1
 
 # Copy latest trigger (if any) for Hermes cron to pick up
 LATEST=$(ls -t /mnt/f/AIcoding_space/Hermes/strategies/futures/single-agent/futures-intraday/logs/triggers/ 2>/dev/null | head -1)

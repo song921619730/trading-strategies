@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Data
+data/pre_analyze_latest.json
+
+# Logs (keep directory structure)
+logs/trades/*
+logs/scans/*
+logs/consensus/*
+logs/news/*
+!logs/trades/.gitkeep
+!logs/scans/.gitkeep
+!logs/consensus/.gitkeep
+!logs/news/.gitkeep

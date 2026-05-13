@@ -5,3 +5,13 @@
 *.csv
 __pycache__/
 *.pyc
+
+# Runtime logs & scans (每分钟都产生，不入库)
+**/logs/
+**/triggers/
+
+# Generated reports (可随时重新生成)
+**/reports/
+
+# Runtime state cache (state 目录下的运行时数据)
+**/state/

@@ -156,6 +156,7 @@ def build_entry_sql(config: dict) -> str:
     """
     根据 config 组装 Entry SQL。
     自动添加排除逻辑（ST、新股、停牌）。
+    ClickHouse 在 3+ 表 JOIN 时会保留列名前缀，所以必须用 AS 别名。
     """
     entry_cond = config["entry_sql"]
     tables = config["tables"]  # {alias: table_name, ...}
@@ -187,8 +188,8 @@ def build_entry_sql(config: dict) -> str:
 
     sql = f"""
     SELECT DISTINCT
-        {main_alias}.ts_code,
-        {main_alias}.trade_date,
+        {main_alias}.ts_code AS ts_code,
+        {main_alias}.trade_date AS trade_date,
         {main_alias}.close AS entry_price,
         {main_alias}.pct_chg AS entry_pct
     FROM (SELECT * FROM tushare.{main_table} FINAL) AS {main_alias}

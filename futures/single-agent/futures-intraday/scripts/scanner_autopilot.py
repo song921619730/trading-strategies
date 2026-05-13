@@ -16,6 +16,7 @@ import json
 import os
 import sys
 from datetime import datetime, timezone
+import numpy as np
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(BASE, "scripts"))
@@ -65,7 +66,16 @@ def main():
         try:
             dxy_raw = mt5.copy_rates_from_pos("DXY", mt5.TIMEFRAME_H1, 0, 20)
             if dxy_raw is not None and len(dxy_raw) >= 6:
-                dxy_bars = [{"time": b.time, "open": b.open, "high": b.high, "low": b.low, "close": b.close} for b in dxy_raw]
+                dxy_bars = []
+                for b in dxy_raw:
+                    if isinstance(b, (dict, np.void)):
+                        dxy_bars.append({"time": b["time"], "open": b["open"],
+                                         "high": b["high"], "low": b["low"],
+                                         "close": b["close"]})
+                    else:
+                        dxy_bars.append({"time": b.time, "open": b.open,
+                                         "high": b.high, "low": b.low,
+                                         "close": b.close})
         except:
             pass
 
@@ -73,9 +83,8 @@ def main():
         detected = []
         for strategy in all_signals:
             for sym in strategy.get("symbols", []):
-                sym_mt5 = f"{sym}m"
                 try:
-                    sigs = scan_strategy(mt5, sym_mt5, strategy, account, dxy_bars)
+                    sigs = scan_strategy(mt5, sym, strategy, account, dxy_bars)
                     detected.extend(sigs)
                 except:
                     pass

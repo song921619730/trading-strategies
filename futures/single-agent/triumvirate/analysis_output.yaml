@@ -1,0 +1,21 @@
+analysis:
+  symbol: XAUUSD
+  direction: SELL
+  structural_score: 7
+  entry_zone: "4714-4720"
+  stop_loss: 4744.07
+  take_profit: 4656.19
+  reward_risk: "1:2.0"
+  reasoning:
+    - "D1 bearish engulfing May12 (-53pts) from 4773→4638 after May11 bullish climax, establishing bearish context"
+    - "H1 first impulsive down leg: 4773→4638 (135pts) across May12 19:00-23:00, clean directional sell-off"
+    - "Clean 60% Fibonacci retracement: 4638→4719 (81pts), within healthy 30-65% range — not too shallow, not too deep"
+    - "Doji at D1 resistance 4719 (04:00 candle) confirms momentum exhaustion of the bounce"
+    - "Macro alignment: Hot US CPI 3.8% → DXY rally toward 98.30 → sustained dollar strength pressures gold"
+    - "Low-liquidity Sydney/Tokyo session amplifies technical significance of the resistance rejection"
+  risk_flags:
+    - "Retracement bounce was unusually strong (+81pts in 3 hours with accelerating momentum), suggests aggressive dip-buying interest beneath market"
+    - "D1 long lower wick (4638→4714 close) shows substantial support at 4638, may limit downside reach"
+    - "Low liquidity session increases risk of false breakouts or stop-hunts near resistance"
+    - "60% retracement is on the deeper end of healthy range, carries tail-risk of trend reversal"
+  verdict: "PASS"

@@ -3,12 +3,13 @@
   "discovered_at": "2026-05-12",
   "source": "research/kanban/futures-intraday (Round 1-32) + DXY组合研究",
   "dxy_use": "对于外汇/贵金属做多信号，要求前一小时DXY价格下跌(DXY↓)作为强化过滤",
-
   "signals": [
     {
       "id": "tier1_eur_us_h1_oversold",
       "group": "fx_dxy_filtered",
-      "symbols": ["EURUSD"],
+      "symbols": [
+        "EURUSD"
+      ],
       "timeframe": "H1",
       "direction": "long",
       "entry_conditions": {
@@ -24,26 +25,11 @@
       "priority": 1
     },
     {
-      "id": "tier1_eur_us_h1_oversold_raw",
-      "group": "fx_any",
-      "symbols": ["EURUSD"],
-      "timeframe": "H1",
-      "direction": "long",
-      "entry_conditions": {
-        "session": "us",
-        "rsi14_max": 40,
-        "atr_min_pct": 0.0025
-      },
-      "best_hold": 3,
-      "min_signals_for_entry": 1,
-      "win_rate": 73.2,
-      "signal_count": 41,
-      "priority": 2
-    },
-    {
       "id": "tier1_gbp_us_h1_oversold_dxy",
       "group": "fx_dxy_filtered",
-      "symbols": ["GBPUSD"],
+      "symbols": [
+        "GBPUSD"
+      ],
       "timeframe": "H1",
       "direction": "long",
       "entry_conditions": {
@@ -61,7 +47,9 @@
     {
       "id": "tier1_aud_us_h1_oversold_dxy",
       "group": "fx_dxy_filtered",
-      "symbols": ["AUDUSD"],
+      "symbols": [
+        "AUDUSD"
+      ],
       "timeframe": "H1",
       "direction": "long",
       "entry_conditions": {
@@ -79,7 +67,9 @@
     {
       "id": "tier1_xau_m30_oversold",
       "group": "metals_dxy_filtered",
-      "symbols": ["XAUUSD"],
+      "symbols": [
+        "XAUUSD"
+      ],
       "timeframe": "M30",
       "direction": "long",
       "entry_conditions": {
@@ -95,26 +85,11 @@
       "priority": 4
     },
     {
-      "id": "tier1_xau_m30_oversold_raw",
-      "group": "metals_any",
-      "symbols": ["XAUUSD"],
-      "timeframe": "M30",
-      "direction": "long",
-      "entry_conditions": {
-        "session": "us",
-        "rsi14_max": 40,
-        "atr_min_pct": 0.0035
-      },
-      "best_hold": 5,
-      "min_signals_for_entry": 1,
-      "win_rate": 62.0,
-      "signal_count": 1200,
-      "priority": 5
-    },
-    {
       "id": "tier1_jp225_m30_oversold",
       "group": "indices_no_dxy",
-      "symbols": ["JP225"],
+      "symbols": [
+        "JP225"
+      ],
       "timeframe": "M30",
       "direction": "long",
       "entry_conditions": {
@@ -131,7 +106,9 @@
     {
       "id": "tier1_xau_h1_us_oversold",
       "group": "metals_dxy_filtered",
-      "symbols": ["XAUUSD"],
+      "symbols": [
+        "XAUUSD"
+      ],
       "timeframe": "H1",
       "direction": "long",
       "entry_conditions": {
@@ -147,26 +124,11 @@
       "priority": 6
     },
     {
-      "id": "tier1_xau_h1_us_oversold_raw",
-      "group": "metals_any",
-      "symbols": ["XAUUSD"],
-      "timeframe": "H1",
-      "direction": "long",
-      "entry_conditions": {
-        "session": "us",
-        "rsi14_max": 40,
-        "atr_min_pct": 0.0025
-      },
-      "best_hold": 7,
-      "min_signals_for_entry": 1,
-      "win_rate": 60.5,
-      "signal_count": 1700,
-      "priority": 7
-    },
-    {
       "id": "tier1_us30_h1_oversold",
       "group": "indices_no_dxy",
-      "symbols": ["US30"],
+      "symbols": [
+        "US30"
+      ],
       "timeframe": "H1",
       "direction": "long",
       "entry_conditions": {
@@ -183,13 +145,15 @@
     {
       "id": "tier2_eur_m30_relaxed",
       "group": "fx_dxy_filtered",
-      "symbols": ["EURUSD"],
+      "symbols": [
+        "EURUSD"
+      ],
       "timeframe": "M30",
       "direction": "long",
       "entry_conditions": {
         "session": "us",
         "rsi14_max": 50,
-        "atr_min_pct": 0.0020,
+        "atr_min_pct": 0.002,
         "dxy_filter": "down"
       },
       "best_hold": 20,
@@ -199,27 +163,11 @@
       "priority": 8
     },
     {
-      "id": "tier2_aud_h1_oversold",
-      "group": "fx_dxy_filtered",
-      "symbols": ["AUDUSD"],
-      "timeframe": "H1",
-      "direction": "long",
-      "entry_conditions": {
-        "session": "us",
-        "rsi14_max": 40,
-        "atr_min_pct": 0.0025,
-        "dxy_filter": "down"
-      },
-      "best_hold": 10,
-      "min_signals_for_entry": 1,
-      "win_rate": 60.6,
-      "signal_count": 94,
-      "priority": 9
-    },
-    {
       "id": "tier2_hk50_m30_oversold",
       "group": "indices_no_dxy",
-      "symbols": ["HK50"],
+      "symbols": [
+        "HK50"
+      ],
       "timeframe": "M30",
       "direction": "long",
       "entry_conditions": {
@@ -236,13 +184,15 @@
     {
       "id": "tier2_xau_m30_relaxed",
       "group": "metals_dxy_filtered",
-      "symbols": ["XAUUSD"],
+      "symbols": [
+        "XAUUSD"
+      ],
       "timeframe": "M30",
       "direction": "long",
       "entry_conditions": {
         "session": "us",
         "rsi14_max": 50,
-        "atr_min_pct": 0.0020,
+        "atr_min_pct": 0.002,
         "dxy_filter": "down"
       },
       "best_hold": 15,
@@ -254,7 +204,9 @@
     {
       "id": "tier3_us500_3consecutive",
       "group": "indices_no_dxy",
-      "symbols": ["US500"],
+      "symbols": [
+        "US500"
+      ],
       "timeframe": "H1",
       "direction": "long",
       "entry_conditions": {
@@ -269,7 +221,9 @@
     {
       "id": "tier3_usdjpy_3consecutive",
       "group": "fx_dxy_filtered",
-      "symbols": ["USDJPY"],
+      "symbols": [
+        "USDJPY"
+      ],
       "timeframe": "H1",
       "direction": "long",
       "entry_conditions": {
@@ -281,29 +235,899 @@
       "win_rate": 55.3,
       "signal_count": 3405,
       "priority": 13
+    },
+    {
+      "id": "auto_asia_jp225_m30_l",
+      "group": "indices_asia",
+      "symbols": [
+        "JP225"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "asia",
+        "rsi14_max": 25,
+        "atr_min_pct": 0.0035
+      },
+      "best_hold": 30,
+      "min_signals_for_entry": 1,
+      "win_rate": 74.3,
+      "signal_count": 187,
+      "avg_return": 0.7556,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T11:57:12.853200",
+      "_source": "round40_best_001"
+    },
+    {
+      "id": "auto_asia_jp225_m30_l_1",
+      "group": "indices_asia",
+      "symbols": [
+        "JP225"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "asia",
+        "rsi14_max": 30,
+        "atr_min_pct": 0.0035
+      },
+      "best_hold": 40,
+      "min_signals_for_entry": 1,
+      "win_rate": 66.3,
+      "signal_count": 377,
+      "avg_return": 0.4527,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T11:57:12.853218",
+      "_source": "round40_best_002"
+    },
+    {
+      "id": "auto_any_eurusd_h1_s",
+      "group": "fx_any",
+      "symbols": [
+        "EURUSD"
+      ],
+      "timeframe": "H1",
+      "direction": "short",
+      "entry_conditions": {
+        "rsi14_min": 60,
+        "atr_min_pct": 0.0012
+      },
+      "best_hold": 3,
+      "min_signals_for_entry": 1,
+      "win_rate": 60.9,
+      "signal_count": 225,
+      "avg_return": 0.05,
+      "priority": 15,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T11:57:12.853224",
+      "_source": "round41_best_002"
+    },
+    {
+      "id": "auto_any_eurusd_h1_s_1",
+      "group": "fx_any",
+      "symbols": [
+        "EURUSD"
+      ],
+      "timeframe": "H1",
+      "direction": "short",
+      "entry_conditions": {
+        "rsi14_min": 55,
+        "atr_min_pct": 0.0015
+      },
+      "best_hold": 3,
+      "min_signals_for_entry": 1,
+      "win_rate": 60.6,
+      "signal_count": 170,
+      "avg_return": 0.0528,
+      "priority": 15,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T11:57:12.853230",
+      "_source": "round40_best_004"
+    },
+    {
+      "id": "auto_asia_gbpusd_h1_l",
+      "group": "fx_asia",
+      "symbols": [
+        "GBPUSD"
+      ],
+      "timeframe": "H1",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "asia",
+        "rsi14_max": 40,
+        "atr_min_pct": 0.002
+      },
+      "best_hold": 10,
+      "min_signals_for_entry": 1,
+      "win_rate": 63.6,
+      "signal_count": 162,
+      "avg_return": 0.17,
+      "priority": 15,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T11:57:12.853243",
+      "_source": "round36_002"
+    },
+    {
+      "id": "auto_asia_jp225_m30_l_2",
+      "group": "indices_asia",
+      "symbols": [
+        "JP225"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "asia",
+        "rsi14_max": 30,
+        "atr_min_pct": 0.0025
+      },
+      "best_hold": 30,
+      "min_signals_for_entry": 1,
+      "win_rate": 62.2,
+      "signal_count": 856,
+      "avg_return": 0.15,
+      "priority": 15,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T11:57:12.853250",
+      "_source": "round36_003"
+    },
+    {
+      "id": "auto_asia_jp225_h1_l",
+      "group": "indices_asia",
+      "symbols": [
+        "JP225"
+      ],
+      "timeframe": "H1",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "asia",
+        "rsi14_max": 30,
+        "atr_min_pct": 0.002
+      },
+      "best_hold": 15,
+      "min_signals_for_entry": 1,
+      "win_rate": 61.3,
+      "signal_count": 622,
+      "avg_return": 0.158,
+      "priority": 15,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T11:57:12.853255",
+      "_source": "round34_best"
+    },
+    {
+      "id": "auto_europe_usdjpy_h1_l",
+      "group": "fx_europe",
+      "symbols": [
+        "USDJPY"
+      ],
+      "timeframe": "H1",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "europe",
+        "rsi14_max": 30,
+        "atr_min_pct": 0.002
+      },
+      "best_hold": 15,
+      "min_signals_for_entry": 1,
+      "win_rate": 58.9,
+      "signal_count": 642,
+      "avg_return": 0.0402,
+      "priority": 20,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T11:57:12.853263",
+      "_source": "round39_best_002"
+    },
+    {
+      "id": "auto_any_us500_h1_l",
+      "group": "indices_any",
+      "symbols": [
+        "US500"
+      ],
+      "timeframe": "H1",
+      "direction": "long",
+      "entry_conditions": {
+        "rsi14_max": 40,
+        "atr_min_pct": 0.003
+      },
+      "best_hold": 20,
+      "min_signals_for_entry": 1,
+      "win_rate": 61.7,
+      "signal_count": 298,
+      "avg_return": 0.085,
+      "priority": 15,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T11:57:12.853268",
+      "_source": "round38_best_001"
+    },
+    {
+      "id": "auto_asia_jp225_m30_l_3",
+      "group": "indices_asia",
+      "symbols": [
+        "JP225"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "asia",
+        "rsi14_max": 30,
+        "atr_min_pct": 0.003
+      },
+      "best_hold": 30,
+      "min_signals_for_entry": 1,
+      "win_rate": 63.6,
+      "signal_count": 563,
+      "avg_return": 0.26,
+      "priority": 15,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T11:57:12.853273",
+      "_source": "round38_best_003"
+    },
+    {
+      "id": "auto_asia_us500_m30_l",
+      "group": "indices_asia",
+      "symbols": [
+        "US500"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "asia",
+        "rsi14_max": 25,
+        "atr_min_pct": 0.002
+      },
+      "best_hold": 10,
+      "min_signals_for_entry": 1,
+      "win_rate": 65.6,
+      "signal_count": 189,
+      "avg_return": 0.12,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T14:03:28.654447",
+      "_source": "round43_best_002"
+    },
+    {
+      "id": "auto_asia_jp225_m30_l_4",
+      "group": "indices_asia",
+      "symbols": [
+        "JP225"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "asia",
+        "rsi14_max": 25,
+        "atr_min_pct": 0.002
+      },
+      "best_hold": 30,
+      "min_signals_for_entry": 1,
+      "win_rate": 64.1,
+      "signal_count": 479,
+      "avg_return": 0.28,
+      "priority": 15,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T14:03:28.654471",
+      "_source": "round43_best_004"
+    },
+    {
+      "id": "auto_asia_ustec_m30_l",
+      "group": "indices_asia",
+      "symbols": [
+        "USTEC"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "asia",
+        "rsi14_max": 25,
+        "atr_min_pct": 0.002
+      },
+      "best_hold": 24,
+      "min_signals_for_entry": 1,
+      "win_rate": 62.8,
+      "signal_count": 261,
+      "avg_return": 0.27,
+      "priority": 15,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T14:07:36.089367",
+      "_source": "round44_best_001"
+    },
+    {
+      "id": "auto_asia_hk50_m30_l",
+      "group": "indices_asia",
+      "symbols": [
+        "HK50"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "asia",
+        "rsi14_max": 25,
+        "atr_min_pct": 0.0035
+      },
+      "best_hold": 7,
+      "min_signals_for_entry": 1,
+      "win_rate": 61.2,
+      "signal_count": 340,
+      "avg_return": 0.07,
+      "priority": 15,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T14:07:36.089396",
+      "_source": "round44_best_002"
+    },
+    {
+      "id": "auto_asia_us30_m30_l",
+      "group": "indices_asia",
+      "symbols": [
+        "US30"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "asia",
+        "rsi14_max": 30,
+        "atr_min_pct": 0.002
+      },
+      "best_hold": 50,
+      "min_signals_for_entry": 1,
+      "win_rate": 63.4,
+      "signal_count": 320,
+      "avg_return": 0.41,
+      "priority": 15,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T15:09:18.289217",
+      "_source": "round45_best_002"
+    },
+    {
+      "id": "auto_any_eurusd_h1_s_2",
+      "group": "fx_any",
+      "symbols": [
+        "EURUSD"
+      ],
+      "timeframe": "H1",
+      "direction": "short",
+      "entry_conditions": {
+        "rsi14_min": 55,
+        "atr_min_pct": 0.0012
+      },
+      "best_hold": 3,
+      "min_signals_for_entry": 1,
+      "win_rate": 59.7,
+      "signal_count": 340,
+      "avg_return": 0.04,
+      "priority": 20,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T15:09:18.289236",
+      "_source": "round45_best_003"
+    },
+    {
+      "id": "auto_europe_us500_m30_l",
+      "group": "indices_europe",
+      "symbols": [
+        "US500"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "europe",
+        "rsi14_max": 25,
+        "atr_min_pct": 0.002
+      },
+      "best_hold": 30,
+      "min_signals_for_entry": 1,
+      "win_rate": 61.5,
+      "signal_count": 226,
+      "avg_return": 0.09,
+      "priority": 15,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T16:37:57.116662",
+      "_source": "round46_best_001"
+    },
+    {
+      "id": "auto_any_us500_m30_l",
+      "group": "indices_any",
+      "symbols": [
+        "US500"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "rsi14_max": 35,
+        "atr_min_pct": 0.002
+      },
+      "best_hold": 40,
+      "min_signals_for_entry": 1,
+      "win_rate": 66.8,
+      "signal_count": 214,
+      "avg_return": 0.25,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T17:05:31.253477",
+      "_source": "round47_best_001"
+    },
+    {
+      "id": "auto_any_us500_m30_l_1",
+      "group": "indices_any",
+      "symbols": [
+        "US500"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "rsi14_max": 25,
+        "atr_min_pct": 0.002
+      },
+      "best_hold": 30,
+      "min_signals_for_entry": 1,
+      "win_rate": 66.0,
+      "signal_count": 150,
+      "avg_return": 0.16,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T17:05:31.253498",
+      "_source": "round47_best_003"
+    },
+    {
+      "id": "auto_any_us30_m30_l",
+      "group": "indices_any",
+      "symbols": [
+        "US30"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "rsi14_max": 35,
+        "atr_min_pct": 0.002
+      },
+      "best_hold": 40,
+      "min_signals_for_entry": 1,
+      "win_rate": 71.7,
+      "signal_count": 173,
+      "avg_return": 0.12,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T18:34:58.096300",
+      "_source": "round48_best_001"
+    },
+    {
+      "id": "auto_any_us30_m30_l_1",
+      "group": "indices_any",
+      "symbols": [
+        "US30"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "rsi14_max": 35,
+        "atr_min_pct": 0.002
+      },
+      "best_hold": 40,
+      "min_signals_for_entry": 1,
+      "win_rate": 67.4,
+      "signal_count": 239,
+      "avg_return": 0.12,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T18:34:58.096317",
+      "_source": "round48_best_002"
+    },
+    {
+      "id": "auto_any_us30_m30_l_2",
+      "group": "indices_any",
+      "symbols": [
+        "US30"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "rsi14_max": 35,
+        "atr_min_pct": 0.002
+      },
+      "best_hold": 40,
+      "min_signals_for_entry": 1,
+      "win_rate": 61.8,
+      "signal_count": 505,
+      "avg_return": 0.08,
+      "priority": 15,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T18:34:58.096323",
+      "_source": "round48_best_003"
+    },
+    {
+      "id": "auto_any_us500_m30_l_2",
+      "group": "indices_any",
+      "symbols": [
+        "US500"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "rsi14_max": 30,
+        "atr_min_pct": 0.002
+      },
+      "best_hold": 40,
+      "min_signals_for_entry": 1,
+      "win_rate": 60.8,
+      "signal_count": 332,
+      "avg_return": 0.15,
+      "priority": 15,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T18:34:58.096328",
+      "_source": "round48_best_006"
+    },
+    {
+      "id": "auto_any_us500_m30_l_3",
+      "group": "indices_any",
+      "symbols": [
+        "US500"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "rsi14_max": 30,
+        "atr_min_pct": 0.002,
+        "session": "europe"
+      },
+      "best_hold": 40,
+      "min_signals_for_entry": 1,
+      "win_rate": 69.6,
+      "signal_count": 161,
+      "avg_return": 0.41,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T19:05:29.592255",
+      "_source": "round49_best_001"
+    },
+    {
+      "id": "auto_any_us30_m30_l_3",
+      "group": "indices_any",
+      "symbols": [
+        "US30"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "rsi14_max": 35,
+        "atr_min_pct": 0.002
+      },
+      "best_hold": 40,
+      "min_signals_for_entry": 1,
+      "win_rate": 60.0,
+      "signal_count": 902,
+      "avg_return": 0.06,
+      "priority": 20,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T19:05:29.592276",
+      "_source": "round49_best_004"
+    },
+    {
+      "id": "auto_any_us500_m30_l_4",
+      "group": "indices_any",
+      "symbols": [
+        "US500"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "rsi14_max": 30,
+        "atr_min_pct": 0.002,
+        "session": "europe"
+      },
+      "best_hold": 40,
+      "min_signals_for_entry": 1,
+      "win_rate": 66.7,
+      "signal_count": 222,
+      "avg_return": 0.33,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T19:43:07.601411",
+      "_source": "round50_best_001"
+    },
+    {
+      "id": "auto_any_us30_m30_l_4",
+      "group": "indices_any",
+      "symbols": [
+        "US30"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "rsi14_max": 35,
+        "atr_min_pct": 0.002,
+        "session": "europe"
+      },
+      "best_hold": 40,
+      "min_signals_for_entry": 1,
+      "win_rate": 65.2,
+      "signal_count": 336,
+      "avg_return": 0.13,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T19:43:07.601430",
+      "_source": "round50_best_002"
+    },
+    {
+      "id": "auto_any_us500_m30_l_5",
+      "group": "indices_any",
+      "symbols": [
+        "US500"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "rsi14_max": 35,
+        "atr_min_pct": 0.0025,
+        "session": "europe"
+      },
+      "best_hold": 40,
+      "min_signals_for_entry": 1,
+      "win_rate": 64.3,
+      "signal_count": 216,
+      "avg_return": 0.21,
+      "priority": 15,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T19:43:07.601437",
+      "_source": "round50_best_003"
+    },
+    {
+      "id": "auto_any_jp225_m30_l",
+      "group": "indices_any",
+      "symbols": [
+        "JP225"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "rsi14_max": 25,
+        "atr_min_pct": 0.0035
+      },
+      "best_hold": 30,
+      "min_signals_for_entry": 1,
+      "win_rate": 75.7,
+      "signal_count": 169,
+      "avg_return": 0.81,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T20:10:22.647640",
+      "_source": "round51_best_001"
+    },
+    {
+      "id": "auto_asia_us500_m30_l_1",
+      "group": "indices_asia",
+      "symbols": [
+        "US500"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "asia",
+        "rsi14_max": 30,
+        "atr_min_pct": 0.002
+      },
+      "best_hold": 50,
+      "min_signals_for_entry": 1,
+      "win_rate": 67.5,
+      "signal_count": 427,
+      "avg_return": 0.46,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T21:06:48.427631",
+      "_source": "round52_best_001"
+    },
+    {
+      "id": "auto_europe_jp225_m30_l",
+      "group": "indices_europe",
+      "symbols": [
+        "JP225"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "europe",
+        "rsi14_max": 30,
+        "atr_min_pct": 0.0035
+      },
+      "best_hold": 45,
+      "min_signals_for_entry": 1,
+      "win_rate": 67.2,
+      "signal_count": 177,
+      "avg_return": 0.11,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T21:06:48.427650",
+      "_source": "round52_best_002"
+    },
+    {
+      "id": "auto_asia_us500_m30_l_2",
+      "group": "indices_asia",
+      "symbols": [
+        "US500"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "asia",
+        "rsi14_max": 35,
+        "atr_min_pct": 0.002
+      },
+      "best_hold": 50,
+      "min_signals_for_entry": 1,
+      "win_rate": 63.9,
+      "signal_count": 748,
+      "avg_return": 0.454,
+      "priority": 15,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T21:32:09.953950",
+      "_source": "round53_best_001"
+    },
+    {
+      "id": "auto_asia_jp225_m30_l_5",
+      "group": "indices_asia",
+      "symbols": [
+        "JP225"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "asia",
+        "rsi14_max": 30,
+        "atr_min_pct": 0.0035
+      },
+      "best_hold": 40,
+      "min_signals_for_entry": 1,
+      "win_rate": 66.3,
+      "signal_count": 377,
+      "avg_return": 0.4527,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T21:32:09.953970",
+      "_source": "round53_best_002"
+    },
+    {
+      "id": "auto_asia_us500_m30_l_3",
+      "group": "indices_asia",
+      "symbols": [
+        "US500"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "asia",
+        "rsi14_max": 40,
+        "atr_min_pct": 0.002
+      },
+      "best_hold": 50,
+      "min_signals_for_entry": 1,
+      "win_rate": 60.1,
+      "signal_count": 1216,
+      "avg_return": 0.34,
+      "priority": 15,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T22:02:57.588953",
+      "_source": "round54_best_001"
+    },
+    {
+      "id": "auto_any_jp225_m30_l_1",
+      "group": "indices_any",
+      "symbols": [
+        "JP225"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "rsi14_max": 30,
+        "atr_min_pct": 0.0035
+      },
+      "best_hold": 15,
+      "min_signals_for_entry": 1,
+      "win_rate": 69.1,
+      "signal_count": 204,
+      "avg_return": 0.33,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T22:04:10.126764",
+      "_source": "round55_best_001"
+    },
+    {
+      "id": "auto_europe_hk50_m30_l",
+      "group": "indices_europe",
+      "symbols": [
+        "HK50"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "europe",
+        "rsi14_max": 25,
+        "atr_min_pct": 0.003
+      },
+      "best_hold": 3,
+      "min_signals_for_entry": 1,
+      "win_rate": 62.9,
+      "signal_count": 151,
+      "avg_return": 0.12,
+      "priority": 15,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-12T22:04:10.126788",
+      "_source": "round55_best_002"
     }
   ],
-
   "risk": {
     "max_position_per_group": 1,
     "max_total_positions": 4,
     "risk_per_trade_pct": 0.05,
-    "max_portfolio_risk_pct": 0.20,
+    "max_portfolio_risk_pct": 0.2,
     "min_rr": 1.0,
     "sl_atr_multiple": 2.0,
     "tp_rr_multiple": 2.0,
-    "max_same_direction_pct": 0.70,
-    "max_single_variety_pct": 0.30,
+    "max_same_direction_pct": 0.7,
+    "max_single_variety_pct": 0.3,
     "lot_calc_sl_atr_multiple": 1.0,
     "pos_validation": {
       "symposium_groups": {
-        "precious_metals": ["XAUUSD", "XAGUSD"],
-        "us_indices": ["US30", "US500", "USTEC"],
-        "major_fx": ["EURUSD", "GBPUSD", "USDJPY", "AUDUSD", "USDCHF"],
-        "oils": ["USOIL", "UKOIL"]
+        "precious_metals": [
+          "XAUUSD",
+          "XAGUSD"
+        ],
+        "us_indices": [
+          "US30",
+          "US500",
+          "USTEC"
+        ],
+        "major_fx": [
+          "EURUSD",
+          "GBPUSD",
+          "USDJPY",
+          "AUDUSD",
+          "USDCHF"
+        ],
+        "oils": [
+          "USOIL",
+          "UKOIL"
+        ]
       }
     }
   },
-
-  "magic_number": 234010
+  "magic_number": 234010,
+  "_last_auto_inject": "2026-05-12T22:04:10.126809",
+  "_auto_inject_count": 57,
+  "_injected_sources": [
+    "round34_best",
+    "round36_002",
+    "round36_003",
+    "round38_best_001",
+    "round38_best_003",
+    "round39_best_002",
+    "round40_best_001",
+    "round40_best_002",
+    "round40_best_004",
+    "round41_best_002",
+    "round43_best_002",
+    "round43_best_004",
+    "round44_best_001",
+    "round44_best_002",
+    "round45_best_002",
+    "round45_best_003",
+    "round45_best_004",
+    "round46_best_001",
+    "round47_best_001",
+    "round47_best_003",
+    "round48_best_001",
+    "round48_best_002",
+    "round48_best_003",
+    "round48_best_006",
+    "round49_best_001",
+    "round49_best_004",
+    "round50_best_001",
+    "round50_best_002",
+    "round50_best_003",
+    "round51_best_001",
+    "round52_best_001",
+    "round52_best_002",
+    "round53_best_001",
+    "round53_best_002",
+    "round54_best_001",
+    "round55_best_001",
+    "round55_best_002"
+  ]
 }

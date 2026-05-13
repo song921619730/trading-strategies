@@ -1,0 +1,54 @@
+trend_opinion:
+  symbol: XAUUSD
+  d1_trend: "BULLISH"
+  d1_confidence: "LOW"
+  d1_analysis:
+    bullish_checks:
+      recent_3_hh_hl: "FAIL — Highs: 4698→4770→4773 (HH ✓) but Lows: 4679→4648→4638 (LL ✗) — lower lows invalidate"
+      price_above_20ma: "PASS — 4724.6 > SMA20 ≈ 4669.2 (+55.4 pts) ✓"
+      consecutive_bullish: "PASS — May 7 (4699→4704) + May 8 (4704→4715) = 2 consecutive ✓"
+      retracement_not_below_prev_low: "FAIL — May 12 low 4638 < May 11 low 4648 — broke most recent swing low"
+      score: "2/4"
+    bearish_checks:
+      recent_3_lh_ll: "FAIL — Highs: 4698→4770→4773 (higher highs, not lower) ✗"
+      price_below_20ma: "FAIL — 4724.6 > 4669.2 ✗"
+      consecutive_bearish: "FAIL — No consecutive bearish candles (max=1) ✗"
+      did_not_break_prev_high: "FAIL — May 11 high 4770 > May 10 high 4698 — did break ✗"
+      score: "0/4"
+    conclusion: >-
+      BULLISH (2/4) meets threshold; BEARISH (0/4) does not.
+      Direction = BULLISH, but low confidence due to:
+      (1) HH+HL structure invalid — lower lows show selling pressure
+      (2) Pullback broke most recent swing low (4648→4638)
+      (3) Trend still within 4500-4830 range, not yet confirmed above 4773
+      (4) Consecutive bullish candles are 4-5 days old, recent choppy
+      Essentially an emerging/weak bullish trend, not established.
+  h1_phase: "BODY"
+  h1_phase_detail: >-
+    H1 recovery from 4638 (May 12 low) to 4724 (+86pts ≈ 4.5 ATR) in ~9 hours.
+    Clean impulsive bounce, 7 of last 8 H1 candles bullish.
+    This is the second leg up after the D1 pullback — the 'fish body' phase
+    where the trend is running. However, pressing into 4723-4730 resistance
+    zone; the 08:00 candle (+7.68 pts) showed renewed momentum suggesting
+    the bounce may extend further toward 4773 D1 resistance.
+  h1_to_d1_alignment: "ALIGNED"
+  alignment_detail: >-
+    D1 = BULLISH (emerging). H1 = recovering/pushing up (BODY).
+    Direction match: BUY = BUY. No conflict.
+  macro_context: >-
+    D1 V-bottom from 4500 (May 4) to 4767 (May 11) followed by
+    48% pullback to 4638 (May 12), now recovering to 4724.
+    D1 price above 20 MA (+55pts). Macro backdrop supportive:
+    DXY 104.62 (weak), April PPI 2.2% vs 2.3% exp (soft, bullish for
+    rate cuts), 80% probability of Sep cut (up from 72%), geopolitical
+    tensions, record central bank buying. Chinese GDP strong supports
+    demand outlook. Overall macro context neutral-bullish for gold.
+  verdict: "SUPPORT"
+  veto_reason: ""
+  notes:
+    - "Bullish 2/4 barely meets threshold — LOW confidence in trend strength"
+    - "Lows are still descending (4679→4648→4638) — this pattern is the main risk to bullish case"
+    - "H1 bounce pressing 4723-4730 resistance zone; watch for rejection or breakout"
+    - "D1 key levels: support 4638 (May 12 low), 4500 (May 4 floor); resistance 4773 (May 12 high), 4830 (Apr 21 peak)"
+    - "If H1 breaks above 4773, bullish confidence would increase to MEDIUM"
+    - "Per alignment rules: D1多头 + H1做多 → SUPPORT"
