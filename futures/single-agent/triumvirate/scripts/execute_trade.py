@@ -75,6 +75,73 @@ def disconnect():
     mt5.shutdown()
 
 
+RISK_PER_TRADE_PCT = 0.05  # 单笔风险上限 = 5% 净值
+SL_ATR_MULTIPLE = 2.0      # ATR 乘数（无 SL 时后备）
+
+
+def _cap_volume_by_risk(symbol_code: str, price: float, sl: float,
+                        direction: str, volume: float) -> tuple:
+    """
+    按 5% 净值风险上限截断手数。
+    用 AI 设定的 SL 距离计算（最准确），无 SL 时用 ATR×2 后备。
+    返回 (截断后手数, 原始手数, 是否被截断)
+    """
+    try:
+        acct = mt5.account_info()
+        if not acct:
+            return volume, volume, False
+        equity = acct.equity
+        if equity <= 0:
+            return volume, volume, False
+
+        sym = SYMBOLS.get(symbol_code)
+        if not sym:
+            return volume, volume, False
+        sym_info = mt5.symbol_info(sym)
+        if not sym_info:
+            return volume, volume, False
+
+        tick_value = sym_info.trade_tick_value
+        point = sym_info.point
+        vol_min = sym_info.volume_min
+        vol_step = sym_info.volume_step
+        vol_max = sym_info.volume_max
+
+        if point <= 0 or tick_value <= 0:
+            return volume, volume, False
+
+        # 优先用 AI 的 SL 距离，后备 ATR 估算
+        if sl and price > 0:
+            sl_distance = abs(price - sl)
+        else:
+            # 后备：拿最近 14 根 H1 的 ATR
+            import math
+            bars = mt5.copy_rates_from_pos(sym, mt5.TIMEFRAME_H1, 0, 20)
+            if bars is None or len(bars) < 14:
+                return volume, volume, False
+            atr = sum(abs(b['high'] - b['low']) for b in bars[-14:]) / 14
+            sl_distance = atr * SL_ATR_MULTIPLE
+
+        if sl_distance <= 0:
+            return volume, volume, False
+
+        risk_per_lot = (sl_distance / point) * tick_value
+        if risk_per_lot <= 0:
+            return volume, volume, False
+
+        max_lot_raw = (equity * RISK_PER_TRADE_PCT) / risk_per_lot
+        max_lot = max(vol_min, min(vol_max,
+                                   round(max_lot_raw / vol_step) * vol_step))
+
+        capped = min(float(volume), round(max_lot, 2))
+        was_capped = capped < float(volume)
+        return round(capped, 2), float(volume), was_capped
+
+    except Exception as e:
+        # 任何异常不阻断交易，原样放行
+        return volume, volume, False
+
+
 def open_order(symbol_code: str, direction: str, volume: float,
                sl: float = None, tp: float = None, comment: str = "TRIUMVIRATE_234004"):
     sym = SYMBOLS.get(symbol_code)
@@ -95,10 +162,21 @@ def open_order(symbol_code: str, direction: str, volume: float,
     else:
         return {"error": f"Invalid direction: {direction}"}
 
+    # ── 5% 风险上限截断 ──
+    capped_vol, orig_vol, was_capped = _cap_volume_by_risk(
+        symbol_code, price, sl, direction, volume
+    )
+    if was_capped:
+        warn = (f"[RISK CAP] {symbol_code} {direction} vol={orig_vol}→{capped_vol} "
+                f"(exceeds 5% risk limit)")
+        print(warn, file=sys.stderr)
+        log_result({"warning": warn, "original_volume": orig_vol,
+                     "capped_volume": capped_vol}, "risk_cap")
+
     request = {
         "action": mt5.TRADE_ACTION_DEAL,
         "symbol": sym,
-        "volume": float(volume),
+        "volume": float(capped_vol),
         "type": order_type,
         "price": price,
         "deviation": 20,
