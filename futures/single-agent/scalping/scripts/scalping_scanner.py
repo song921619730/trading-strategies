@@ -1,113 +1,44 @@
 #!/usr/bin/env python3
 """
-scalping_scanner.py — M1/M5 信号扫描引擎
+scalping_scanner.py — M1/M5 信号扫描引擎（Tick Engine 版）
 
-从 MT5 拉取 M1/M5 数据 → 计算 RSI/ATR/连阴 → 匹配 scalping_strategies.json → 输出信号
+从 Tick Engine 的共享数据读取 tick + 指标 → 匹配 scalping_strategies.json → 输出信号
 
-用法（在 WSL 中调用 Windows Python）:
-  /mnt/c/Users/gj/AppData/Local/Programs/Python/Python312/python.exe \
-    F:/AIcoding_space/Hermes/strategies/futures/single-agent/scalping/scripts/scalping_scanner.py
+不再直接连接 MT5（由 Tick Engine 统一管理）。
+如果 Tick Engine 不在运行，自动降级到 tick_reader 的 fallback 模式。
+
+用法（任意 Python 环境，无需 MT5 库）:
+  python3 scalping_scanner.py
 
 输出：JSON 格式的信号列表（stdout）
 """
+
 import json
 import os
 import sys
-import numpy as np
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timezone
+
+def utcnow():
+    return datetime.now(timezone.utc)
 
 # ─── 路径 ───
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONFIG_PATH = os.path.join(BASE, "config", "scalping_strategies.json")
 LOG_DIR = os.path.join(BASE, "logs", "signals")
 
-# ─── MT5 连接 ───
-def connect_mt5():
-    import MetaTrader5 as mt5
-    path = os.getenv("MT5_PATH", "C:/Program Files/MetaTrader 5/terminal64.exe")
-    login = int(os.getenv("MT5_LOGIN", "0"))
-    password = os.getenv("MT5_PASSWORD", "")
-    server = os.getenv("MT5_SERVER", "")
+# 添加共享库路径
+_SHARED_SCRIPTS = os.path.join(os.path.dirname(os.path.dirname(BASE)), "scripts")
+if _SHARED_SCRIPTS not in sys.path:
+    sys.path.insert(0, _SHARED_SCRIPTS)
 
-    if not mt5.initialize(path=path, login=login, password=password, server=server):
-        return None, f"MT5 init failed: {mt5.last_error()}"
+from tick_reader import TickReader
+from indicators import get_session, SESSION_ALIAS
 
-    term = mt5.terminal_info()
-    acct = mt5.account_info()
-    if not term or not acct:
-        mt5.shutdown()
-        return None, "Cannot get terminal/account info"
-
-    return mt5, {"name": term.name, "login": acct.login, "balance": acct.balance, "equity": acct.equity}
-
-
-# ─── Session 映射 ───
-SESSION_MAP = {
-    "asia":  (0, 8),
-    "europe":(8, 13),
-    "us":    (13, 22),
-}
-SESSION_ALIAS = {"london": "europe", "europe": "europe"}
-
-def get_session(utc_hour: int) -> str:
-    for name, (start, end) in SESSION_MAP.items():
-        if start <= utc_hour < end:
-            return name
-    return "asia"
-
-
-# ─── 技术指标 ───
-def calc_rsi(closes: list[float], period: int = 14) -> float | None:
-    if len(closes) < period + 1:
-        return None
-    gains, losses = [], []
-    for i in range(1, period + 1):
-        diff = closes[-i] - closes[-i - 1]
-        gains.append(max(diff, 0))
-        losses.append(max(-diff, 0))
-    avg_gain = sum(gains) / period
-    avg_loss = sum(losses) / period
-    if avg_loss == 0:
-        return 100.0
-    rs = avg_gain / avg_loss
-    return 100.0 - (100.0 / (1.0 + rs))
-
-
-def calc_atr(bars: list[dict], period: int = 14) -> float | None:
-    """计算 M1/M5 周期的 ATR(14)"""
-    if len(bars) < period + 1:
-        return None
-    trs = []
-    for i in range(1, len(bars)):
-        h = bars[-i]["high"]
-        l = bars[-i]["low"]
-        pc = bars[-i - 1]["close"]
-        tr = max(h - l, abs(h - pc), abs(l - pc))
-        trs.append(tr)
-    return sum(trs[:period]) / period
-
-
-def detected_consecutive_bears(bars: list[dict]) -> int:
-    count = 0
-    for bar in reversed(bars):
-        if bar["close"] < bar["open"]:
-            count += 1
-        else:
-            break
-    return count
-
-
-# ─── TF 映射 ───
-TF_MAP = {"M1": 1, "M5": 5, "M15": 15, "M30": 30, "H1": 60}
-
-
-def get_mt5_tf(mt5, tf_name: str):
-    name = f"TIMEFRAME_{tf_name}"
-    return getattr(mt5, name, None)
-
+# ─── Session 别名（兼容旧配置） ───
+SESSION_ALIAS_MAP = SESSION_ALIAS  # {"london": "europe"}
 
 # ─── 扫描单个策略 ───
-def scan_strategy(mt5, symbol: str, config: dict, account: dict) -> list:
+def scan_strategy(symbol: str, config: dict, reader: TickReader, account: dict) -> list:
     signals = []
     strategy_id = config["id"]
     direction = config["direction"]
@@ -115,43 +46,31 @@ def scan_strategy(mt5, symbol: str, config: dict, account: dict) -> list:
     cond = config.get("entry_conditions", {})
     best_hold = config.get("best_hold", 5)
 
-    mt5_tf = get_mt5_tf(mt5, tf_name)
-    if mt5_tf is None:
+    # 从共享数据读取指标（Tick Engine 已算好）
+    ind = reader.get_indicator(symbol, tf_name)
+    if not ind:
         return signals
 
-    needed = 40 if "consecutive_bear" in cond else 30
-    bars = mt5.copy_rates_from_pos(symbol, mt5_tf, 0, needed)
-    if bars is None or len(bars) < 20:
+    # 从共享数据读取当前 tick
+    tick = reader.get_tick(symbol)
+    if not tick:
         return signals
 
-    bars_list = []
-    for b in bars:
-        bars_list.append({
-            "time": b["time"] if isinstance(b, (dict, np.void)) else b.time,
-            "open": b["open"] if isinstance(b, (dict, np.void)) else b.open,
-            "high": b["high"] if isinstance(b, (dict, np.void)) else b.high,
-            "low": b["low"] if isinstance(b, (dict, np.void)) else b.low,
-            "close": b["close"] if isinstance(b, (dict, np.void)) else b.close,
-            "volume": b["tick_volume"] if isinstance(b, (dict, np.void)) else b.tick_volume,
-        })
-
-    latest = bars_list[-1]
-    closes = [b["close"] for b in bars_list]
-    current_price = latest["close"]
-    current_utc_hour = datetime.fromtimestamp(latest["time"], tz=timezone.utc).hour
-
-    # 计算指标
-    rsi = calc_rsi(closes)
-    atr = calc_atr(bars_list)
-    session = get_session(current_utc_hour)
-    consecutive_bears = detected_consecutive_bears(bars_list)
+    # 提取值
+    current_price = ind.get("price", tick.get("bid", tick.get("ask", 0)))
+    rsi = ind.get("rsi14")
+    atr = ind.get("atr14")
+    session = ind.get("session", reader.get_session())
+    consecutive_bears = ind.get("consecutive_bear", 0)
+    current_utc_hour = ind.get("utc_hour", 0)
+    spread = tick.get("spread", 0)
 
     # 逐条件检查
     matched = True
     match_reasons = []
 
     if "session" in cond and cond["session"]:
-        required_session = SESSION_ALIAS.get(cond["session"], cond["session"])
+        required_session = SESSION_ALIAS_MAP.get(cond["session"], cond["session"])
         if required_session != session:
             matched = False
         else:
@@ -194,13 +113,10 @@ def scan_strategy(mt5, symbol: str, config: dict, account: dict) -> list:
         else:
             match_reasons.append(f"hour<{cond['hour_end']}")
 
-    if matched:
-        if not match_reasons:
-            match_reasons.append("no_entry_conditions")
+    if matched and match_reasons:
         # ── Scalping SL/TP 计算 ──
-        # SL = ATR(M5/M1) × 2.5, TP = ATR(M5/M1) × 3.75 (RR=1.5)
         sl_distance = atr * 2.5 if atr else 0
-        tp_distance = atr * 3.75 if atr else 0
+        tp_distance = atr * 4.0 if atr else 0
 
         if direction in ("long", "buy", "BUY"):
             sl_price = round(current_price - sl_distance, 5) if sl_distance > 0 else None
@@ -221,6 +137,7 @@ def scan_strategy(mt5, symbol: str, config: dict, account: dict) -> list:
             "atr_pct": float(round(atr / current_price * 100, 3)) if atr and current_price > 0 else None,
             "session": session,
             "consecutive_bears": int(consecutive_bears),
+            "spread": spread,
             "utc_hour": int(current_utc_hour),
             "match_reasons": "; ".join(match_reasons),
             "sl_price": sl_price,
@@ -228,7 +145,8 @@ def scan_strategy(mt5, symbol: str, config: dict, account: dict) -> list:
             "sl_distance": float(round(sl_distance, 5)) if sl_distance > 0 else None,
             "tp_distance": float(round(tp_distance, 5)) if tp_distance > 0 else None,
             "rr": round(tp_distance / sl_distance, 2) if sl_distance > 0 and tp_distance > 0 else None,
-            "detected_at_utc": datetime.utcnow().isoformat(),
+            "detected_at_utc": utcnow().isoformat(),
+            "data_source": "tick_engine",
         }
         signals.append(signal)
 
@@ -249,52 +167,51 @@ def main():
     risk_cfg = cfg.get("risk", {})
     magic = cfg.get("magic_number", 234011)
 
-    mt5, account = connect_mt5()
-    if mt5 is None:
-        result = {"error": account, "signals": [], "timestamp": datetime.utcnow().isoformat()}
-        print(json.dumps(result, ensure_ascii=False))
-        return
+    reader = TickReader()
 
-    try:
-        ticks_start = datetime.now()
-        detected = []
-        for strategy in all_signals:
-            for sym in strategy.get("symbols", []):
-                try:
-                    mt5.symbol_select(sym, True)
-                    sigs = scan_strategy(mt5, sym, strategy, account)
-                    detected.extend(sigs)
-                except Exception:
-                    pass  # silently skip symbol errors
+    # 检查 Tick Engine 是否在运行
+    engine_alive = reader.is_alive()
+    account = {"balance": None, "equity": None}
+    if engine_alive:
+        hb = reader._read("_heartbeat.json")
+        if hb:
+            account["balance"] = hb.get("balance", "N/A")
+            account["equity"] = hb.get("equity", "N/A")
 
-        ticks_end = datetime.now()
+    ticks_start = datetime.now()
+    detected = []
+    for strategy in all_signals:
+        for sym in strategy.get("symbols", []):
+            try:
+                sigs = scan_strategy(sym, strategy, reader, account)
+                detected.extend(sigs)
+            except Exception:
+                pass  # silently skip symbol errors
 
-        result = {
-            "timestamp": datetime.utcnow().isoformat(),
-            "account": {
-                "balance": account["balance"],
-                "equity": account["equity"],
-            },
-            "magic": magic,
-            "scan_duration_ms": int((ticks_end - ticks_start).total_seconds() * 1000),
-            "signals": detected,
-            "total_signals": len(detected),
-            "strategies_scanned": len(all_signals),
-            "risk_config": risk_cfg,
-        }
+    ticks_end = datetime.now()
 
-        print(json.dumps(result, ensure_ascii=False, indent=2))
+    result = {
+        "timestamp": utcnow().isoformat(),
+        "account": account,
+        "data_source": "tick_engine" if engine_alive else "unknown",
+        "engine_alive": engine_alive,
+        "magic": magic,
+        "scan_duration_ms": int((ticks_end - ticks_start).total_seconds() * 1000),
+        "signals": detected,
+        "total_signals": len(detected),
+        "strategies_scanned": len(all_signals),
+        "risk_config": risk_cfg,
+    }
 
-        # 保存日志
-        os.makedirs(LOG_DIR, exist_ok=True)
-        ts = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
-        log_path = os.path.join(LOG_DIR, f"scan_{ts}.json")
-        with open(log_path, "w") as f:
-            json.dump(result, f, ensure_ascii=False, indent=2)
-        print(f"\n[LOG] Saved to logs/signals/scan_{ts}.json", file=sys.stderr)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
 
-    finally:
-        mt5.shutdown()
+    # 保存日志
+    os.makedirs(LOG_DIR, exist_ok=True)
+    ts = utcnow().strftime("%Y%m%d_%H%M%S")
+    log_path = os.path.join(LOG_DIR, f"scan_{ts}.json")
+    with open(log_path, "w") as f:
+        json.dump(result, f, ensure_ascii=False, indent=2)
+    print(f"\n[LOG] Saved to logs/signals/scan_{ts}.json", file=sys.stderr)
 
 
 if __name__ == "__main__":
