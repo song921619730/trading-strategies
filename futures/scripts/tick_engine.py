@@ -5,8 +5,12 @@ tick_engine.py — 统一 Tick Engine 守护进程
 核心功能:
   1. 唯一连接 MT5，避免多个 Scanner 重复连接
   2. 每 1.5s 读取所有品种 tick（bid/ask/spread）
-  3. 检测新 bar 形成 → 拉取 bars → 重新计算指标
+  3. 检测新 bar 形成 → 拉取 bars → 计算全量指标（50+ 个）
   4. 写入共享 JSON 文件（Scanner 读取，不再连 MT5）
+
+指标计算:
+  共用 futures/scripts/indicators.py（与研究中台同源）
+  覆盖: 动量/趋势/波动率/成交量/价格行为/结构
 
 安全设计:
   - Windows Python 运行（需要 MT5 库）
@@ -68,77 +72,19 @@ def atomic_write(path: Path, data: dict):
     os.rename(tmp, path)
 
 
-# ─── 技术指标（和 Scanner 保持一致） ───
-def calc_rsi(closes: list, period: int = 14):
-    if len(closes) < period + 1:
-        return None
-    gains, losses = [], []
-    for i in range(1, period + 1):
-        diff = closes[-i] - closes[-i - 1]
-        gains.append(max(diff, 0))
-        losses.append(max(-diff, 0))
-    avg_gain = sum(gains) / period
-    avg_loss = sum(losses) / period
-    if avg_loss == 0:
-        return 100.0
-    return 100.0 - (100.0 / (1.0 + avg_gain / avg_loss))
-
-
-def calc_atr(bars: list, period: int = 14):
-    if len(bars) < period + 1:
-        return None
-    trs = []
-    for i in range(1, len(bars)):
-        h = bars[-i]["high"]
-        l = bars[-i]["low"]
-        pc = bars[-i - 1]["close"]
-        trs.append(max(h - l, abs(h - pc), abs(l - pc)))
-    return sum(trs[:period]) / period
-
-
-def detected_consecutive_bears(bars: list) -> int:
-    count = 0
-    for bar in reversed(bars):
-        if bar["close"] < bar["open"]:
-            count += 1
-        else:
-            break
-    return count
-
-
-def detected_consecutive_bulls(bars: list) -> int:
-    count = 0
-    for bar in reversed(bars):
-        if bar["close"] > bar["open"]:
-            count += 1
-        else:
-            break
-    return count
-
-
-def get_session(utc_hour: int) -> str:
-    for name, (start, end) in SESSION_MAP.items():
-        if start <= utc_hour < end:
-            return name
-    return "asia"
-
-
-def calc_ema(closes: list, period: int) -> float:
-    """简单 EMA，用于 scalping 判断趋势"""
-    if len(closes) < period:
-        return closes[-1] if closes else 0
-    k = 2 / (period + 1)
-    ema = sum(closes[:period]) / period
-    for c in closes[period:]:
-        ema = c * k + ema * (1 - k)
-    return ema
-
-
-def calc_ma(closes: list, period: int) -> float:
-    if len(closes) < period:
-        return sum(closes) / len(closes) if closes else 0
-    return sum(closes[-period:]) / period
-
+# ─── 共享指标库 ───
+# 从 indicators.py 导入全部指标计算函数（研究中台同源）
+import sys
+_SCRIPT_DIR = Path(__file__).resolve().parent
+if str(_SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(_SCRIPT_DIR))
+from indicators import (
+    compute_all_trading_indicators,
+    get_session,
+    SESSION_MAP,
+    calc_rsi, calc_atr, calc_ema, calc_sma,
+    detected_consecutive_bears, detected_consecutive_bulls,
+)
 
 # ─── 内部状态 ───
 class TickEngineState:
@@ -207,40 +153,25 @@ def bars_to_list(bars) -> list:
 
 
 def update_indicators(state: TickEngineState, symbol: str, tf: str):
-    """对指定品种+TF 重新计算所有指标"""
+    """用共享指标库计算全量指标（50+ 个值）"""
     key = f"{symbol}_{tf}"
     bars = state.bar_cache.get(key)
     if not bars or len(bars) < 20:
         return
 
-    closes = [b["close"] for b in bars]
+    # 共用的 compute_all_trading_indicators → 计算 RSI/ATR/MACD/ADX/布林带/连阴/形态/结构 等
+    ind = compute_all_trading_indicators(bars)
+
+    # 附加 bar 元数据
     latest = bars[-1]
-    utc_hour = datetime.fromtimestamp(latest["time"], tz=timezone.utc).hour
-
-    ind = {
-        "rsi14": calc_rsi(closes),
-        "atr14": calc_atr(bars),
-        "consecutive_bear": detected_consecutive_bears(bars),
-        "consecutive_bull": detected_consecutive_bulls(bars),
-        "session": get_session(utc_hour),
-        "ema12": calc_ema(closes, 12),
-        "ema26": calc_ema(closes, 26),
-        "ma20": calc_ma(closes, 20),
-        "ma50": calc_ma(closes, 50),
-        "utc_hour": utc_hour,
-        "bar_time": latest["time"],
-        "bar_open": latest["open"],
-        "bar_high": latest["high"],
-        "bar_low": latest["low"],
-        "bar_close": latest["close"],
-        "bar_volume": latest["volume"],
-    }
-
-    # ATR as % of close
-    if ind["atr14"] and latest["close"] > 0:
-        ind["atr14_pct"] = ind["atr14"] / latest["close"] * 100
-    else:
-        ind["atr14_pct"] = None
+    ind["time"] = latest["time"]
+    ind["bar_time"] = latest["time"]
+    ind["bar_open"] = latest["open"]
+    ind["bar_high"] = latest["high"]
+    ind["bar_low"] = latest["low"]
+    ind["bar_close"] = latest["close"]
+    ind["bar_volume"] = latest["volume"]
+    ind["bar_count"] = len(bars)
 
     state.indicators[key] = ind
 
