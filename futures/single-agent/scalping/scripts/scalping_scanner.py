@@ -182,6 +182,18 @@ def scan_strategy(mt5, symbol: str, config: dict, account: dict) -> list:
         else:
             match_reasons.append(f"连阴={consecutive_bears}")
 
+    # Hour 窗口
+    if "hour_start" in cond:
+        if current_utc_hour < cond["hour_start"] or current_utc_hour >= cond.get("hour_end", 24):
+            matched = False
+        else:
+            match_reasons.append(f"hour=[{cond['hour_start']}-{cond.get('hour_end',24)})")
+    elif "hour_end" in cond:
+        if current_utc_hour >= cond["hour_end"]:
+            matched = False
+        else:
+            match_reasons.append(f"hour<{cond['hour_end']}")
+
     if matched:
         if not match_reasons:
             match_reasons.append("no_entry_conditions")
