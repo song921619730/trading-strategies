@@ -90,6 +90,7 @@ from indicators import (
 class TickEngineState:
     def __init__(self):
         self.mt5 = None
+        self.symbol_info: dict = {}      # {symbol: {spread, digits, point}}
         self.ticks: dict = {}           # {symbol: tick}
         self.bar_cache: dict = {}        # {symbol_TF: bars_list}
         self.last_bar_time: dict = {}    # {symbol_TF: last_timestamp}
@@ -123,6 +124,12 @@ def init_mt5(state: TickEngineState):
         mt5.symbol_select(sym, True)
         info = mt5.symbol_info(sym)
         if info:
+            state.symbol_info[sym] = {
+                "spread": info.spread,
+                "digits": info.digits,
+                "point": info.point,
+                "trade_mode": info.trade_mode,
+            }
             log(f"  ✅ {sym}: spread={info.spread}, digits={info.digits}")
         else:
             log(f"  ⚠️ {sym}: symbol_info failed")
@@ -139,16 +146,27 @@ def get_mt5_tf(mt5, tf_name: str):
 
 def bars_to_list(bars) -> list:
     """MT5 bars (numpy void) → list of dict"""
+    import numpy as np
     result = []
     for b in bars:
-        result.append({
-            "time": int(b["time"]) if isinstance(b, (dict,)) else int(b.time),
-            "open": float(b["open"]) if isinstance(b, (dict,)) else float(b.open),
-            "high": float(b["high"]) if isinstance(b, (dict,)) else float(b.high),
-            "low": float(b["low"]) if isinstance(b, (dict,)) else float(b.low),
-            "close": float(b["close"]) if isinstance(b, (dict,)) else float(b.close),
-            "volume": int(b["tick_volume"]) if isinstance(b, (dict,)) else int(b.tick_volume),
-        })
+        if isinstance(b, (dict, np.void)):
+            result.append({
+                "time": int(b["time"]),
+                "open": float(b["open"]),
+                "high": float(b["high"]),
+                "low": float(b["low"]),
+                "close": float(b["close"]),
+                "volume": int(b["tick_volume"]),
+            })
+        else:
+            result.append({
+                "time": int(b.time),
+                "open": float(b.open),
+                "high": float(b.high),
+                "low": float(b.low),
+                "close": float(b.close),
+                "volume": int(b.tick_volume),
+            })
     return result
 
 
@@ -212,7 +230,8 @@ def check_new_bars(state: TickEngineState):
             if bar is None or len(bar) == 0:
                 continue
 
-            bar_time = int(bar[0]["time"]) if isinstance(bar[0], (dict,)) else int(bar[0].time)
+            import numpy as np
+            bar_time = int(bar[0]["time"]) if isinstance(bar[0], (dict, np.void)) else int(bar[0].time)
 
             last_time = state.last_bar_time.get(key)
             if last_time is None or bar_time > last_time:
@@ -239,10 +258,14 @@ def update_ticks(state: TickEngineState):
         try:
             tick = mt5.symbol_info_tick(symbol)
             if tick:
+                # 用 point 换算 spread（点数）
+                sym_info = state.symbol_info.get(symbol, {})
+                point = sym_info.get("point", 0.00001)
+                spread_points = int((tick.ask - tick.bid) / point) if point > 0 else 0
                 tick_data = {
                     "bid": float(tick.bid),
                     "ask": float(tick.ask),
-                    "spread": int(tick.spread),
+                    "spread": spread_points,
                     "time": int(tick.time),
                     "last": float(tick.last) if hasattr(tick, 'last') else None,
                     "volume": int(tick.volume) if hasattr(tick, 'volume') else 0,
