@@ -186,9 +186,9 @@ def scan_strategy(mt5, symbol: str, config: dict, account: dict) -> list:
         if not match_reasons:
             match_reasons.append("no_entry_conditions")
         # ── Scalping SL/TP 计算 ──
-        # SL = ATR(M5/M1) × 1.0, TP = ATR(M5/M1) × 1.5
-        sl_distance = atr * 1.0 if atr else 0
-        tp_distance = atr * 1.5 if atr else 0
+        # SL = ATR(M5/M1) × 2.5, TP = ATR(M5/M1) × 3.75 (RR=1.5)
+        sl_distance = atr * 2.5 if atr else 0
+        tp_distance = atr * 3.75 if atr else 0
 
         if direction in ("long", "buy", "BUY"):
             sl_price = round(current_price - sl_distance, 5) if sl_distance > 0 else None

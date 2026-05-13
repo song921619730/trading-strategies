@@ -192,7 +192,7 @@ def execute_trade(mt5, signal: dict, risk_cfg: dict) -> dict:
         return {"error": "Invalid point or tick_value"}
 
     # SL 距离决定手数
-    sl_distance = abs(entry_price - sl_price) if sl_price else (atr * 1.0 if atr else 0)
+    sl_distance = abs(entry_price - sl_price) if sl_price else (atr * 2.5 if atr else 0)
     if sl_distance <= 0:
         return {"error": "SL distance is zero"}
 
