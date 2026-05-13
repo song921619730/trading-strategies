@@ -21,8 +21,8 @@ STRATEGIES_CONFIG = "/mnt/f/AIcoding_space/Hermes/strategies/futures/single-agen
 
 # ── 注入门槛 ──
 # 核心指标门槛
-MIN_WIN_RATE = 0.57       # 胜率 >= 57%
-MIN_SIGNAL_COUNT = 150    # 样本量 >= 150
+MIN_WIN_RATE = 0.68       # 胜率 > 68%（高胜率策略，可接受小样本）
+MIN_SIGNAL_COUNT = 60     # 样本量 >= 60（用户指定最低门槛）
 MIN_AVG_RETURN = 0.0002   # 平均收益 > 0.02%（正期望值）
 
 # 已有策略ID集合（去重用）

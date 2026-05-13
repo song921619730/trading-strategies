@@ -1050,6 +1050,28 @@
       "_auto_injected": true,
       "_injected_at": "2026-05-12T22:04:10.126788",
       "_source": "round55_best_002"
+    },
+    {
+      "id": "auto_any_jp225_m30_l_2",
+      "group": "indices_any",
+      "symbols": [
+        "JP225"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "rsi14_max": 30,
+        "atr_min_pct": 0.0035
+      },
+      "best_hold": 45,
+      "min_signals_for_entry": 1,
+      "win_rate": 66.0,
+      "signal_count": 194,
+      "avg_return": 0.34,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-13T14:12:01.965642",
+      "_source": "round56_best_002"
     }
   ],
   "risk": {
@@ -1089,8 +1111,8 @@
     }
   },
   "magic_number": 234010,
-  "_last_auto_inject": "2026-05-12T22:04:10.126809",
-  "_auto_inject_count": 57,
+  "_last_auto_inject": "2026-05-13T14:12:01.965671",
+  "_auto_inject_count": 58,
   "_injected_sources": [
     "round34_best",
     "round36_002",
@@ -1128,6 +1150,7 @@
     "round53_best_002",
     "round54_best_001",
     "round55_best_001",
-    "round55_best_002"
+    "round55_best_002",
+    "round56_best_002"
   ]
 }

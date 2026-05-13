@@ -1,21 +1,22 @@
 analysis:
-  symbol: XAUUSD
-  direction: SELL
-  structural_score: 7
-  entry_zone: "4714-4720"
-  stop_loss: 4744.07
-  take_profit: 4656.19
-  reward_risk: "1:2.0"
+  symbol: US500
+  direction: BUY
+  structural_score: 3
+  entry_zone: "7427-7432"
+  stop_loss: 7412.00
+  take_profit: "7455 / 7480"
+  reward_risk: "1:1.7 (to 7455)"
   reasoning:
-    - "D1 bearish engulfing May12 (-53pts) from 4773→4638 after May11 bullish climax, establishing bearish context"
-    - "H1 first impulsive down leg: 4773→4638 (135pts) across May12 19:00-23:00, clean directional sell-off"
-    - "Clean 60% Fibonacci retracement: 4638→4719 (81pts), within healthy 30-65% range — not too shallow, not too deep"
-    - "Doji at D1 resistance 4719 (04:00 candle) confirms momentum exhaustion of the bounce"
-    - "Macro alignment: Hot US CPI 3.8% → DXY rally toward 98.30 → sustained dollar strength pressures gold"
-    - "Low-liquidity Sydney/Tokyo session amplifies technical significance of the resistance rejection"
+    - "H1呈现清晰的二段式推进结构：Leg1从7387.96→7415.31(+27.4pt)，回调至7396.82，Leg2从7396.82→7425.98(+29.2pt，仍在延续)"
+    - "Leg2幅度(29.2pt)已超过Leg1(27.4pt)，确认真实推进浪特征，非假突破"
+    - "从7396.82起连续7根H1阳线(08:00-14:00)，买盘动能强劲且无回撤"
+    - "当前价格7425.33紧贴阻力位7426，仅差0.67点(0.05×ATR)，严重缺乏上行空间"
+    - "D1趋势BULLISH与H1方向一致，无趋势矛盾"
   risk_flags:
-    - "Retracement bounce was unusually strong (+81pts in 3 hours with accelerating momentum), suggests aggressive dip-buying interest beneath market"
-    - "D1 long lower wick (4638→4714 close) shows substantial support at 4638, may limit downside reach"
-    - "Low liquidity session increases risk of false breakouts or stop-hunts near resistance"
-    - "60% retracement is on the deeper end of healthy range, carries tail-risk of trend reversal"
-  verdict: "PASS"
+    - "【硬性红线触发】近端强阻力位7426距当前价格仅0.67点(<1ATR=13.34)，结构评分上限锁定≤3分"
+    - "【硬性红线触发】回调幅度达67.6%(7415.31→7396.82)，超过65%红线阈值，健康度差，反转风险上升"
+    - "价格已触及阻力位(当前H1高7425.98≈7426)，尚未出现确定性突破确认"
+    - "68%深回调+近端阻力双重叠加，即便突破也很可能是假突破或陷阱"
+    - "连续7根阳线无任何回调，短线超买，存在技术性回调需求"
+    - "若7426被确认突破，上方目标不明(需等待数据确认下一阻力区)"
+  verdict: "FAIL"
