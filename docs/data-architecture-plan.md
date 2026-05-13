@@ -1131,12 +1131,13 @@ strategies/futures/
 - [ ] 确认 heartbeat.status == "running"
 - [ ] 配置 systemd task / Windows Task Scheduler 实现开机自启
 
-#### Phase B2: 改造 Scalping Scanner（~2 小时）
+#### Phase B2: 改造 Scalping Scanner ✅ 已完成
 
-- [ ] scalping_scanner.py → 删掉 calc_rsi / calc_atr / detected_consecutive_bears / get_session
-- [ ] scan_strategy() 改为 `def scan_strategy(symbol, config, reader):`
-- [ ] 用 `ind = reader.get_indicator(symbol, tf)` 替代现场算指标
-- [ ] 用 `tick = reader.get_tick(symbol)` 替代 current_price
+- [x] scalping_scanner.py → 删掉 calc_rsi / calc_atr / detected_consecutive_bears / get_session
+- [x] scan_strategy() 改为 `def scan_strategy(symbol, config, reader):`
+- [x] 用 `ind = reader.get_indicator(symbol, tf)` 替代现场算指标
+- [x] 用 `tick = reader.get_tick(symbol)` 替代 current_price
+- [x] 41 策略扫描耗时: ~3s → 30ms
 - [ ] scalping_autopilot.py → 主循环改为 1-2s（不再是 60s），纯读 tick_reader
 - [ ] 保留 execute_trade() 的 MT5 调用（只有下单需要 MT5）
 
