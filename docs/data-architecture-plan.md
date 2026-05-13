@@ -953,4 +953,213 @@ strategy = {
 
 ---
 
-> **作者**: AI Agent | **日期**: 2026-05-13 | **版本**: v2 — 新增指标目录与发现系统 (Section 5)、实施计划重新编号
+## 11. Pillar B: 实时数据共享层（Tick Engine）
+
+> **目标**：所有实时交易系统共享同一数据源，避免重复连接 MT5 + 重复算指标
+> **核心**：一个轻量守护进程 + N 个只读 Scanner
+> **状态**：代码已实现（`scripts/tick_engine.py` + `scripts/tick_reader.py`）
+
+---
+
+### 11.1 现状问题
+
+当前每个 Scanner 各自连接 MT5、拉 bar、算指标：
+
+```
+Scalping Scanner       Intraday Scanner
+  ├ 连接 MT5               ├ 连接 MT5
+  ├ 拉 M1 40 bars          ├ 拉 H1 40 bars
+  ├ 算 RSI14/ATR           ├ 算 RSI14/ATR
+  ├ 算 consecutive_bear    ├ 算 consecutive_bear
+  └ 评估条件               └ 评估条件
+       ↑ 重复连接       ↑ 重复拉数据    ↑ 重复算
+```
+
+**问题**：
+1. **重复连接**：2+ 进程各连一次 MT5，每次 0.3-0.5s
+2. **重复拉 bar**：相同的品种、相同的 TF，各拉各的
+3. **重复算指标**：calc_rsi() / calc_atr() / detected_consecutive_bears() 在三处代码里一模一样
+4. **无法秒级检测**：每个 scanner 是独立循环，60s 周期，无法快速响应价格变化
+
+---
+
+### 11.2 架构设计
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│  Tick Engine (tick_engine.py)                                │
+│  运行在 Windows Python（唯一需要 MT5 的进程）                  │
+│                                                              │
+│  主循环 (每 1.5s):                                           │
+│  1. mt5.symbol_info_tick(14品种)   ← 0.2s                    │
+│  2. 检测新 bar 形成（M1/M5/H1）                               │
+│  3. 新 bar → 拉 bars → 重算指标                               │
+│  4. 写入共享 JSON 文件（原子写入）                              │
+│                                                              │
+│  输出: data/tick/                                             │
+│  ├ ticks.json              ← 14 品种最新 bid/ask/spread       │
+│  ├ indicators_M1.json      ← 各品种 M1 最新 RSI/ATR/连阴     │
+│  ├ indicators_M5.json      ← 各品种 M5 最新指标               │
+│  ├ indicators_H1.json      ← 各品种 H1 最新指标               │
+│  ├ bar_signals.json        ← 新 bar 通知（谁+哪个TF）         │
+│  └ _heartbeat.json         ← 运行状态（Scanner 据此判断是否活着）│
+└────────────────────────┬─────────────────────────────────────┘
+                         │
+            ┌────────────┼─────────────┐
+            ▼            ▼             ▼
+    ┌────────────┐ ┌────────────┐ ┌────────────┐
+    │ Scalping   │ │ Intraday   │ │ 未来策略    │
+    │ Scanner    │ │ Scanner    │ │ Scanner     │
+    │            │ │            │ │             │
+    │ 不再连MT5   │ │ 不再连MT5   │ │ 直接读      │
+    │ 读 ticks   │ │ 读 ticks   │ │ ticks.json  │
+    │ + indicators│ │ + indicators│ │ + indicators│
+    │ 只 eval    │ │ 只 eval    │ │ 只 eval     │
+    │ execute 除外│ │ execute 除外│ │             │
+    └────────────┘ └────────────┘ └────────────┘
+```
+
+**关键设计**：
+- **只有一个进程连 MT5**，其他 Scanner 完全不需要 MT5 库
+- **指标只在 bar 关闭时重算**，不浪费 CPU
+- **Tick 数据每 1.5s 更新**，Scanner 实现秒级检测只需读 JSON
+- **原子写入**：先写 `.tmp` 再 `rename`，避免 Scanner 读到半截文件
+- **Heartbeat 机制**：Scanner 检测到 Engine 停止 → 自动 fallback 直连 MT5
+- **价格级入场**：策略可加 `tick_entry` 条件（如 `tick.ask > threshold`），Scanner 的 1.5s 循环直接处理
+
+---
+
+### 11.3 文件说明
+
+| 文件 | 功能 |
+|:----|:-----|
+| `scripts/tick_engine.py` | Tick Engine 守护进程（Windows Python 运行） |
+| `scripts/tick_reader.py` | 共享数据读取层（Scanner 用，自动 fallback） |
+| `scripts/start_tick_engine.bat` | Windows 启动脚本 |
+| `config/tick_engine.json` | 配置（品种列表、TF、循环间隔） |
+| `data/tick/` | 共享输出目录 |
+
+---
+
+### 11.4 tick_reader.py API
+
+```python
+from tick_reader import TickReader
+
+reader = TickReader()
+
+# 引擎健康检查
+if not reader.is_alive():
+    fallback_to_direct_mt5()  # 自动降级
+
+# 读取 tick
+eur_tick = reader.get_tick("EURUSD")
+# → {"bid": 1.0845, "ask": 1.0847, "spread": 2, "time": 1747153800}
+
+# 读取指标（不用自己算 RSI/ATR）
+ind = reader.get_indicator("XAUUSD", "M5")
+# → {"rsi14": 45.2, "atr14": 12.5, "consecutive_bear": 2,
+#     "session": "europe", "bar_close": 2345.6, ...}
+
+# 检查新 bar
+signal = reader.get_bar_signal("EURUSD", "M1")
+# → {"time": 1747153800, "symbol": "EURUSD", "timeframe": "M1"}
+
+# 当前时段
+session = reader.get_session()  # "europe"
+```
+
+---
+
+### 11.5 Scanner 改造方案
+
+#### Scalping Scanner 改动
+
+```
+当前:
+  def scan_strategy(mt5, symbol, config):
+      bars = mt5.copy_rates_from_pos(...)    ← 拉数据
+      rsi = calc_rsi(closes)                 ← 算指标
+      atr = calc_atr(bars)                   
+      session = get_session(...)             
+      # ... 检查条件
+      
+改为:
+  def scan_strategy(symbol, config, reader):
+      ind = reader.get_indicator(symbol, config["timeframe"])  ← 直接读
+      if not ind:
+          return []
+      tick = reader.get_tick(symbol)
+      # ... 检查条件（用 ind 的 rsi14/atr14/consecutive_bear/session 替代现场计算）
+```
+
+**核心变化**：
+- 不再 import MetaTrader5
+- 不再调用 `mt5.copy_rates_from_pos()`
+- 不再调用 `calc_rsi()` / `calc_atr()` / `detected_consecutive_bears()`
+- 不再调用 `get_session()`
+- **纯只读 + 纯 eval**，循环周期可以从 60s 降到 1-2s
+
+#### Intraday Scanner 改动
+
+同上。额外注意：Signal Scanner 还有 DXY 过滤逻辑，这个需要保留但改为从 Tick Engine 读取。
+
+---
+
+### 11.6 文件清单
+
+```
+strategies/futures/
+├── config/
+│   └── tick_engine.json          ← 配置（已创建）
+├── scripts/
+│   ├── tick_engine.py            ← 守护进程（已创建，14017 bytes）
+│   ├── tick_reader.py            ← 读取层（已创建，6019 bytes）
+│   └── start_tick_engine.bat     ← 启动脚本（已创建）
+└── data/
+    └── tick/                      ← 共享输出目录（已创建）
+```
+
+---
+
+### 11.7 实施步骤
+
+#### Phase B1: 部署 Tick Engine（~1 小时）
+
+- [ ] Windows 上双击 `start_tick_engine.bat` 启动
+- [ ] 确认 `data/tick/` 下生成 ticks.json / _heartbeat.json / indicators_M5.json
+- [ ] 确认 heartbeat.status == "running"
+- [ ] 配置 systemd task / Windows Task Scheduler 实现开机自启
+
+#### Phase B2: 改造 Scalping Scanner（~2 小时）
+
+- [ ] scalping_scanner.py → 删掉 calc_rsi / calc_atr / detected_consecutive_bears / get_session
+- [ ] scan_strategy() 改为 `def scan_strategy(symbol, config, reader):`
+- [ ] 用 `ind = reader.get_indicator(symbol, tf)` 替代现场算指标
+- [ ] 用 `tick = reader.get_tick(symbol)` 替代 current_price
+- [ ] scalping_autopilot.py → 主循环改为 1-2s（不再是 60s），纯读 tick_reader
+- [ ] 保留 execute_trade() 的 MT5 调用（只有下单需要 MT5）
+
+#### Phase B3: 改造 Intraday Scanner（~1 小时）
+
+- [ ] signal_scanner.py → 同上改造
+- [ ] scanner_autopilot.py → 适配
+
+#### Phase B4: 验证与收尾（~1 小时）
+
+- [ ] 停掉 Tick Engine → Scanner 自动 fallback 直连 MT5（验证降级）
+- [ ] 启动 Tick Engine → Scanner 自动恢复共享读取
+- [ ] 对比改造前后信号输出一致性
+- [ ] Git 提交
+
+---
+
+### 11.8 风险与应对
+
+| 风险 | 应对 |
+|:----|:-----|
+| Tick Engine 进程挂了 | Scanner 的 is_alive() 检测到超时 → 自动 fallback 直连 MT5 |
+| 共享文件读写冲突 | 原子写入（tmp + rename）+ Scanner 读时加异常处理 |
+| 1.5s 循环压垮 MT5 | 只读 tick（极轻量），bar 只在新 bar 时才拉。实测 14 品种 tick 约 0.2s |
+| Windows 重启后 Engine 没自启 | Task Scheduler 配置开机启动 |
+| Scanner 改造期间旧代码还能跑 | 改造前复制一份原脚本备份，新的用不同文件名测试 |

@@ -1,0 +1,13 @@
+{
+  "_comment": "统一 Tick Engine 配置",
+  "symbols": [
+    "XAUUSD","XAGUSD","USTEC","US30","US500",
+    "JP225","HK50","USOIL","UKOIL",
+    "EURUSD","GBPUSD","USDJPY","AUDUSD","USDCHF"
+  ],
+  "timeframes": ["M1","M5","H1"],
+  "loop_interval_sec": 1.5,
+  "shared_dir": "F:/AIcoding_space/Hermes/strategies/futures/data/tick",
+  "indicator_bars": 50,
+  "heartbeat_max_age_sec": 10
+}
