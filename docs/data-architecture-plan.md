@@ -1124,12 +1124,12 @@ strategies/futures/
 
 ### 11.7 实施步骤
 
-#### Phase B1: 部署 Tick Engine（~1 小时）
+#### Phase B1: 部署 Tick Engine ✅ 已完成
 
-- [ ] Windows 上双击 `start_tick_engine.bat` 启动
-- [ ] 确认 `data/tick/` 下生成 ticks.json / _heartbeat.json / indicators_M5.json
-- [ ] 确认 heartbeat.status == "running"
-- [ ] 配置 systemd task / Windows Task Scheduler 实现开机自启
+- [x] Windows 上双击 `start_tick_engine.bat` 启动（实测通过）
+- [x] 确认 `data/tick/` 下生成 ticks.json / _heartbeat.json / indicators_M5.json
+- [x] 确认 heartbeat.status == "running"
+- [x] 安装脚本 `install_tick_engine_service.bat`（右键管理员运行即配好开机自启）
 
 #### Phase B2: 改造 Scalping Scanner ✅ 已完成
 
