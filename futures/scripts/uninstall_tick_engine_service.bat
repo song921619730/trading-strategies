@@ -1,22 +1,14 @@
 @echo off
-chcp 65001 >nul
-
 echo ========================================
-echo   Tick Engine 开机自启移除脚本
-echo   请以管理员身份运行
+echo  Tick Engine Auto-Start Remover
+echo  Run AS ADMINISTRATOR
 echo ========================================
 echo.
-
-set TASK_NAME=HermesTickEngine
-
-schtasks /delete /tn %TASK_NAME% /f
-
+schtasks /delete /tn HermesTickEngine /f
 if %ERRORLEVEL% equ 0 (
-    echo ✅ 已移除开机自启任务: %TASK_NAME%
+    echo SUCCESS: Task HermesTickEngine removed
 ) else (
-    echo ❌ 移除失败。可能任务不存在或权限不足。
-    echo 试试: 右键本文件 -> "以管理员身份运行"
+    echo FAILED: Try right-click ^> Run as administrator
 )
-
 echo.
 pause
