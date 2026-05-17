@@ -1,0 +1,23 @@
+analysis:
+  symbol: XAGUSD
+  direction: SELL
+  structural_score: 7
+  entry_zone: "87.40-87.80"
+  stop_loss: 88.25
+  take_profit: 85.50
+  reward_risk: "1:2.2"
+  reasoning:
+    - "H1 structure shows a textbook double-rejection pattern at 87.82 resistance (14-period R). May 13 09:00 candle hit 87.815 precisely then closed at 86.72 (-1.09) with high volume (12,238), confirming supply overwhelming demand at the zone."
+    - "The larger structure is a V-bounce recovery from 83.03 support (May 12 23:00 low) back to resistance, but the impulsive wave energy has exhausted — each successive push toward 87.8 shows decreasing momentum (lower peaks on volume)."
+    - "May 11-12 impulsive breakout from 80→85.5 was clean (+5.5pts in 3 candles), followed by distribution 85.5→87.2, then a sharp sell-off to 83.03. The recovery from 83.03 to 87.82 retraced ~90% of the prior drop, creating a potential double-top / failed breakout setup."
+    - "Current price 86.82 sits in structural no-man's-land: ~1.0 above nearest minor support (85.50) and ~1.0 below resistance (87.82). However, the high-volume rejection at 87.82 provides a clear short entry on a retest."
+    - "European session context supports bearish bias: copper at ATH supports silver industrial demand long-term, but near-term profit-taking on the V-bounce is typical during European hours. The rejected move at 87.82 aligns with a short-term mean reversion."
+    - "ATR(14)=0.938 provides ample room for a 1.5ATR stop (1.41) above resistance. Sell entry at 87.60 with SL 88.25 (~0.65 ATR) and TP 85.50 (~2.2 ATR) yields favorable risk-reward."
+  risk_flags:
+    - "Long-term silver bull trend intact (D1: 73.9→87.8, +18.8% over 3 weeks). This is a counter-trend short within a larger bullish structure — trend reversal risk is real."
+    - "Copper at all-time highs provides fundamental support for silver (industrial demand). A break above 87.82 could trigger a short squeeze toward 90+."
+    - "Iran geopolitical uncertainty (Strait of Hormuz, Trump-Xi summit) supports precious metals as safe havens — bullish tailwind for silver."
+    - "Today's PPI release (8:30 AM ET) is a macro event risk that could drive directional moves regardless of technical structure."
+    - "The 83.03 support held on the May 12 sell-off — a strong floor limits downside potential for a sustained breakdown."
+    - "Volume on the recovery was generally lower than the initial sell-off volume, suggesting the bounce lacked conviction compared to the prior distribution."
+  verdict: PASS

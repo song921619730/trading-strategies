@@ -1,0 +1,239 @@
+# ============================================================
+# President (趋势裁判官) — GBPUSD D1 Trend Opinion
+# Symbol: GBPUSD (英镑/美元)
+# Timestamp: 2026-05-13 11:59 BJT
+# Session: 欧盘 (European Session 8-13)
+# Price: 1.35381
+# ============================================================
+
+trend_opinion:
+  symbol: GBPUSD
+  analysis_timestamp: "2026-05-13 11:59 BJT"
+  session: "欧盘 (European Session 8-13)"
+  current_price: 1.35381
+
+  # ── D1 趋势评分卡 ───────────────────────────────────
+  d1_trend: "BEARISH"
+  d1_confidence: "MODERATE"
+
+  d1_criteria:
+    bullish_checks:
+      criterion_1_hh_hl:   # 最近3根D1形成 higher high + higher low
+        status: "❌"
+        detail: "Lows: 1.35482 (May10) → 1.35788 (May11) → 1.35000 (May12) — Not HL, last low broke prior lows. Highs: 1.35970 → 1.36529 → 1.36048 — Not HH, 5/12 high (1.36048) < 5/11 high (1.36529). HH/HL结构完全破坏."
+      criterion_2_price_vs_ma:  # D1价格 > 20日均线
+        status: "❌"
+        detail: "Price 1.35381 at/near estimated 20MA (~1.354-1.355). After the 104-pip bearish engulfing, price is essentially at the 20MA or slightly below. Prior confirmation needed but likely below."
+      criterion_3_consecutive_bullish:  # D1连续2+根阳线
+        status: "❌"
+        detail: "Last 3 completed candles: May10 ✅(bullish), May11 ✅(bullish), May12 ❌(bearish engulfing). Streak broken at 2. May13 forming inside doji."
+      criterion_4_pullback_not_broken:  # D1回调未破前低
+        status: "❌"
+        detail: "May12 low 1.35000 completely broke May10 low 1.35482, May11 low 1.35788, and all prior structure back to Apr23 low 1.34473. No prior support held."
+    bullish_score: "0/4 ❌ — No bullish criteria met"
+
+    bearish_checks:
+      criterion_1_lh_ll:  # 最近3根D1形成 lower high + lower low
+        status: "⚠️ Partial (2 of 3)"
+        detail: "3-candle high sequence: 1.35970→1.36529→1.36048. Low sequence: 1.35482→1.35788→1.35000. May10→May11 showed HH+HL. But May11→May12 shows clear LH (1.36529→1.36048) ✅ and LL (1.35788→1.35000) ✅. Bearish Engulfing candle establishes decisive LH+LL reversal structure."
+      criterion_2_price_below_ma:  # D1价格 < 20日均线
+        status: "✅"
+        detail: "Price 1.35381 is below estimated 20MA (~1.354-1.355 range). The 104-pip bearish engulfing has pushed price from well above 20MA to at/near/below it in a single session."
+      criterion_3_consecutive_bearish:  # D1连续2+根阴线
+        status: "❌"
+        detail: "Only May12 (1.36037→1.35347) was bearish. May10 and May11 were both bullish. No consecutive bearish candles on D1 yet. However, the single bearish engulfing candle was extreme (104 pips, engulfing 4 prior bullish days)."
+      criterion_4_bounce_below_prior_high:  # D1反弹未破前高
+        status: "✅"
+        detail: "May12 high (1.36048) < May11 high (1.36529) ✅. May13 high so far (1.35461) < May12 high (1.36048) ✅. All recent highs in decline."
+    bearish_score: "2.5/4 ⚠️ — Partial/Moderate bearish criteria met"
+
+  # ── D1 摆动结构分析 ──────────────────────────────────
+  d1_structure:
+    summary: >
+      完整的两段式上涨+单日反转结构:
+      - Phase 1 (Apr 23→May 1): 1.34473→1.36576, +210 pips — 初期趋势建立
+      - Pullback (May 1-4): 1.36576→1.35310, -127 pips — 回调
+      - Phase 2 (May 4→May 11): 1.35310→1.36529, +122 pips — 二次冲顶(潜在双顶)
+      - Reversal (May 12): ⭐ 大阴线吞噬(Bearish Engulfing) 1.36037→1.35000(-104pips)
+        完全吞噬前4个交易日的全部涨幅, 是极高可靠性的趋势反转信号。
+      - Consolidation (May 13): 窄幅整理1.35279-1.35461(18pips), 形成中Doji。
+        价格在三重测试的1.35000支撑上方窄幅横盘, 属于方向选择前的蓄力。
+    trend_strength: >
+      两段上涨从1.34473至1.36576累计+210点(+1.53%), 持续约2周。
+      May12的单日反转(-104点)吞噬了近一半的总涨幅, 力度极强(2.9×ATR)。
+      当前价格在1.35000关键支撑上方整理, 尚未确认破位但也无力反弹。
+      这是典型的「趋势反转后的犹豫」结构——Bear Flag正在形成。
+    key_levels:
+      current: 1.35381
+      resistance:
+        r1: 1.35461  # May13 H1高 = 14周期D1阻力
+        r2: 1.35530  # May12 Euro bounce high
+        r3: 1.36048  # May12 D1高 = 关键阻力
+      support:
+        s1: 1.35279  # May13 Asian consolidation low
+        s2: 1.35000  # 14周期D1支撑 / 三重测试低点 ⭐ 关键
+        s3: 1.34700  # Apr21 low / 下一结构支撑
+        s4: 1.34473  # Apr23 low = 本轮上涨起点
+
+  # ── H1 阶段评估 ─────────────────────────────────────
+  h1_phase: "BODY"
+  h1_phase_detail: >
+    H1结构复盘 (最近50根蜡烛):
+
+    【推动段】5/11 23:00 → 5/12 16:00: 五浪下跌推动
+    - Leg-1: 1.36529→1.35796 (24pips, 亚盘初段)
+    - Leg-2: 1.35928→1.35018 (91pips, 核心推动段, 成交量6022见顶)
+    - Leg-3: 1.35485→1.35000 (48.5pips, 失败延伸)
+
+    【整理段】5/12 17:00 → 当前:
+    - 从1.35000反弹至1.35529后回落至1.35000-1.3546区间窄幅整理
+    - 形成清晰的Bear Flag结构: 18-pip极窄区间, 成交量从6022骤降至524-2471
+    - 价格三次测试1.35000支撑(1.35018, 1.35070, 1.35000收敛), 成交量递减
+    - 上方阻力_14=1.35461精确压制, 最近5根H1均在此下方运行
+
+    当前判断:
+    - Bear Flag是经典的持续形态 — 整理后大概率延续下行
+    - 成交量暴缩(至峰值的8-40%)是典型的蓄力特征
+    - 价格精确压缩在支撑_14(1.35000)和阻力_14(1.35461)之间,
+      呈三角形收敛末端 — 突破在即
+    - 唯一矛盾: 三重测试的1.35000支撑仍然完整, 这里可能成为Vet防线
+
+    H1→D1 Alignment: "ALIGNED"
+    alignment_detail: >
+      D1趋势: BEARISH (Bearish Engulfing + 0/4多头条件)
+      H1结构: BEARISH (五浪下跌+Bear Flag, 方向SELL)
+      大周期与小周期方向一致 — 这是高质量的趋势共振。
+      无方向冲突, Analyst的SELL方向获得President的完整结构支持。
+
+  # ── 宏观背景 ────────────────────────────────────────
+  macro_context:
+    - "🔥 今日20:30 美国4月PPI发布: CPI超预期(前值)后市场对通胀数据高度敏感。PPI若高于预期 → 美元走强 → GBPUSD承压。PPI若低于预期 → 美元走弱 → GBP可能短暂反弹。宏观事件可能是Bear Flag突破的催化剂。"
+    - "🇨🇳🇺🇸 中美峰会进行中: 习近平会见特朗普。Nvidia CEO黄仁勋临时加入代表团。中美就霍尔木兹海峡重新开放的表态可能影响风险情绪。GBP作为风险货币对风险情绪敏感。"
+    - "🇮🇷 伊朗局势持续: 战争进入第三个月。Hegseth表示特朗普无需国会授权重启打击。但市场正逐渐消化地缘风险(战争溢价从油价的持续回撤可见)。"
+    - "🏛️ 美联储: Kevin Warsh确认为FOMC理事, 为未来主席投票扫清障碍。市场关注后续货币政策走向。"
+    - "📊 跨资产: S&P500从历史高点回落; 铜价创历史新高; 美元整体偏强。GBPUSD技术面与宏观面共振偏空。"
+    - "📉 现有持仓: USOIL BUY浮亏-$17.19。GBPUSD无现有持仓, 可独立决策。"
+
+  # ── 方向冲突评估 ────────────────────────────────────
+  direction_assessment:
+    # 场景: H1 做空 (SELL) — Analyst已提交的方向
+    sell_scenario:
+      proposed_direction: "SELL"
+      d1_trend: "BEARISH"
+      rule: "D1空头 + H1做空 → ✅ 方向一致"
+      assessment: >
+        D1 BEARISH + H1 SELL = 方向完全一致。
+        
+        多维度共振:
+        1. ✅ D1 Bearish Engulfing — 高可靠性反转信号
+        2. ✅ H1五浪下跌+Bear Flag — 经典持续形态
+        3. ✅ D1/H1同方向无冲突
+        4. ✅ 成交量递减确认Bear Flag
+        5. ✅ 阻力_14精确压制价格
+        6. ✅ 宏观面(PPI预期+美元偏强)支持
+
+        ⚠️ 风险提示:
+        - 三重测试的1.35000支撑可能触发暴力空头回补
+        - Bear Flag也能向上突破(虽概率较低)
+        - PPI发布前18-pip极窄区间可导致任一方向的剧烈突破
+        - 入场时机需精确: 应在1.3540-1.3546阻力区确认拒否后入场
+      verdict: "SUPPORT"
+      conditions:
+        - "需确认1.35461阻力拒否(erjection candle)后方可入场"
+        - "若PPI先于入场发布, 等待15-30分钟波动率正常化"
+        - "硬性失效: 价格突破并站稳1.35600上方"
+
+    # 场景: H1 做多 (BUY) — 作为参考
+    buy_scenario:
+      proposed_direction: "BUY"
+      d1_trend: "BEARISH"
+      rule: "D1空头 + H1做多 → ❌ 方向冲突 → VETO"
+      assessment: >
+        D1趋势明确为空头(Bearish Engulfing), 做多方向与D1趋势直接冲突。
+        根据Triumvirate共识规则: "President说D1方向CONFLICT → 绝对反对"。
+        
+        CIO历史最大亏损来源正是「逆D1趋势做多/做空」:
+        - 做多方向在D1下跌趋势中做多 = 逆势交易, CIO最大亏损来源
+        - 即使1.35000支撑牢固, 在D1空头框架下做多属于左侧抄底
+        - 若D1需转多头, 至少需要: (1) 连续2+日阳线 (2) HH+HL重建 (3) 1.35000支撑确认
+        当前这些条件均不满足。
+      verdict: "VETO"
+      veto_reason: >
+        D1趋势为BEARISH (0/4多头条件, 2.5/4空头条件满足),
+        与H1做多方向构成直接冲突。
+        硬规则: D1方向CONFLICT → 绝对反对, 不可通过讨论绕过。
+
+  # ── 最终裁决 ────────────────────────────────────────
+  verdict: "SUPPORT_FOR_SHORT"
+
+  verdict_rationale: >
+    最终裁决: SUPPORT — 支持SELL方向。
+
+    核心理由:
+    1. D1趋势判决: BEARISH (置信度MODERATE)
+       - Bearish Engulfing吞噬前4天涨幅(信号强度: 高)
+       - 多头条件0/4完全不满足
+       - 空头条件2.5/4部分满足, 但Bearish Engulfing的单根K线权重高于常规的逐根判断
+       
+    2. H1阶段: BODY (鱼身)
+       - 五浪下跌+Bear Flag = 趋势运行中段
+       - 18-pin极窄整理+成交量暴缩 = 典型蓄力特征
+       - 非鱼头(突破已完成), 非鱼尾(无衰竭信号)
+       
+    3. 方向对齐: D1 BEARISH + H1 SELL = ✅ 完全对齐
+       - 大周期与小周期形成趋势共振
+       - 无方向冲突, 无需NEUTRAL或妥协
+       
+    4. 关键支撑考量:
+       - 1.35000是三重测试的强支撑, 但三次测试成交量递减(6022→5329→4746)
+         → 这不是积累, 而是消耗型测试
+       - 真正的破位只需一次催化剂(PPI可能就是)
+       - 若1.35000破位, 下方空间打开至1.34700甚至1.34473
+       
+    5. 个人判断:
+       这是一个教科书级别的Bear Flag设置在关键的D1 Bearish Engulfing之后。
+       D1趋势刚反转, H1正处于Breakdown的BODY阶段, 方向高度对齐。
+       唯一的谨慎因素是1.35000支撑的韧性和PPI数据风险。
+       但Bear Flag结构的本质就是「数据前蓄力, 数据后突破」。
+       
+    裁决适用于:
+    - SELL方向 → ✅ SUPPORT (方向一致, 有条件的支持)
+    - BUY方向 → ❌ VETO (方向冲突, 绝对反对)
+
+  veto_reason: "VETO applies to BUY direction only. D1 trend BEARISH + H1 BUY = direct conflict."
+  veto_is_absolute: true
+  veto_rule: "D1方向 CONFLICT → 绝对反对 (不可通过讨论绕过)"
+
+  # ── 建议 ─────────────────────────────────────────────
+  recommendation: >
+    当前策略: 支持SELL, 但建议有条件的执行。
+
+    1. 入场策略:
+       - 等待价格再次测试1.3540-1.3546阻力区
+       - 确认出现rejection candle(上影线或阴线收于1.3535下方)后入场SELL
+       - 若价格直接跌破1.35000 → 可在反弹确认阻力后入场
+       
+    2. PPI风险管理:
+       - 若PPI发布前未入场 → 等待数据后15-30分钟, 让市场消化第一波波动
+       - PPI超预期(利好USD) → 可在数据后追空(但需等待确认)
+       - PPI不及预期(利空USD) → 等待GBP反弹至阻力区再入场
+       
+    3. 失效条件:
+       - 价格突破并站稳1.35600上方 → SELL思路完全失效
+       - 若1.35000第四次测试仍hold + 出现强力反弹阳线 → 空头需重新评估
+       
+    4. D1收盘至关重要:
+       - 若May13 D1收盘于1.35000附近或下方 → BEARISH确认升级
+       - 若May13 D1收盘于1.3546上方 → 削弱Bearish信号
+       - 若May13 D1收出长下影 → 需警惕底部支撑有效性
+
+  notes:
+    - "D1趋势判决: BEARISH, 置信度MODERATE ⬇️"
+    - "Bearish Engulfing是本次判决的核心依据—这是高可靠性反转模式 ⭐"
+    - "Bear Flag形态继续支持SELL方向—教科书级别的持续结构 📘"
+    - "H1阶段: BODY(鱼身)—趋势运行中段, 非头非尾 🎯"
+    - "1.35000是关键十字路口—突破将打开下行空间 ⚔️"
+    - "今日PPI是Bear Flag突破的天然催化剂—关注20:30BJT 🕐"
+    - "SELL → SUPPORT (方向对齐, 有条件的支持) ✅"
+    - "BUY → VETO (方向冲突, 绝对反对) ❌"
+    - "VETO规则: D1方向CONFLICT → 绝对反对, 硬规则不可绕过"

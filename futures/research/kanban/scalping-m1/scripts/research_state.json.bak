@@ -1,0 +1,49 @@
+{
+  "current_round": 91,
+  "last_run": "2026-05-15 07:40 UTC",
+  "status": "completed",
+  "hypotheses": {
+    "round91_001": "XAUUSD M1 EU CB3+RSI10 第52月完美通过: WR=100.0% n=23 hold=55 ✅",
+    "round91_002": "XAUUSD M1 US CB3+RSI10 第52月通过: WR=92.5% n=40 hold=30 Sharpe=113.87 ✅",
+    "round91_003": "XAU M1 EU CB4+RSI12 第10月: WR=83.3% n=42 hold=40 维持稳定 ⚠️观察中",
+    "round91_004": "XAGUSD M5 RSI<3+CB≥1 第11月确认: WR=100.0% n=15 hold=70 Sharpe=36.85 ⭐",
+    "round91_005": "XAGUSD M5 RSI<4+CB≥1 第39月确认: WR=96.8% n=31 hold=70 ✅",
+    "round91_006": "US30 M1 EU CB6+RSI12 第43月改善持续: WR=86.4% n=22 hold=15 Sharpe=133.23 ⭐",
+    "round91_007": "US500 M5 EU CB6+RSI14 第50月通过: WR=85.7% n=21 hold=25 ✅",
+    "round91_008": "XAUUSD M1 ASIA — 已归档跳过",
+    "round91_009": "📢 数据边界已更新至 2026-05-14 23:10 UTC (+11小时)",
+    "round91_010": "核心策略在数据更新后100%通过，无退化"
+  },
+  "best_known": {
+    "XAUUSD_M1_EU_extreme": "XAUUSD M1 EU CB>=3+RSI<10 WR=100.0% n=23 hold=55 [CP52/52 第52月通过✅]",
+    "XAUUSD_M1_EU_CB2": "XAUUSD M1 EU CB>=2+RSI<10 WR=93.5% n=31 hold=55 [R91第44月确认]",
+    "XAUUSD_M1_US_strong": "XAUUSD M1 US CB>=3+RSI<10 WR=92.5% n=40 hold=30 [第52月通过✅]",
+    "XAUUSD_M1_Dual_extreme": "XAUUSD M1 双极值联合 EU+US CB>=3+RSI<10 WR=88.9% n=63 hold=55 [第52月通过✅]",
+    "XAUUSD_M1_ASIA": "XAUUSD M1 ASIA CB>=3+RSI<10 WR=67.7% n=62 hold=10 ❌[正式归档]",
+    "XAGUSD_M5_RSI5_ALL": "XAGUSD M5 RSI<5+CB>=1做多 WR=88.9% n=45 hold=70 [R91第44月确认✅]",
+    "XAGUSD_M5_RSI4_ALL": "XAGUSD M5 RSI<4+CB>=1做多 WR=96.8% n=31 hold=70 [R91第39月确认✅]",
+    "XAGUSD_M5_RSI3_CB1_ALL": "XAGUSD M5 RSI<3+CB>=1做多 WR=100.0% n=15 hold=70 ⭐[R91第11月确认!]",
+    "US500_M5_EU_strong": "US500 M5 EU CB>=6+RSI<14做多 WR=85.7% n=21 hold=25 [第50月确认]",
+    "US30_M1_EU_CB6_RSI12": "US30 M1 EU CB>=6+RSI<12做多 WR=86.4% n=22 hold=15 Sharpe=133.23 ⭐[R91第43月改善持续]",
+    "XAU_M1_EU_CB4_RSI12": "XAU M1 EU CB>=4+RSI<12做多 WR=83.3% n=42 hold=40 ⚠️[第10月,维持稳定]"
+  },
+  "warnings": [
+    "⚠️ 数据截至2026-05-14 23:10 UTC(约8.5小时前), 可继续通过Windows Python更新MT5数据",
+    "做空信号在所有TF全线<65% WR,做空分支已正式关闭(第4次确认)",
+    "❌ XAUUSD M1 ASIA WR=67.7% 正式归档停止跟踪",
+    "JP225 M5级别信号质量差(最大WR=77.4%但Sharpe仅14.86)",
+    "⚠️ 无法从Linux环境直接访问Windows MT5进行数据更新(持续限制)"
+  ],
+  "next_actions": [
+    "R92-001: XAU M1 EU/US 第53月常规跟踪 + EU_CB2第45月 + EU_CB4_RSI12第11月跟踪",
+    "R92-002: XAG M5 RSI<5 ALL第45月 + RSI<4第40月 + RSI3第12月跟踪",
+    "R92-003: US500 M5 EU 第51月常规跟踪",
+    "R92-004: US30 M1 EU 第44月改善持续跟踪(CB6+RSI12)",
+    "R92-005: XAU M1 EU RSI12 第11月监控(是否继续稳定)",
+    "R92-006: JP225 M5 最低权重监控(US session)",
+    "R92-007: XAG M5 信号频率更新+新数据模式探索"
+  ],
+  "h1m30_round": 12,
+  "h1m30_status": "completed",
+  "h1m30_last_run": "2026-05-14 23:31 UTC"
+}

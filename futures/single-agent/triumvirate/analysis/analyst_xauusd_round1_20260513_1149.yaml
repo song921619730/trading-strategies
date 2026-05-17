@@ -1,0 +1,25 @@
+analysis:
+  symbol: XAUUSD
+  direction: BUY
+  structural_score: 4
+  entry_zone: "4687-4695"
+  stop_loss: 4660
+  take_profit: 4765
+  reward_risk: "1:2.1"
+  reasoning:
+    - "D1 first leg: 4500→4773 (+273pts, May4→May12). D1 correction: 4773→4638 (49.5% retracement — within healthy 30-50% range ✓)"
+    - "D1/H1 alignment: Both bullish. D1 trend above 20MA (+55pts), macro backdrop neutral-bullish (weak DXY, rate cut expectations)."
+    - "H1 recovery from 4638 initially showed textbook impulse: accumulation (00:00-02:00), markup (03:00, +19.6pts), consolidation (04:00-07:00 around 4712-4723)."
+    - "However, the 08:00 candle tested 4727 resistance (14-period R) and failed — closed at 4714.7 with upper wick. Followed by 3 consecutive bearish candles (09:00-10:00) dropping to 4687.65 (-40pts)."
+    - "The 11:00 candle bounced from 4688 to close 4702.9, suggesting 4687-4700 zone may act as support. But the structure is now ambiguous — the second leg that was forming has been invalidated by the failed breakout."
+    - "Current price 4703 sits in no-man's-land: 65pts above support (4638) and 24pts below resistance (4727). No clear structural edge for entry."
+    - "The D1 trend provides a bullish bias, but H1 has lost its constructive shape. The failed breakout at 4727 and sharp pullback to 4687 indicate significant selling pressure just above."
+  risk_flags:
+    - "H1 breakout failure at 4727 resistance (14-period R) — the rejection was decisive with 3 consecutive bearish candles"
+    - "D1 lower low structure: 4648 (May11) → 4638 (May12) — higher low structure is broken, weakening the bullish trend confidence"
+    - "H1 correction from 4773→4638 (-135pts) exceeded 100% of prior H1 impulse (~123pts) — deeper than ideal for a clean second leg setup"
+    - "Current price 4703 is in structural no-man's-land — equidistant from support 4638 and resistance 4727, no clear entry zone"
+    - "Asian session thin liquidity (11:47 Beijing) magnifies the 09:00-10:00 sell-off — risk of false breakout both directions"
+    - "Despite 11:00 bounce from 4688, one candle does not confirm reversal — need to see follow-through above 4715 (previous consolidation)"
+    - "D1 bullish confidence is LOW per president analysis (2/4 checks pass, lower lows invalidate HH+HL structure)"
+  verdict: FAIL

@@ -1,0 +1,114 @@
+trend_opinion:
+  symbol: XAUUSD
+  analysis_timestamp: "2026-05-13 14:10 BJT"
+  session: "美盘即将开盘 (Pre-US Session)"
+  current_price: 4711.09
+
+  # ── D1 Trend Assessment ───────────────────────────────
+  d1_trend: "CHOP"
+  d1_confidence: "MEDIUM"
+
+  d1_criteria:
+    bullish_checks:
+      criterion_1_hh_hl:  # 最近3根D1形成 higher high + higher low
+        status: "❌"
+        detail: "Highs: 4698→4770→4773 (higher ✓) but Lows: 4679→4648→4638 (lower ✗) — 扩张震荡，非HH+HL结构"
+      criterion_2_price_vs_ma:  # D1价格 > 20日均线
+        status: "✅"
+        detail: "Price 4711 > estimated MA20 ~4675 (+36 pts) — 价格在均线上方"
+      criterion_3_consecutive_bullish:  # D1连续2+根阳线
+        status: "❌"
+        detail: "Last 3 completed: 5/10阴, 5/11阳, 5/12阴 — 阴阳交替，无连续阳线"
+      criterion_4_pullback_not_broken:  # D1回调未破前低
+        status: "❌"
+        detail: "前低4648(5/11) → 4638(5/12) — 被跌破，尽管收盘收回至4716"
+    bullish_score: "1/4 ❌ 不满足及格线(2/4)"
+
+    bearish_checks:
+      criterion_1_lh_ll:  # 最近3根D1形成 lower high + lower low
+        status: "❌"
+        detail: "Highs: 4698→4770→4773 (higher highs, not lower) — 不满足LH条件"
+      criterion_2_price_below_ma:  # D1价格 < 20日均线
+        status: "❌"
+        detail: "Price 4711 > MA20 ~4675 — 价格在均线上方"
+      criterion_3_consecutive_bearish:  # D1连续2+根阴线
+        status: "⚠️"
+        detail: "5/12阴线(已确认), 5/13阴线(形成中但未收盘) — 若今日收阴则形成连续2阴"
+      criterion_4_bounce_below_prior_high:  # D1反弹未破前高
+        status: "❌"
+        detail: "5/11 high 4770, 5/12 high 4773 — 连续突破前高"
+    bearish_score: "0.5/4 ❌ 不满足及格线(2/4)"
+
+  d1_conclusion: >-
+    CHOP (震荡) — 多头1/4 + 空头0.5/4，均未达2/4及格线。
+    自5/4低点4500至5/12高点4773涨幅+273点后，5/12出现大阴线(4773→4638)
+    形成高位吞没形态。但收盘长下影(4638→4717)显示买盘支撑依然强劲。
+    当前5/13仍在区间低位整理(4687-4727)，多空未分胜负。
+    与前轮分析(11:53 BJT)结论一致：CONSOLIDATION维持不变。
+
+  # ── H1 Phase Assessment ──────────────────────────────
+  h1_phase: "TAIL_to_BODY_transition"
+  h1_phase_reason: >-
+    H1结构: 5/12 23:00低点4638 → 5/13 08:00高点4727(+89点反弹，TAIL)，
+    随后跌至10:00低点4687(-40点，修正结束信号)，
+    目前从4687反弹至4711(+24点，弱势反弹，力度仅为第一波反弹的27%)。
+    
+    当前处于TAIL(修正性反弹)向BODY(空头推进)过渡阶段：
+    - HEAD✅: 4773→4638的初始下跌已完成
+    - TAIL✅: 4638→4727的反弹已完成，开始回撤
+    - BODY⚠️: 空头BODY尚未确认——需跌破4687支撑才能确认
+    - REVERSAL⚠️: 若价格突破4727则否定空头结构
+    
+    目前价格4711处于关键博弈区间，方向选择即将发生。
+
+  # ── Direction Alignment ──────────────────────────────
+  h1_to_d1_alignment: "NEUTRAL"
+  alignment_note: >-
+    D1为CHOP震荡，无明确方向。H1短期偏空(反弹乏力+高位承压)，
+    但D1震荡框架下任何方向均无趋势背书。
+    D1 CHOP + H1 SELL = ✅ 允许(无方向冲突但无趋势支持)。
+
+  # ── Macro Context ────────────────────────────────────
+  macro_context: >-
+    D1自5/4低点4500反弹至4773(+273点)，而后大幅回调至4638，
+    当前价4711在MA20(~4675)上方。宏观面中性偏多：
+    DXY维持弱势(~104.6)，9月降息概率80%，伊朗局势持续提供避险支撑。
+    重点关注今晚20:30 BJT美国4月PPI数据——可能打破当前震荡格局。
+    中美峰会(特朗普-习近平会晤)地缘风险变量存在双向影响可能。
+
+  # ── Verdict ──────────────────────────────────────────
+  verdict: "NEUTRAL"
+  veto_reason: ""
+  verdict_rationale: >-
+    最终裁决: NEUTRAL — 对H1 SELL方向不支持不反对。
+    
+    核心理由:
+    1. D1趋势判定: CHOP (CONSOLIDATION)
+       - 多头1/4 + 空头0.5/4，均未达2/4及格线
+       - 与前轮多次分析结论一致：多空条件均不满足
+       - 5/12大阴线+5/13小阴线有偏空倾向但尚未形成趋势
+    
+    2. H1阶段: TAIL→BODY过渡
+       - 4773→4638初始下跌已完成(HEAD)
+       - 4638→4727反弹正被侵蚀(TAIL结束)
+       - 当前弱势反弹至4711，若无法突破4727则空头BODY概率上升
+    
+    3. 方向对齐: D1 CHOP + H1 SELL = NEUTRAL
+       - D1无明确方向，不对任何方向提供背书
+       - 也不对任何方向产生VETO
+       - 交易决策完全取决于H1结构评分
+    
+    4. 关键水平:
+       - 阻力: 4727(5/13高/H1短期关键阻力) → 4773(D1前高)
+       - 支撑: 4687(5/13低/短期) → 4638(D1关键支撑)
+       - 当前4711在两者之间，属于决策中立区
+
+  notes:
+    - "【核心判断】D1震荡(CHOP)与前轮多次分析一致，无变化"
+    - "【趋势强度】多头1/4 + 空头0.5/4 = 趋势置信度LOW-MEDIUM"
+    - "【H1变化】与此前(11:53 BJT)相比，H1从4687反弹至4711，尚未改变空头倾向"
+    - "【H1空头】D1震荡不反对SELL，但需高H1结构评分 + 明确的入场信号"
+    - "【关键催化剂】今晚20:30 BJT美国4月PPI — 可能打破震荡格局"
+    - "【关键区间】4638(下沿) - 4687(短期支撑) - 4727(短期阻力) - 4773(上沿)"
+    - "【VETO提醒】D1震荡不产生VETO，但也不提供趋势背书"
+    - "【相比08:30分析】当时D1为BULLISH(LOW)，现在是CHOP(MEDIUM)—5/12大阴线改变了D1评估"

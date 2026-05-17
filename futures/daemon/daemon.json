@@ -1,0 +1,35 @@
+{
+  "description": "Futures Daemon 策略注册表 — 新增策略只需加一条 JSON 条目",
+  "python": "/mnt/c/Users/gj/AppData/Local/Programs/Python/Python312/python.exe",
+  "base": "F:/AIcoding_space/Hermes/strategies/futures",
+  "session_prefix": "futures-daemon",
+  "log_dir": "logs",
+  "default_restart_delay": 10,
+  "strategies": {
+    "tick-engine": {
+      "description": "数据引擎 — 唯一连接 MT5，1s 循环写入共享 JSON",
+      "script": "scripts/tick_engine.py",
+      "restart_delay": 5
+    },
+    "scalping-ap": {
+      "description": "M1/M5 Scalping 自动交易 (Magic 234011)",
+      "script": "single-agent/scalping/scripts/scalping_autopilot.py",
+      "restart_delay": 15
+    },
+    "intraday-ap": {
+      "description": "M30/H1 Intraday 自动交易 (Magic 234010)",
+      "script": "single-agent/futures-intraday/scripts/intraday_autopilot.py",
+      "restart_delay": 15
+    },
+    "keylevel-ap": {
+      "description": "KeyLevel Trend — 60s 周期数据采集 (供 AI Cron 决策)",
+      "script": "single-agent/keylevel-trend/scripts/keylevel_ap.py",
+      "restart_delay": 10
+    },
+    "scalping-pa": {
+      "description": "M1/M5 Price Action 自动交易 (Magic 234013)",
+      "script": "single-agent/scalping/scripts/scalping_pa_autopilot.py",
+      "restart_delay": 15
+    }
+  }
+}

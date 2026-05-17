@@ -1,0 +1,300 @@
+# ============================================================
+# 风控官 (Risk Manager) — USOIL 风险审查报告
+# Triumvirate Strategy | Magic 234004
+# 时间: 2026-05-13 10:18 BJT (亚盘低流动性)
+# 账户: 模拟 | Equity=$2,107.61
+# ============================================================
+
+risk_assessment:
+  meta:
+    symbol: USOIL
+    current_price: 97.95
+    atr_14_h1: 1.0
+    equity: 2107.61
+    risk_budget_5pct: 105.38
+    account_type: 模拟
+    magic: 234004
+    already_held: false
+    existing_positions:
+      - symbol: XAUUSD
+        type: BUY
+        volume: 0.03
+        open_price: 4719.738
+        sl: 4695.0
+        tp: 4781.859
+        current_price: 4703.309
+        floating_pnl: -49.28
+        group: 贵金属组
+        correlation_to_oil: "无关 (不同组)"
+      - symbol: JP225
+        type: SELL
+        volume: 1.0
+        status: "已平仓 (亏损 -$2.38)"
+        group: 亚洲组
+    session: 亚盘 (Asian Session — 低流动性)
+
+  # ────────────────────────────────────────────────────────
+  # 评估场景说明
+  # ────────────────────────────────────────────────────────
+  scenarios_evaluated:
+    - name: "Standard BUY (worker data pattern)"
+      entry: 97.95
+      sl: 96.45
+      tp: 100.95
+      sl_distance: 1.5
+      tp_distance: 3.0
+      rr: 2.0
+      lots: 0.03  # 根据之前裁定推荐的保守手数
+      source: "USOIL worker_data 标准场景 (SL=1.5×ATR, RR=2.0)"
+
+    - name: "Standard SELL (worker data pattern)"
+      entry: 97.95
+      sl: 99.45
+      tp: 94.95
+      sl_distance: 1.5
+      tp_distance: 3.0
+      rr: 2.0
+      lots: 0.03
+      source: "USOIL worker_data 标准场景 (SL=1.5×ATR, RR=2.0)"
+      note: "President 的 D1 BULLISH 裁定禁止 H1 做空 (VETO规则)"
+
+    - name: "Analyst H1 BUY 提案"
+      entry: 97.75
+      sl: 97.10
+      tp: 98.57
+      sl_distance: 0.65
+      tp_distance: 0.82
+      rr: 1.26
+      lots: 0.03
+      source: "analyst-usoil-h1-20260513-0901.yaml — 分析师结构性入场建议"
+
+  # ════════════════════════════════════════════════════════
+  # 规则 1: 盈亏比 ≥ 1:1 (一票否决)
+  # ════════════════════════════════════════════════════════
+  rule1_rr_check:
+    verdict: "PASS ✅"
+
+    standard_buy_scenario:
+      entry: 97.95
+      sl: 96.45
+      tp: 100.95
+      risk: 1.5
+      reward: 3.0
+      rr: 2.0
+      detail: "RR = (100.95-97.95)/(97.95-96.45) = 3.0/1.5 = 2.0 ≥ 1.0 ✅"
+      result: "PASS"
+
+    standard_sell_scenario:
+      entry: 97.95
+      sl: 99.45
+      tp: 94.95
+      risk: 1.5
+      reward: 3.0
+      rr: 2.0
+      detail: "RR = (99.45-94.95)/(99.45-97.95) = 4.5/1.5 = 3.0... wait: TP reward = 97.95-94.95 = 3.0, SL risk = 99.45-97.95 = 1.5, RR = 3.0/1.5 = 2.0 ≥ 1.0 ✅"
+      result: "PASS"
+
+    analyst_buy_scenario:
+      entry: 97.75
+      sl: 97.10
+      tp: 98.57
+      risk: 0.65
+      reward: 0.82
+      rr: 1.26
+      detail: "RR = (98.57-97.75)/(97.75-97.10) = 0.82/0.65 = 1.26 ≥ 1.0 ✅ — 1:1.26 刚过线，但优于 CIO 失败的 1:0.9"
+      result: "PASS"
+
+  # ════════════════════════════════════════════════════════
+  # 规则 2: 单笔风险 ≤ 5% 净值 (一票否决)
+  # ════════════════════════════════════════════════════════
+  rule2_risk_check:
+    # USOIL CFD 点值说明:
+    # 1 标准手 = 1,000 桶
+    # 1 点 (1.0) = $10/标准手
+    # 0.01 标准手: 1 点 = $0.10
+    tick_calculation: "SL_距离 × $10 × (lots/1.0)"
+
+    verdict: "PASS ✅"
+
+    standard_scenario_003_lots:
+      lots: 0.03
+      sl_distance: 1.5
+      risk_usd: 45.00      # 1.5 × $10 × 0.03 = $45.00... 
+                            # Actually: 1.5 points × $10/point/lot × 0.03 lots = $45.00
+      risk_pct: 2.14        # $45.00 / $2,107.61 × 100%
+      risk_limit: 105.38    # 5% of $2,107.61
+      result: "PASS ✅ — 2.14% 远低于 5% 上限"
+      detail: "风险 $45.00 = 2.14% of $2,107.61 << 5% ($105.38) ✅"
+      safety_margin: "充裕"
+
+    standard_scenario_007_lots:
+      lots: 0.07
+      sl_distance: 1.5
+      risk_usd: 105.00
+      risk_pct: 4.98
+      result: "PASS (边界) — 4.98% ≤ 5% ✅"
+      detail: "风险 $105.00 = 4.98% of $2,107.61 ≈ 5% 上限"
+      safety_margin: "极低 — 建议降仓"
+      recommendation: "⚠️ 亚盘低流动性可能造成滑点, 0.07手无安全余量。建议维持 0.03 手 (2.14%)"
+
+    analyst_buy_scenario_003:
+      lots: 0.03
+      sl_distance: 0.65
+      risk_usd: 19.50      # 0.65 × $10 × 0.03 = $19.50
+      risk_pct: 0.93
+      result: "PASS ✅ — 0.93% 极安全"
+      detail: "风险 $19.50 = 0.93% of $2,107.61"
+
+  # ════════════════════════════════════════════════════════
+  # 规则 3: 相关性风险 (一票否决)
+  # ════════════════════════════════════════════════════════
+  rule3_correlation_check:
+    group: 商品组 (USOIL, UKOIL)
+    existing_positions_in_group:
+      our_magic_234004: []    # 无现有 USOIL/UKOIL 持仓
+      cio_magic_234003: []    # 无 CIO 商品组持仓
+    other_positions:
+      - symbol: XAUUSD
+        type: BUY
+        volume: 0.03
+        group: 贵金属组
+        correlation: 无关
+      - symbol: JP225
+        type: SELL
+        volume: 1.0
+        group: 亚洲组
+        status: 已平仓
+        correlation: 无关
+    our_existing_risk_pct: 0.0
+    proposed_risk_pct: 2.14    # 0.03 lots, 标准场景
+    combined_risk_pct: 2.14
+    max_allowed_group_risk: 10.0
+    verdict: "PASS ✅"
+    detail: "商品组无现有持仓。UKOIL 未持有。XAUUSD 在贵金属组，JP225 已平仓。合并风险 2.14% << 10% 上限 ✅"
+
+  # ════════════════════════════════════════════════════════
+  # 规则 4: SL 合理性 (一票否决)
+  # ════════════════════════════════════════════════════════
+  rule4_sl_sanity:
+    verdict: "PARITAL FAIL ⚠️"
+
+    standard_buy_scenario:
+      entry: 97.95
+      sl: 96.45
+      sl_distance: 1.5
+      atr: 1.0
+      sl_vs_atr: "1.5 ≥ 1.0 ✅ (1.5×ATR)"
+      sl_below_entry: true
+      detail: "SL=96.45 < Entry=97.95 ✅ — 多头SL低于入场价"
+      structural_level: |
+        SL(96.45) 低于:
+        - 支撑_14(97.607) ✅ — 跌破14周期支撑,趋势可能反转
+        - 近期低点 97.40 (May13 07:00 L) ✅
+        - 近期低点 96.37 (May11 21:00 L) ✅
+        - 前期低点 95.36 (May8 回调低点) 上方,留有合理缓冲
+        若价格跌破96.45 → 有效跌破支撑_14 + 两个近期低点 → 多头结构完全证伪。
+        结构证伪逻辑清晰 ✅
+      result: "PASS ✅"
+
+    standard_sell_scenario:
+      entry: 97.95
+      sl: 99.45
+      sl_distance: 1.5
+      atr: 1.0
+      sl_vs_atr: "1.5 ≥ 1.0 ✅ (1.5×ATR)"
+      sl_above_entry: true
+      detail: "SL=99.45 > Entry=97.95 ✅ — 空头SL高于入场价"
+      structural_level: |
+        SL(99.45) 高于:
+        - 阻力_14(99.341) ✅ — 突破14周期阻力,空头结构证伪
+        - 近期高点 99.34 (May13 02:00 H) ✅
+        - 近期高点 99.14 (May12 23:00 H) ✅
+        若价格突破99.45 → 有效突破阻力_14 + 所有近期swing high → 空头结构完全证伪。
+        结构证伪逻辑清晰 ✅
+      president_note: "⚠️ D1趋势为BULLISH。President裁定任何SELL方向直接VETO。此SL评估仅供学术参考。"
+      result: "PASS ✅"
+
+    analyst_buy_scenario:
+      entry: 97.75
+      sl: 97.10
+      sl_distance: 0.65
+      atr: 1.0
+      sl_vs_atr: "0.65 < 1.0 ❌ — 仅 0.65×ATR, 不足最低要求 1.0×ATR"
+      sl_below_entry: true
+      detail: "SL=97.10 < Entry=97.75 ✅ — 多头SL低于入场价 (方向正确)"
+      structural_level: |
+        SL(97.10) 结构位置分析:
+        - 低于近期低点 97.40 (May13 07:00 L) ✅ — 结构可证伪
+        - 但 SL 距离 = 0.65 < ATR(14) = 1.0 ❌
+        - 硬过滤规则要求 SL ≥ 1×ATR。0.65×ATR 不足以排除市场噪音
+        - 在亚盘低流动性环境下, 0.65×ATR 的 SL 更易被假突破扫掉
+      result: "FAIL ❌ — SL距离(0.65) < 1×ATR(1.0)。即使SL方向正确且有结构逻辑, 量化规则不可绕过。"
+
+  # ════════════════════════════════════════════════════════
+  # 规则 5: 连亏记录 (一票否决)
+  # ════════════════════════════════════════════════════════
+  rule5_consecutive_losses:
+    status: "CLEAR ✅"
+    last_5_trades:
+      - "JP225 SELL 1.0 lot → LOSS (-$2.38) [30天内唯一平仓]"
+    last_3_losses: 1        # 仅1笔亏损, 未达 ≥2 阈值
+    detail: |
+      30天内 Triumvirate 系统(Magic 234004) 仅有1笔平仓记录: JP225 SELL 亏损 -$2.38。
+      规则检查: "最近3笔中≥2笔亏损" → 仅有1笔, 条件不触发 ✅
+      无连亏信号, 可正常交易。
+    verdict: "PASS ✅"
+
+  # ════════════════════════════════════════════════════════
+  # 综合裁决
+  # ════════════════════════════════════════════════════════
+  summary:
+    rule1_rr: "PASS ✅ (所有场景RR≥1.0: BUY标准2.0, SELL标准2.0, 分析师BUY 1.26)"
+    rule2_risk: "PASS ✅ (0.03手=2.14% 远低于5%; 0.07手=4.98%边界但亚盘不建议极限手数)"
+    rule3_correlation: "PASS ✅ (商品组无现有持仓, 合并风险2.14% << 10%)"
+    rule4_sl_sanity: |
+      标准BUY: PASS ✅ (SL=96.45, 1.5×ATR, 低于支撑_14, 结构清晰)
+      标准SELL: PASS ✅ (SL=99.45, 1.5×ATR, 高于阻力_14, 结构清晰) [但总统VETO SELL方向]
+      分析师BUY: FAIL ❌ (SL=97.10, 0.65×ATR < 1.0×ATR最低要求)
+    rule5_consecutive_losses: "PASS ✅ (仅1笔平仓记录, 未触发连亏警戒)"
+    all_filters_passed: "条件性通过"
+    verdict: "PASS_WITH_CONDITIONS"
+    block_reason: ""
+    conditions:
+      - "✅ 标准BUY场景(Entry 97.95, SL 96.45, TP 100.95, 0.03手) 通过全部5条硬过滤"
+      - "✅ SELL场景通过5条硬过滤, 但President基于D1 BULLISH裁定VETO任何空头方向"
+      - "❌ 分析师BUY提案(SL=97.10)因SL距离不足1×ATR被一票否决 — 量化规则不可绕过"
+      - "⚠️ 推荐执行: 标准BUY场景, 0.03手(2.14%风险), 遵守之前Round 2裁定的条件"
+      - "⚠️ 亚盘低流动性时段: 点差可能扩大, 注意入场时机和滑点风险"
+      - "⚠️ 关键阻力99.34(前高)/100.00(心理关口): 接近时需密切监控, 建议跟踪止损"
+      - "⚠️ 关键支撑97.40/96.37: 若价格跌破96.45(SL位), 多头结构证伪"
+      - "⚠️ 今日EIA库存数据可能发布, 关注原油波动率变化"
+
+  # ════════════════════════════════════════════════════════
+  # 方向建议
+  # ════════════════════════════════════════════════════════
+  direction_notes:
+    h1_structure_observation: |
+      USOIL H1 (截至 10:18 BJT 亚盘):
+      - 昨日至今日: 从99.34(May13 02:00 H) 回落至 97.95
+      - 回调幅度: ~1.39点 (约1.4×ATR), 已测试97.40-97.95支撑区
+      - 亚盘流动性低, 价格在97.90-98.00窄幅震荡
+      - 支撑_14=97.607 构成短期支撑; 阻力_14=99.341 为突破关键
+      - 成交量偏低(1305-4846), 需等欧美盘激活
+    preferred_direction: "BUY (符合D1 BULLISH趋势 + President SUPPORT)"
+    sell_viable: false    # President VETO: D1 BULLISH下不可做空
+    buy_viable: true      # 标准BUY场景通过所有过滤
+    reasoning: |
+      - D1 BULLISH (2.5/4条件满足) + President SUPPORT 裁定
+      - 标准BUY场景(SL=96.45, 1.5×ATR, 结构清晰) 通过5条硬过滤
+      - 0.03手(2.14%风险) 安全余量充足
+      - 需注意: 前高99.34阻力 + 亚盘低流动性
+
+  execution_conditions:
+    - "✅ 方向: BUY (符合D1 BULLISH趋势)"
+    - "✅ 入场: 97.95 (市价) 或 97.60-97.90 (回调挂单)"
+    - "✅ 止损: 96.45 (支撑_14 97.607 下方, 1.5×ATR)"
+    - "✅ 止盈: 100.95 (RR 2.0)"
+    - "✅ 手数: 0.03 (2.14% 风险)"
+    - "⚠️ 监控: 若价格接近99.34阻力无力突破, 将止损移至保本"
+    - "⚠️ 加仓条件: 若99.34被放量突破, 可考虑加仓至0.05-0.07手"
+    - "⚠️ 退出条件: 跌破97.40(近期低点) 需重新评估多头结构"

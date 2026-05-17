@@ -1,0 +1,167 @@
+# ============================================================
+# 风控官 (Risk Manager) 风险评估报告 — 详细版
+# Triumvirate Strategy — EURUSD
+# 审查时间: 2026-05-13 10:18 BJT (亚盘)
+# ============================================================
+# 硬过滤全部5条应用结果
+
+risk_assessment:
+  meta:
+    timestamp: "2026-05-13 10:18 BJT"
+    symbol: EURUSD
+    current_price: 1.17382
+    atr_14_h1: 0.002 (20 pips)
+    equity: 2107.61
+    balance: 2156.89
+    risk_budget_5pct: 105.38
+    session: "亚盘 (Asian Session 10:18 BJT — 低流动性)"
+    market_state: "横盘僵局, 14-period区间 1.17214-1.17498"
+    previous_round: "08:55 共识 FAIL (分析师FAIL+总统NEUTRAL)"
+
+  existing_positions:
+    - "XAUUSD BUY 0.03 (ticket 1784938449) @ 4719.738, SL=4695.0, PnL=-$49.28"
+    note: "XAUUSD亏损拖累equity从$2,151.88降至$2,107.61"
+
+  proposed_params:
+    source: "pre_analyze (magic 234003)"
+    recommended_lot: 0.35
+    sl_distance: 0.003 (30 pips = 1.5× ATR)
+    tp_distance: 0.006 (60 pips = 3.0× ATR)
+    buy:
+      entry: 1.17382
+      sl: 1.17082
+      tp: 1.17982
+      rr: 2.0
+    sell:
+      entry: 1.17382
+      sl: 1.17682
+      tp: 1.16782
+      rr: 2.0
+
+  # ════════════════════════════════════════════════════════════
+  # 规则 1: 盈亏比 ≥ 1:1
+  # ════════════════════════════════════════════════════════════
+  rule1_rr:
+    status: "PASS ✅"
+    buy:
+      rr: 2.0
+      detail: "RR = |1.17982-1.17382| / |1.17382-1.17082| = 0.006/0.003 = 2.0"
+      verdict: "PASS"
+    sell:
+      rr: 2.0
+      detail: "RR = |1.17382-1.16782| / |1.17682-1.17382| = 0.006/0.003 = 2.0"
+      verdict: "PASS"
+
+  # ════════════════════════════════════════════════════════════
+  # 规则 2: 单笔风险 ≤ 5% 净值
+  # ════════════════════════════════════════════════════════════
+  rule2_risk:
+    status: "PASS ⚠️ (边界)"
+    calculation:
+      pip_value: "$10/标准手/pip (EURUSD)"
+      sl_pips: 30
+      risk_per_standard_lot: 300.0
+      proposed_lots: 0.35
+      risk_usd: 105.00
+      equity: 2107.61
+      risk_pct: 4.98
+      max_allowed_pct: 5.0
+      buffer_pct: 0.02
+      buffer_usd: 0.42
+    verdict: "PASS (边界)"
+    detail: "4.98% ≤ 5% ✅ — 但仅剩0.02%缓冲($0.42), 任何滑点即超限"
+    recommendation: "降仓至0.25手($75.00=3.55%)或0.20手($60.00=2.85%)以获得安全边际"
+    note: "equity较08:55轮次($2,151.88)下降$44.27, 同手数风险从4.74%升至4.98%"
+
+  # ════════════════════════════════════════════════════════════
+  # 规则 3: 相关性风险
+  # ════════════════════════════════════════════════════════════
+  rule3_correlation:
+    status: "PASS ✅"
+    group: "欧系组 (EURUSD, GBPUSD)"
+    existing_in_group: []
+    other_positions:
+      - "XAUUSD BUY 0.03 (贵金属组)"
+    analysis:
+      group_risk_pct: 0.0
+      proposed_risk_pct: 4.98
+      combined_risk_pct: 4.98
+      limit_pct: 10.0
+      buffer_pct: 5.02
+    verdict: "PASS"
+    detail: "欧系组无持仓, GBPUSD未持有。XAUUSD(贵金属组)无相关性冲突。合并4.98% < 10% ✅"
+
+  # ════════════════════════════════════════════════════════════
+  # 规则 4: SL 合理性
+  # ════════════════════════════════════════════════════════════
+  rule4_sl_sanity:
+    status: "PASS ✅"
+    buy:
+      sl_below_entry: true  # 1.17082 < 1.17382
+      sl_distance_atr_ratio: 1.5  # 30/20 = 1.5× ATR
+      sl_vs_support_14:
+        support: 1.17214
+        sl_is_below_support: true  # 1.17082 < 1.17214
+        buffer_below_support: -0.00132 (-13.2 pips)
+      structural_valid: true
+      detail: "SL位于支撑_14(1.17214)下方13.2pips。跌破支撑证伪多头。"
+      caveat: "1.5×ATR偏紧。亚盘流动性低, 突破支撑后价格可能快速滑过SL。"
+      verdict: "PASS ✅"
+    sell:
+      sl_above_entry: true  # 1.17682 > 1.17382
+      sl_distance_atr_ratio: 1.5
+      sl_vs_resistance_14:
+        resistance: 1.17498
+        sl_is_above_resistance: true  # 1.17682 > 1.17498
+        buffer_above_resistance: 0.00184 (18.4 pips)
+      structural_valid: true
+      detail: "SL位于阻力_14(1.17498)上方18.4pips。突破阻力证伪空头。"
+      caveat: "D1趋势偏多(+MAIL), 做空需确认总统意见一致。"
+      verdict: "PASS ✅"
+    overall: "两个方向SL均通过量化+结构双重校验 ✅"
+
+  # ════════════════════════════════════════════════════════════
+  # 规则 5: 连亏记录
+  # ════════════════════════════════════════════════════════════
+  rule5_consecutive_losses:
+    status: "PASS ✅"
+    last_5_closed: ["LOSS(-$2.38)"]
+    recent_3_losses: 1
+    threshold: "≥2 losses in 3 trades"
+    triggered: false
+    detail: "仅1笔历史平仓(亏损$2.38, 0%胜率)。连亏规则不触发 ✅"
+    note: "若后续连续亏损2笔, 将触发强制降手50%规则"
+
+  # ════════════════════════════════════════════════════════════
+  # 综合裁决
+  # ════════════════════════════════════════════════════════════
+  summary:
+    rule1_rr: "PASS ✅ (RR=2.0 ≥ 1:1)"
+    rule2_risk: "PASS ⚠️ (4.98% ≤ 5% — 边界, 建议降仓)"
+    rule3_correlation: "PASS ✅ (欧系组无持仓, 合并4.98% < 10%)"
+    rule4_sl_sanity: "PASS ✅ (1.5×ATR, 方向正确, 结构证伪位)"
+    rule5_consecutive_losses: "PASS ✅ (无连亏)"
+    all_5_filters_passed: true
+
+  verdict:
+    proposed_lots: 0.35
+    risk_pct: 4.98
+    risk_usd: 105.00
+    final_verdict: "PASS_BORDERLINE ⚠️"
+    block_reason: ""
+    conditions:
+      - "✅ 全部5条硬过滤通过"
+      - "⚠️ 规则2处于危险边界(4.98%/5.00%) — equity缩水导致风险占比上升"
+      - "⚠️ 亚盘低流动性增大SL噪音触发风险"
+      - "⚠️ 08:55轮次分析师FAIL+总统NEUTRAL — H1结构未明显改善"
+      - "⚠️ XAUUSD BUY浮亏$49拖累账户"
+      - "💡 建议无论方向, 手数控制在0.20-0.25"
+
+  recommendation:
+    preferred_lot: 0.20
+    preferred_risk_pct: 2.85
+    preferred_risk_usd: 60.00
+    reason: "较低杠杆提供足够缓冲应对亚盘低流动性和equity波动"
+    max_lot: 0.25
+    max_risk_pct: 3.55
+    max_risk_usd: 75.00

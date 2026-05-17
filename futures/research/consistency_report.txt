@@ -1,0 +1,11 @@
+一致性检测报告
+indicators.py: 320 个指标
+precompute.py: 523 个指标列
+共同列: 320
+匹配: 317
+不匹配: 3
+
+不匹配列:
+  atr14_percentile: rt=0.94 pre=0.91 diff=3.1915%
+  session: rt=us pre=asia str_mismatch
+  utc_hour: rt=17 pre=0.0 diff=100.0000%

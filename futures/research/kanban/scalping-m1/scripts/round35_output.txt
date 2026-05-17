@@ -1,0 +1,909 @@
+========================================================================================================================
+ROUND 35 — H1/M30 K线形态深度验证与跨周期确认
+日期: 2026-05-13 22:28 UTC
+品种: 期货外汇14品种 (XAUUSD/XAGUSD/EURUSD/GBPUSD/USDJPY/AUDUSD/USDCHF/
+                      US30/US500/USTEC/JP225/HK50/USOIL/UKOIL)
+========================================================================================================================
+
+========================================================================================================================
+📡 00 — 数据新鲜度检查
+========================================================================================================================
+  H1  : 最新=2026-05-13 13:00:00 行数=  1672 品种=14
+        亚洲=   560 欧洲=   350 美国=   762
+  M30 : 最新=2026-05-13 13:30:00 行数=  3344 品种=14
+        亚洲=  1120 欧洲=   700 美国=  1524
+
+========================================================================================================================
+📊 加载 H1 数据
+========================================================================================================================
+  XAUUSD  :  1672 rows  [2026-01-29 → 2026-05-13]  Close=4670.7  RSI=21.3
+  XAGUSD  :  1676 rows  [2026-01-29 → 2026-05-13]  Close=86.6  RSI=43.0
+  EURUSD  :  1671 rows  [2026-02-05 → 2026-05-13]  Close=1.2  RSI=28.0
+  GBPUSD  :  1673 rows  [2026-02-04 → 2026-05-13]  Close=1.4  RSI=37.8
+  USDJPY  :  1674 rows  [2026-02-04 → 2026-05-13]  Close=157.8  RSI=61.9
+  AUDUSD  :  1672 rows  [2026-02-04 → 2026-05-13]  Close=0.7  RSI=52.9
+  USDCHF  :  1674 rows  [2026-02-04 → 2026-05-13]  Close=0.8  RSI=66.5
+  US30    :  1670 rows  [2026-01-30 → 2026-05-13]  Close=49610.8  RSI=32.8
+  US500   :  1670 rows  [2026-01-30 → 2026-05-13]  Close=7384.8  RSI=43.1
+  USTEC   :  1669 rows  [2026-01-30 → 2026-05-13]  Close=28998.1  RSI=49.9
+  JP225   :  1679 rows  [2026-01-30 → 2026-05-13]  Close=62864.9  RSI=64.8
+  HK50    :  1812 rows  [2026-01-09 → 2026-05-13]  Close=26428.8  RSI=57.3
+  UKOIL   :  1691 rows  [2026-01-20 → 2026-05-13]  Close=104.9  RSI=46.0
+  USOIL   :  1672 rows  [2026-01-29 → 2026-05-13]  Close=98.4  RSI=50.1
+
+========================================================================================================================
+📊 加载 M30 数据
+========================================================================================================================
+  XAUUSD  :  3343 rows  [2026-01-29 → 2026-05-13]  Close=4670.7  RSI=33.2
+  XAGUSD  :  3350 rows  [2026-01-29 → 2026-05-13]  Close=86.6  RSI=50.5
+  EURUSD  :  3342 rows  [2026-02-05 → 2026-05-13]  Close=1.2  RSI=39.9
+  GBPUSD  :  3346 rows  [2026-02-04 → 2026-05-13]  Close=1.4  RSI=39.8
+  USDJPY  :  3347 rows  [2026-02-04 → 2026-05-13]  Close=157.8  RSI=53.0
+  AUDUSD  :  3344 rows  [2026-02-04 → 2026-05-13]  Close=0.7  RSI=53.9
+  USDCHF  :  3347 rows  [2026-02-04 → 2026-05-13]  Close=0.8  RSI=60.7
+  US30    :  3338 rows  [2026-01-30 → 2026-05-13]  Close=49610.8  RSI=29.2
+  US500   :  3338 rows  [2026-01-30 → 2026-05-13]  Close=7384.8  RSI=30.7
+  USTEC   :  3337 rows  [2026-01-30 → 2026-05-13]  Close=28998.1  RSI=32.9
+  JP225   :  3356 rows  [2026-01-30 → 2026-05-13]  Close=62864.9  RSI=33.8
+  HK50    :  3463 rows  [2026-01-09 → 2026-05-13]  Close=26428.8  RSI=58.9
+  UKOIL   :  3380 rows  [2026-01-20 → 2026-05-13]  Close=104.9  RSI=61.2
+  USOIL   :  3342 rows  [2026-01-29 → 2026-05-13]  Close=98.4  RSI=66.3
+
+========================================================================================================================
+🏆 01 — XAGUSD H1/M30 做空策略深度验证
+========================================================================================================================
+
+  --- H1 XAGUSD CBull 做空 ---
+  XAGUSD H1 SHORT CBull>=3+RSI>75                         n=49    hold=150 WR=54.3% n=35 avg=-0.165%
+  XAGUSD H1 SHORT CBull>=3+RSI>80+us                      n=18    hold= 25 WR=38.9% n=18 avg=-2.169%
+  XAGUSD H1 SHORT CBull>=3+RSI>80+europe                  n=6     hold= 15 WR=50.0% n=6 avg=0.513%
+  XAGUSD H1 SHORT CBull>=3+RSI>82+us                      n=14    hold= 25 WR=35.7% n=14 avg=-2.754%
+  XAGUSD H1 SHORT CBull>=3+RSI>82+europe                  n=6     hold= 15 WR=50.0% n=6 avg=0.513%
+  XAGUSD H1 SHORT CBull>=4+RSI>80+us                      n=12    hold= 25 WR=33.3% n=12 avg=-2.848%
+  XAGUSD H1 SHORT CBull>=4+RSI>80+europe                  n=2      跳过(<3)
+  XAGUSD H1 SHORT CBull>=4+RSI>82+us                      n=10    hold= 25 WR=30.0% n=10 avg=-3.130%
+  XAGUSD H1 SHORT CBull>=4+RSI>82+europe                  n=2      跳过(<3)
+  XAGUSD H1 SHORT CBull>=5+RSI>80+us                      n=8     hold=150 WR=25.0% n=8 avg=-5.447%
+  XAGUSD H1 SHORT CBull>=5+RSI>80+europe                  n=0      跳过(<3)
+  XAGUSD H1 SHORT CBull>=5+RSI>82+us                      n=8     hold=150 WR=25.0% n=8 avg=-5.447%
+  XAGUSD H1 SHORT CBull>=5+RSI>82+europe                  n=0      跳过(<3)
+  XAGUSD H1 SHORT CBull>=6+RSI>80+us                      n=6     hold=150 WR=33.3% n=6 avg=-3.722%
+  XAGUSD H1 SHORT CBull>=6+RSI>80+europe                  n=0      跳过(<3)
+  XAGUSD H1 SHORT CBull>=6+RSI>82+us                      n=6     hold=150 WR=33.3% n=6 avg=-3.722%
+  XAGUSD H1 SHORT CBull>=6+RSI>82+europe                  n=0      跳过(<3)
+
+  --- H1 XAGUSD CB 做多 ---
+  XAGUSD H1 LONG CB>=3+RSI<20                             n=15    hold= 15 WR=80.0% n=15 avg=2.438% ✅
+  XAGUSD H1 LONG CB>=3+RSI<25                             n=34    hold= 40 WR=73.5% n=34 avg=1.700% ✅
+  XAGUSD H1 LONG CB>=3+RSI<30                             n=66    hold=130 WR=66.2% n=65 avg=1.892% ✅
+  XAGUSD H1 LONG CB>=4+RSI<20                             n=10    hold= 15 WR=80.0% n=10 avg=2.335% ✅
+  XAGUSD H1 LONG CB>=4+RSI<25                             n=21    hold= 25 WR=66.7% n=21 avg=1.217% ✅
+  XAGUSD H1 LONG CB>=4+RSI<30                             n=34    hold= 25 WR=64.7% n=34 avg=0.419% ✅
+  XAGUSD H1 LONG CB>=5+RSI<20                             n=5     hold= 15 WR=100.0% n=5 avg=4.819% ✅
+  XAGUSD H1 LONG CB>=5+RSI<25                             n=11    hold= 85 WR=81.8% n=11 avg=4.957% ✅
+  XAGUSD H1 LONG CB>=5+RSI<30                             n=14    hold= 85 WR=78.6% n=14 avg=4.327% ✅
+
+  --- H1 XAGUSD InsideBar+组合 ---
+  XAGUSD H1 InsideBar+CBull>=2+RSI>75                     n=4     hold=105 WR=50.0% n=4 avg=-4.864%
+  XAGUSD H1 InsideBar+CBull>=2+RSI>80                     n=3     hold= 85 WR=33.3% n=3 avg=-4.139%
+  XAGUSD H1 InsideBar+CBull>=3+RSI>75                     n=3     hold= 20 WR=33.3% n=3 avg=-1.583%
+  XAGUSD H1 InsideBar+CBull>=3+RSI>80                     n=2      跳过(<3)
+  XAGUSD H1 InsideBar+CB>=2+RSI<20                        n=1      跳过(<3)
+  XAGUSD H1 InsideBar+CB>=2+RSI<25                        n=4     hold= 20 WR=100.0% n=4 avg=3.131% ✅
+  XAGUSD H1 InsideBar+CB>=3+RSI<20                        n=1      跳过(<3)
+  XAGUSD H1 InsideBar+CB>=3+RSI<25                        n=2      跳过(<3)
+
+  --- M30 XAGUSD CBull 做空 ---
+  XAGUSD M30 SHORT CBull>=3+RSI>75                        n=86    hold= 40 WR=69.4% n=85 avg=1.145% ✅
+  XAGUSD M30 SHORT CBull>=3+RSI>80+us                     n=17    hold= 35 WR=88.2% n=17 avg=2.007% ✅
+  XAGUSD M30 SHORT CBull>=3+RSI>80+europe                 n=13    hold= 15 WR=69.2% n=13 avg=0.354% ✅
+  XAGUSD M30 SHORT CBull>=3+RSI>82+us                     n=15    hold= 35 WR=93.3% n=15 avg=2.412% ✅
+  XAGUSD M30 SHORT CBull>=3+RSI>82+europe                 n=9     hold= 15 WR=66.7% n=9 avg=0.196% ✅
+  XAGUSD M30 SHORT CBull>=4+RSI>80+us                     n=14    hold= 35 WR=85.7% n=14 avg=2.027% ✅
+  XAGUSD M30 SHORT CBull>=4+RSI>80+europe                 n=6     hold=100 WR=100.0% n=4 avg=9.221% ✅
+  XAGUSD M30 SHORT CBull>=4+RSI>82+us                     n=13    hold= 35 WR=92.3% n=13 avg=2.464% ✅
+  XAGUSD M30 SHORT CBull>=4+RSI>82+europe                 n=3     hold= 15 WR=66.7% n=3 avg=0.443% ✅
+  XAGUSD M30 SHORT CBull>=5+RSI>80+us                     n=10    hold= 35 WR=90.0% n=10 avg=2.722% ✅
+  XAGUSD M30 SHORT CBull>=5+RSI>80+europe                 n=5     hold=100 WR=100.0% n=3 avg=9.791% ✅
+  XAGUSD M30 SHORT CBull>=5+RSI>82+us                     n=10    hold= 35 WR=90.0% n=10 avg=2.722% ✅
+  XAGUSD M30 SHORT CBull>=5+RSI>82+europe                 n=3     hold= 15 WR=66.7% n=3 avg=0.443% ✅
+  XAGUSD M30 SHORT CBull>=6+RSI>80+us                     n=7     hold= 35 WR=100.0% n=7 avg=3.462% ✅
+  XAGUSD M30 SHORT CBull>=6+RSI>80+europe                 n=4     hold= 95 WR=66.7% n=3 avg=5.098% ✅
+  XAGUSD M30 SHORT CBull>=6+RSI>82+us                     n=7     hold= 35 WR=100.0% n=7 avg=3.462% ✅
+  XAGUSD M30 SHORT CBull>=6+RSI>82+europe                 n=3     hold= 15 WR=66.7% n=3 avg=0.443% ✅
+
+  --- M30 XAGUSD CB 做多 ---
+  XAGUSD M30 LONG CB>=3+RSI<20                            n=32    hold= 40 WR=65.6% n=32 avg=-2.036% ✅
+  XAGUSD M30 LONG CB>=3+RSI<25                            n=64    hold=150 WR=65.1% n=63 avg=1.102% ✅
+  XAGUSD M30 LONG CB>=3+RSI<30                            n=94    hold=150 WR=65.2% n=92 avg=1.602% ✅
+  XAGUSD M30 LONG CB>=4+RSI<20                            n=18    hold= 40 WR=61.1% n=18 avg=-3.313% ✅
+  XAGUSD M30 LONG CB>=4+RSI<25                            n=35    hold=150 WR=67.6% n=34 avg=1.393% ✅
+  XAGUSD M30 LONG CB>=4+RSI<30                            n=58    hold=150 WR=67.9% n=56 avg=2.145% ✅
+  XAGUSD M30 LONG CB>=5+RSI<20                            n=14    hold= 40 WR=64.3% n=14 avg=-2.061% ✅
+  XAGUSD M30 LONG CB>=5+RSI<25                            n=22    hold=150 WR=71.4% n=21 avg=1.817% ✅
+  XAGUSD M30 LONG CB>=5+RSI<30                            n=32    hold=125 WR=71.0% n=31 avg=2.145% ✅
+
+  --- M30 XAGUSD InsideBar+组合 ---
+  XAGUSD M30 InsideBar+CBull>=2+RSI>75                    n=7     hold= 40 WR=71.4% n=7 avg=-0.268% ✅
+  XAGUSD M30 InsideBar+CBull>=2+RSI>80                    n=4     hold= 70 WR=100.0% n=4 avg=5.941% ✅
+  XAGUSD M30 InsideBar+CBull>=3+RSI>75                    n=5     hold= 15 WR=80.0% n=5 avg=0.217% ✅
+  XAGUSD M30 InsideBar+CBull>=3+RSI>80                    n=4     hold= 70 WR=100.0% n=4 avg=5.941% ✅
+  XAGUSD M30 InsideBar+CB>=2+RSI<20                       n=4     hold= 30 WR=75.0% n=4 avg=0.114% ✅
+  XAGUSD M30 InsideBar+CB>=2+RSI<25                       n=12    hold=145 WR=75.0% n=12 avg=2.071% ✅
+  XAGUSD M30 InsideBar+CB>=3+RSI<20                       n=3     hold= 30 WR=66.7% n=3 avg=-0.489% ✅
+  XAGUSD M30 InsideBar+CB>=3+RSI<25                       n=9     hold=145 WR=77.8% n=9 avg=3.182% ✅
+
+========================================================================================================================
+🏆 02 — EURUSD H1/M30 连续阴线做多跨周期验证
+========================================================================================================================
+
+  --- H1 EURUSD CB 做多 ---
+  EURUSD H1 LONG CB>=3+RSI<20                             n=12    hold= 60 WR=100.0% n=11 avg=0.318% ✅
+    Bootstrap 95% CI: [100.0%, 100.0%] (n=11, hold=60)
+    跨周期验证 (hold=60): 3/3 通过
+      P1: n=3 WR=100.0% avg=0.126% ✅
+      P2: n=5 WR=100.0% avg=0.448% ✅
+      P3: n=3 WR=100.0% avg=0.293% ✅
+  EURUSD H1 LONG CB>=3+RSI<25                             n=30    hold= 60 WR=82.1% n=28 avg=0.184% ✅
+    Bootstrap 95% CI: [67.9%, 96.4%] (n=28, hold=60)
+    跨周期验证 (hold=60): 3/3 通过
+      P1: n=10 WR=70.0% avg=-0.111% ✅
+      P2: n=10 WR=90.0% avg=0.399% ✅
+      P3: n=7 WR=85.7% avg=0.185% ✅
+  EURUSD H1 LONG CB>=3+RSI<30                             n=48    hold= 60 WR=73.3% n=45 avg=0.230% ✅
+    Bootstrap 95% CI: [60.0%, 84.4%] (n=45, hold=60)
+    跨周期验证 (hold=60): 2/3 通过
+      P1: n=18 WR=44.4% avg=-0.185% ❌
+      P2: n=14 WR=92.9% avg=0.672% ✅
+      P3: n=11 WR=90.9% avg=0.215% ✅
+  EURUSD H1 LONG CB>=4+RSI<20                             n=7     hold= 60 WR=100.0% n=6 avg=0.345% ✅
+  EURUSD H1 LONG CB>=4+RSI<25                             n=16    hold= 60 WR=86.7% n=15 avg=0.210% ✅
+    Bootstrap 95% CI: [66.7%, 100.0%] (n=15, hold=60)
+    跨周期验证 (hold=60): 3/3 通过
+      P1: n=7 WR=71.4% avg=-0.070% ✅
+      P2: n=5 WR=100.0% avg=0.440% ✅
+      P3: n=2 WR=100.0% avg=0.241% ✅
+  EURUSD H1 LONG CB>=4+RSI<30                             n=22    hold= 60 WR=81.0% n=21 avg=0.286% ✅
+    Bootstrap 95% CI: [61.9%, 95.2%] (n=21, hold=60)
+    跨周期验证 (hold=60): 2/3 通过
+      P1: n=9 WR=55.6% avg=-0.121% 
+      P2: n=7 WR=100.0% avg=0.707% ✅
+      P3: n=4 WR=100.0% avg=0.295% ✅
+  EURUSD H1 LONG CB>=5+RSI<20                             n=4      跳过(<5)
+  EURUSD H1 LONG CB>=5+RSI<25                             n=11    hold= 50 WR=81.8% n=11 avg=0.146% ✅
+    Bootstrap 95% CI: [54.5%, 100.0%] (n=11, hold=50)
+    跨周期验证 (hold=50): 3/3 通过
+      P1: n=5 WR=60.0% avg=-0.221% ✅
+      P2: n=4 WR=100.0% avg=0.406% ✅
+      P3: n=2 WR=100.0% avg=0.544% ✅
+  EURUSD H1 LONG CB>=5+RSI<30                             n=16    hold= 65 WR=87.5% n=16 avg=0.332% ✅
+    Bootstrap 95% CI: [68.8%, 100.0%] (n=16, hold=65)
+    跨周期验证 (hold=65): 3/3 通过
+      P1: n=6 WR=66.7% avg=-0.092% ✅
+      P2: n=6 WR=100.0% avg=0.788% ✅
+      P3: n=4 WR=100.0% avg=0.285% ✅
+
+  --- H1 EURUSD MorningStar/Engulfing ---
+  EURUSD H1 EngulfingBull+RSI<30                          n=4     hold= 65 WR=75.0% n=4 avg=0.087% ✅
+  EURUSD H1 CB>=2+RSI20-30+Rising                         n=52    hold= 60 WR=60.4% n=48 avg=0.155% ✅
+
+  --- H1 EURUSD 时段细分 CB>=3+RSI<25 ---
+  EURUSD H1 CB>=3+RSI<25+us                               n=9     hold= 10 WR=77.8% n=9 avg=0.097% ✅
+  EURUSD H1 CB>=3+RSI<25+europe                           n=5     hold= 30 WR=100.0% n=4 avg=0.279% ✅
+
+  --- M30 EURUSD CB 做多 ---
+  EURUSD M30 LONG CB>=3+RSI<20                            n=41    hold= 70 WR=76.9% n=39 avg=0.282% ✅
+    Bootstrap 95% CI: [64.1%, 89.7%] (n=39, hold=70)
+    跨周期验证 (hold=70): 3/3 通过
+      P1: n=14 WR=85.7% avg=0.246% ✅
+      P2: n=16 WR=62.5% avg=0.198% ✅
+      P3: n=4 WR=75.0% avg=0.033% ✅
+  EURUSD M30 LONG CB>=3+RSI<25                            n=73    hold=120 WR=73.1% n=67 avg=0.249% ✅
+    Bootstrap 95% CI: [62.7%, 83.6%] (n=67, hold=120)
+    跨周期验证 (hold=120): 2/3 通过
+      P1: n=18 WR=61.1% avg=0.028% ✅
+      P2: n=29 WR=75.9% avg=0.335% ✅
+      P3: n=8 WR=50.0% avg=0.073% 
+  EURUSD M30 LONG CB>=3+RSI<30                            n=124   hold=120 WR=65.8% n=114 avg=0.164% ✅
+    Bootstrap 95% CI: [57.0%, 74.6%] (n=114, hold=120)
+    跨周期验证 (hold=120): 2/3 通过
+      P1: n=36 WR=50.0% avg=-0.059% 
+      P2: n=47 WR=68.1% avg=0.229% ✅
+      P3: n=16 WR=62.5% avg=0.147% ✅
+  EURUSD M30 LONG CB>=4+RSI<20                            n=32    hold= 70 WR=80.6% n=31 avg=0.302% ✅
+    Bootstrap 95% CI: [64.5%, 93.5%] (n=31, hold=70)
+    跨周期验证 (hold=70): 3/3 通过
+      P1: n=12 WR=83.3% avg=0.230% ✅
+      P2: n=11 WR=63.6% avg=0.198% ✅
+      P3: n=3 WR=100.0% avg=0.046% ✅
+  EURUSD M30 LONG CB>=4+RSI<25                            n=52    hold=120 WR=73.5% n=49 avg=0.252% ✅
+    Bootstrap 95% CI: [61.2%, 85.7%] (n=49, hold=120)
+    跨周期验证 (hold=120): 2/3 通过
+      P1: n=16 WR=62.5% avg=0.021% ✅
+      P2: n=20 WR=80.0% avg=0.352% ✅
+      P3: n=4 WR=25.0% avg=-0.021% ❌
+  EURUSD M30 LONG CB>=4+RSI<30                            n=87    hold=115 WR=63.4% n=82 avg=0.144% ✅
+    Bootstrap 95% CI: [52.4%, 73.2%] (n=82, hold=115)
+    跨周期验证 (hold=115): 1/3 通过
+      P1: n=30 WR=40.0% avg=-0.175% ❌
+      P2: n=31 WR=74.2% avg=0.268% ✅
+      P3: n=9 WR=55.6% avg=0.132% 
+  EURUSD M30 LONG CB>=5+RSI<20                            n=27    hold=120 WR=80.8% n=26 avg=0.275% ✅
+    Bootstrap 95% CI: [65.4%, 96.2%] (n=26, hold=120)
+    跨周期验证 (hold=120): 2/3 通过
+      P1: n=8 WR=75.0% avg=0.028% ✅
+      P2: n=10 WR=90.0% avg=0.303% ✅
+      P3: n=2 WR=0.0% avg=-0.091% ❌
+  EURUSD M30 LONG CB>=5+RSI<25                            n=40    hold=120 WR=71.8% n=39 avg=0.218% ✅
+    Bootstrap 95% CI: [56.4%, 84.6%] (n=39, hold=120)
+    跨周期验证 (hold=120): 2/3 通过
+      P1: n=14 WR=64.3% avg=0.005% ✅
+      P2: n=17 WR=76.5% avg=0.266% ✅
+      P3: n=2 WR=0.0% avg=-0.091% ❌
+  EURUSD M30 LONG CB>=5+RSI<30                            n=61    hold=115 WR=65.5% n=58 avg=0.137% ✅
+    Bootstrap 95% CI: [53.4%, 77.6%] (n=58, hold=115)
+    跨周期验证 (hold=115): 2/3 通过
+      P1: n=23 WR=39.1% avg=-0.174% ❌
+      P2: n=21 WR=81.0% avg=0.255% ✅
+      P3: n=6 WR=66.7% avg=0.165% ✅
+
+  --- M30 EURUSD MorningStar/Engulfing ---
+  EURUSD M30 EngulfingBull+RSI<30                         n=12    hold=105 WR=72.7% n=11 avg=0.203% ✅
+  EURUSD M30 CB>=2+RSI20-30+Rising                        n=101   hold=110 WR=58.5% n=94 avg=0.002%
+
+  --- M30 EURUSD 时段细分 CB>=3+RSI<25 ---
+  EURUSD M30 CB>=3+RSI<25+us                              n=18    hold= 30 WR=83.3% n=18 avg=0.108% ✅
+  EURUSD M30 CB>=3+RSI<25+europe                          n=19    hold= 65 WR=78.9% n=19 avg=0.169% ✅
+
+========================================================================================================================
+🏆 03 — USDJPY H1/M30 做多策略月度跟踪
+========================================================================================================================
+
+  --- H1 USDJPY CB>=5+RSI<25 (核心) ---
+  USDJPY H1 CB>=5+RSI<25                                  n=17    hold=190 WR=100.0% n=17 avg=0.595% ✅
+    Bootstrap 95% CI: [100.0%, 100.0%] (n=17, hold=190)
+    跨周期: 3/3 通过
+      P1: n=3 WR=100.0% avg=0.886% ✅
+      P2: n=5 WR=100.0% avg=0.551% ✅
+      P3: n=5 WR=100.0% avg=0.619% ✅
+
+  USDJPY H1 CB>=5+RSI<25 hold=190 月度
+    2026-02: n=2 WR=100.0% avg=0.692% ✅
+    2026-03: n=5 WR=100.0% avg=0.551% ✅
+    2026-04: n=3 WR=100.0% avg=0.558% ✅
+  → 总计: n=10 WR=100.0% avg=0.581%
+
+  --- H1 USDJPY CB>=4+RSI<30 (宽松) ---
+  USDJPY H1 CB>=4+RSI<30                                  n=31    hold=190 WR=93.5% n=31 avg=0.528% ✅
+    Bootstrap 95% CI: [83.9%, 100.0%] (n=31)
+    跨周期: 3/3 通过
+
+  --- M30 USDJPY CB>=5+RSI<25 (核心) ---
+  USDJPY M30 CB>=5+RSI<25                                 n=22    hold=100 WR=68.2% n=22 avg=-0.038% ✅
+    Bootstrap 95% CI: [45.5%, 86.4%] (n=22, hold=100)
+    跨周期: 2/3 通过
+      P1: n=6 WR=66.7% avg=-0.029% ✅
+      P2: n=7 WR=100.0% avg=0.368% ✅
+      P3: n=9 WR=44.4% avg=-0.359% ❌
+
+  USDJPY M30 CB>=5+RSI<25 hold=100 月度
+    2026-02: n=5 WR=60.0% avg=-0.098% ✅
+    2026-03: n=5 WR=100.0% avg=0.409% ✅
+    2026-04: n=4 WR=100.0% avg=0.157% ✅
+    2026-05: n=1 WR=0.0% avg=-0.448% ❌
+  → 总计: n=15 WR=80.0% avg=0.116%
+
+  --- M30 USDJPY CB>=4+RSI<30 (宽松) ---
+  USDJPY M30 CB>=4+RSI<30                                 n=45    hold=150 WR=70.5% n=44 avg=0.196% ✅
+    Bootstrap 95% CI: [56.8%, 84.1%] (n=44)
+    跨周期: 3/3 通过
+
+========================================================================================================================
+🔍 04 — H1/M30 全品种快速扫描 (发现新信号)
+========================================================================================================================
+
+  --- H1 全品种CB+RSI扫描 ---
+  LONG AUDUSD H1 CB>=3+RSI<20                             n=12    hold= 30 WR=66.7% n=12 avg=-0.086% ✅
+  LONG AUDUSD H1 CB>=4+RSI<20                             n=8     hold= 90 WR=75.0% n=8 avg=-0.094% ✅
+  LONG AUDUSD H1 CB>=3+RSI<25                             n=31    hold= 70 WR=67.7% n=31 avg=0.200% ✅
+  LONG AUDUSD H1 CB>=4+RSI<25                             n=20    hold= 70 WR=60.0% n=20 avg=0.051% ✅
+  LONG AUDUSD H1 CB>=5+RSI<25                             n=10    hold= 70 WR=60.0% n=10 avg=0.033% ✅
+  SHORT AUDUSD H1 CBull>=3+RSI>75                         n=35    hold=140 WR=71.4% n=28 avg=0.190% ✅
+  SHORT AUDUSD H1 CBull>=4+RSI>75                         n=16    hold=140 WR=85.7% n=14 avg=0.411% ✅
+  SHORT AUDUSD H1 CBull>=4+RSI>80                         n=14    hold=140 WR=83.3% n=12 avg=0.440% ✅
+  SHORT AUDUSD H1 CBull>=5+RSI>80                         n=8     hold= 80 WR=87.5% n=8 avg=0.522% ✅
+  InsideBar+RSI<20 AUDUSD H1                              n=2      跳过(<3)
+  InsideBar+RSI>80 AUDUSD H1                              n=14    hold=  9 WR=71.4% n=14 avg=0.004% ✅
+  ThreeWhiteSoldiers AUDUSD H1                            n=198   hold= 13 WR=55.1% n=196 avg=0.060%
+  ThreeBlackCrows AUDUSD H1                               n=187   hold= 11 WR=49.5% n=186 avg=-0.059%
+  LONG EURUSD H1 CB>=3+RSI<20                             n=12    hold= 60 WR=100.0% n=11 avg=0.318% ✅
+  LONG EURUSD H1 CB>=4+RSI<20                             n=7     hold= 60 WR=100.0% n=6 avg=0.345% ✅
+  LONG EURUSD H1 CB>=3+RSI<25                             n=30    hold= 60 WR=82.1% n=28 avg=0.184% ✅
+  LONG EURUSD H1 CB>=4+RSI<25                             n=16    hold= 60 WR=86.7% n=15 avg=0.210% ✅
+  LONG EURUSD H1 CB>=5+RSI<25                             n=11    hold= 50 WR=81.8% n=11 avg=0.146% ✅
+  SHORT EURUSD H1 CBull>=3+RSI>75                         n=33    hold= 70 WR=67.7% n=31 avg=0.080% ✅
+  SHORT EURUSD H1 CBull>=4+RSI>75                         n=17    hold= 70 WR=81.2% n=16 avg=0.148% ✅
+  SHORT EURUSD H1 CBull>=4+RSI>80                         n=12    hold= 30 WR=91.7% n=12 avg=0.180% ✅
+  SHORT EURUSD H1 CBull>=5+RSI>80                         n=6     hold= 70 WR=100.0% n=6 avg=0.245% ✅
+  InsideBar+RSI<20 EURUSD H1                              n=1      跳过(<3)
+  InsideBar+RSI>80 EURUSD H1                              n=5     hold= 19 WR=100.0% n=5 avg=0.201% ✅
+  ThreeWhiteSoldiers EURUSD H1                            n=171   hold=  5 WR=47.4% n=171 avg=-0.037%
+  ThreeBlackCrows EURUSD H1                               n=218   hold= 17 WR=59.1% n=215 avg=0.001%
+  LONG GBPUSD H1 CB>=3+RSI<20                             n=15    hold= 40 WR=64.3% n=14 avg=0.080% ✅
+  LONG GBPUSD H1 CB>=4+RSI<20                             n=10    hold= 80 WR=70.0% n=10 avg=0.132% ✅
+  LONG GBPUSD H1 CB>=3+RSI<25                             n=39    hold= 80 WR=59.5% n=37 avg=0.078%
+  LONG GBPUSD H1 CB>=4+RSI<25                             n=21    hold= 40 WR=55.0% n=20 avg=0.044%
+  LONG GBPUSD H1 CB>=5+RSI<25                             n=11    hold=120 WR=72.7% n=11 avg=0.309% ✅
+  SHORT GBPUSD H1 CBull>=3+RSI>75                         n=29    hold= 60 WR=69.0% n=29 avg=0.174% ✅
+  SHORT GBPUSD H1 CBull>=4+RSI>75                         n=14    hold= 90 WR=78.6% n=14 avg=0.288% ✅
+  SHORT GBPUSD H1 CBull>=4+RSI>80                         n=9     hold=120 WR=88.9% n=9 avg=0.442% ✅
+  SHORT GBPUSD H1 CBull>=5+RSI>80                         n=6     hold= 30 WR=83.3% n=6 avg=0.156% ✅
+  InsideBar+RSI<20 GBPUSD H1                              n=8     hold= 50 WR=87.5% n=8 avg=0.587% ✅
+  InsideBar+RSI>80 GBPUSD H1                              n=11    hold= 19 WR=90.9% n=11 avg=0.209% ✅
+  ThreeWhiteSoldiers GBPUSD H1                            n=158   hold=  5 WR=51.3% n=158 avg=-0.009%
+  ThreeBlackCrows GBPUSD H1                               n=217   hold= 29 WR=59.1% n=215 avg=0.034%
+  LONG HK50 H1 CB>=3+RSI<20                               n=29    hold=100 WR=76.9% n=26 avg=1.168% ✅
+  LONG HK50 H1 CB>=4+RSI<20                               n=20    hold=100 WR=77.8% n=18 avg=1.083% ✅
+  LONG HK50 H1 CB>=3+RSI<25                               n=43    hold=140 WR=71.8% n=39 avg=0.771% ✅
+  LONG HK50 H1 CB>=4+RSI<25                               n=27    hold=140 WR=79.2% n=24 avg=1.029% ✅
+  LONG HK50 H1 CB>=5+RSI<25                               n=14    hold=110 WR=84.6% n=13 avg=1.134% ✅
+  SHORT HK50 H1 CBull>=3+RSI>75                           n=74    hold=140 WR=58.1% n=62 avg=0.462%
+  SHORT HK50 H1 CBull>=4+RSI>75                           n=54    hold= 90 WR=61.1% n=54 avg=0.365% ✅
+  SHORT HK50 H1 CBull>=4+RSI>80                           n=38    hold= 90 WR=57.9% n=38 avg=0.239%
+  SHORT HK50 H1 CBull>=5+RSI>80                           n=30    hold= 90 WR=56.7% n=30 avg=0.205%
+  InsideBar+RSI<20 HK50 H1                                n=14    hold= 27 WR=92.9% n=14 avg=0.838% ✅
+  InsideBar+RSI>80 HK50 H1                                n=20    hold= 17 WR=85.0% n=20 avg=0.482% ✅
+  ThreeWhiteSoldiers HK50 H1                              n=236   hold=  1 WR=52.1% n=236 avg=-0.004%
+  ThreeBlackCrows HK50 H1                                 n=202   hold=  7 WR=53.5% n=202 avg=0.040%
+  LONG JP225 H1 CB>=3+RSI<20                              n=25    hold= 40 WR=88.0% n=25 avg=1.959% ✅
+  LONG JP225 H1 CB>=4+RSI<20                              n=19    hold= 50 WR=94.7% n=19 avg=2.771% ✅
+  LONG JP225 H1 CB>=3+RSI<25                              n=37    hold= 50 WR=86.1% n=36 avg=2.116% ✅
+  LONG JP225 H1 CB>=4+RSI<25                              n=27    hold= 40 WR=92.3% n=26 avg=2.203% ✅
+  LONG JP225 H1 CB>=5+RSI<25                              n=16    hold= 40 WR=100.0% n=16 avg=2.791% ✅
+  SHORT JP225 H1 CBull>=3+RSI>75                          n=68    hold= 30 WR=40.3% n=67 avg=-0.496%
+  SHORT JP225 H1 CBull>=4+RSI>75                          n=47    hold= 30 WR=40.4% n=47 avg=-0.722%
+  SHORT JP225 H1 CBull>=4+RSI>80                          n=32    hold= 30 WR=40.6% n=32 avg=-0.930%
+  SHORT JP225 H1 CBull>=5+RSI>80                          n=26    hold= 30 WR=38.5% n=26 avg=-1.148%
+  InsideBar+RSI<20 JP225 H1                               n=7     hold=  5 WR=100.0% n=7 avg=0.521% ✅
+  InsideBar+RSI>80 JP225 H1                               n=13    hold= 25 WR=61.5% n=13 avg=-0.013% ✅
+  ThreeWhiteSoldiers JP225 H1                             n=246   hold=  5 WR=56.9% n=246 avg=0.061%
+  ThreeBlackCrows JP225 H1                                n=172   hold= 19 WR=51.5% n=171 avg=-0.208%
+  LONG UKOIL H1 CB>=3+RSI<20                              n=20    hold= 80 WR=100.0% n=20 avg=6.826% ✅
+  LONG UKOIL H1 CB>=4+RSI<20                              n=10    hold= 80 WR=100.0% n=10 avg=6.389% ✅
+  LONG UKOIL H1 CB>=3+RSI<25                              n=25    hold= 80 WR=92.0% n=25 avg=6.192% ✅
+  LONG UKOIL H1 CB>=4+RSI<25                              n=14    hold= 50 WR=92.9% n=14 avg=3.725% ✅
+  LONG UKOIL H1 CB>=5+RSI<25                              n=9     hold= 50 WR=100.0% n=9 avg=3.036% ✅
+  SHORT UKOIL H1 CBull>=3+RSI>75                          n=68    hold= 30 WR=55.4% n=65 avg=0.882%
+  SHORT UKOIL H1 CBull>=4+RSI>75                          n=44    hold= 30 WR=61.9% n=42 avg=1.459% ✅
+  SHORT UKOIL H1 CBull>=4+RSI>80                          n=29    hold= 30 WR=67.9% n=28 avg=2.291% ✅
+  SHORT UKOIL H1 CBull>=5+RSI>80                          n=22    hold= 30 WR=71.4% n=21 avg=2.784% ✅
+  InsideBar+RSI<20 UKOIL H1                               n=10    hold=120 WR=100.0% n=9 avg=8.844% ✅
+  InsideBar+RSI>80 UKOIL H1                               n=19    hold= 23 WR=50.0% n=18 avg=-0.271%
+  ThreeWhiteSoldiers UKOIL H1                             n=260   hold= 29 WR=63.1% n=255 avg=1.253% ✅
+  ThreeBlackCrows UKOIL H1                                n=169   hold=  7 WR=48.5% n=169 avg=-0.108%
+  LONG US30 H1 CB>=3+RSI<20                               n=23    hold= 30 WR=82.6% n=23 avg=0.510% ✅
+  LONG US30 H1 CB>=4+RSI<20                               n=14    hold= 70 WR=92.9% n=14 avg=1.019% ✅
+  LONG US30 H1 CB>=3+RSI<25                               n=35    hold= 80 WR=80.0% n=35 avg=0.762% ✅
+  LONG US30 H1 CB>=4+RSI<25                               n=23    hold= 60 WR=78.3% n=23 avg=1.103% ✅
+  LONG US30 H1 CB>=5+RSI<25                               n=14    hold= 30 WR=71.4% n=14 avg=0.667% ✅
+  SHORT US30 H1 CBull>=3+RSI>75                           n=44    hold= 30 WR=60.5% n=43 avg=-0.104% ✅
+  SHORT US30 H1 CBull>=4+RSI>75                           n=22    hold= 30 WR=72.7% n=22 avg=0.080% ✅
+  SHORT US30 H1 CBull>=4+RSI>80                           n=18    hold= 30 WR=72.2% n=18 avg=0.121% ✅
+  SHORT US30 H1 CBull>=5+RSI>80                           n=10    hold= 30 WR=80.0% n=10 avg=0.251% ✅
+  InsideBar+RSI<20 US30 H1                                n=10    hold= 23 WR=100.0% n=10 avg=0.906% ✅
+  InsideBar+RSI>80 US30 H1                                n=10    hold= 19 WR=66.7% n=9 avg=-0.089% ✅
+  ThreeWhiteSoldiers US30 H1                              n=240   hold=  9 WR=54.4% n=239 avg=0.007%
+  ThreeBlackCrows US30 H1                                 n=174   hold= 19 WR=51.4% n=173 avg=-0.022%
+  LONG US500 H1 CB>=3+RSI<20                              n=18    hold= 30 WR=94.4% n=18 avg=0.997% ✅
+  LONG US500 H1 CB>=4+RSI<20                              n=11    hold= 30 WR=100.0% n=11 avg=1.025% ✅
+  LONG US500 H1 CB>=3+RSI<25                              n=30    hold= 30 WR=79.3% n=29 avg=0.783% ✅
+  LONG US500 H1 CB>=4+RSI<25                              n=19    hold= 30 WR=83.3% n=18 avg=0.770% ✅
+  LONG US500 H1 CB>=5+RSI<25                              n=8     hold= 30 WR=100.0% n=8 avg=0.943% ✅
+  SHORT US500 H1 CBull>=3+RSI>75                          n=65    hold= 30 WR=38.5% n=65 avg=-0.279%
+  SHORT US500 H1 CBull>=4+RSI>75                          n=34    hold=100 WR=45.2% n=31 avg=-0.702%
+  SHORT US500 H1 CBull>=4+RSI>80                          n=22    hold=100 WR=45.0% n=20 avg=-0.919%
+  SHORT US500 H1 CBull>=5+RSI>80                          n=15    hold=100 WR=57.1% n=14 avg=-0.529%
+  InsideBar+RSI<20 US500 H1                               n=2      跳过(<3)
+  InsideBar+RSI>80 US500 H1                               n=12    hold=  5 WR=50.0% n=12 avg=0.051%
+  ThreeWhiteSoldiers US500 H1                             n=249   hold=  5 WR=58.2% n=249 avg=0.039%
+  ThreeBlackCrows US500 H1                                n=183   hold=  1 WR=47.8% n=182 avg=-0.012%
+  LONG USDCHF H1 CB>=3+RSI<20                             n=30    hold= 60 WR=83.3% n=30 avg=0.401% ✅
+  LONG USDCHF H1 CB>=4+RSI<20                             n=21    hold= 60 WR=81.0% n=21 avg=0.431% ✅
+  LONG USDCHF H1 CB>=3+RSI<25                             n=41    hold= 60 WR=78.0% n=41 avg=0.357% ✅
+  LONG USDCHF H1 CB>=4+RSI<25                             n=27    hold= 60 WR=81.5% n=27 avg=0.454% ✅
+  LONG USDCHF H1 CB>=5+RSI<25                             n=19    hold= 60 WR=73.7% n=19 avg=0.430% ✅
+  SHORT USDCHF H1 CBull>=3+RSI>75                         n=33    hold= 60 WR=78.1% n=32 avg=0.251% ✅
+  SHORT USDCHF H1 CBull>=4+RSI>75                         n=21    hold= 60 WR=75.0% n=20 avg=0.195% ✅
+  SHORT USDCHF H1 CBull>=4+RSI>80                         n=13    hold= 60 WR=83.3% n=12 avg=0.293% ✅
+  SHORT USDCHF H1 CBull>=5+RSI>80                         n=8     hold= 60 WR=85.7% n=7 avg=0.211% ✅
+  InsideBar+RSI<20 USDCHF H1                              n=12    hold= 70 WR=100.0% n=12 avg=0.535% ✅
+  InsideBar+RSI>80 USDCHF H1                              n=2      跳过(<3)
+  ThreeWhiteSoldiers USDCHF H1                            n=212   hold= 17 WR=53.6% n=209 avg=0.016%
+  ThreeBlackCrows USDCHF H1                               n=207   hold=  1 WR=51.2% n=207 avg=0.004%
+  LONG USDJPY H1 CB>=3+RSI<20                             n=26    hold=150 WR=88.5% n=26 avg=0.404% ✅
+  LONG USDJPY H1 CB>=4+RSI<20                             n=19    hold=150 WR=89.5% n=19 avg=0.413% ✅
+  LONG USDJPY H1 CB>=3+RSI<25                             n=38    hold=150 WR=86.8% n=38 avg=0.476% ✅
+  LONG USDJPY H1 CB>=4+RSI<25                             n=28    hold=120 WR=89.3% n=28 avg=0.301% ✅
+  LONG USDJPY H1 CB>=5+RSI<25                             n=17    hold=120 WR=94.1% n=17 avg=0.383% ✅
+  SHORT USDJPY H1 CBull>=3+RSI>75                         n=31    hold= 60 WR=78.6% n=28 avg=0.298% ✅
+  SHORT USDJPY H1 CBull>=4+RSI>75                         n=20    hold= 60 WR=83.3% n=18 avg=0.283% ✅
+  SHORT USDJPY H1 CBull>=4+RSI>80                         n=11    hold= 60 WR=100.0% n=9 avg=0.567% ✅
+  SHORT USDJPY H1 CBull>=5+RSI>80                         n=7     hold= 40 WR=100.0% n=6 avg=0.857% ✅
+  InsideBar+RSI<20 USDJPY H1                              n=6     hold= 29 WR=100.0% n=6 avg=0.257% ✅
+  InsideBar+RSI>80 USDJPY H1                              n=8     hold= 60 WR=100.0% n=6 avg=0.734% ✅
+  ThreeWhiteSoldiers USDJPY H1                            n=245   hold= 15 WR=56.4% n=243 avg=-0.030%
+  ThreeBlackCrows USDJPY H1                               n=156   hold=  5 WR=44.9% n=156 avg=0.025%
+  LONG USOIL H1 CB>=3+RSI<20                              n=17    hold= 50 WR=94.1% n=17 avg=4.318% ✅
+  LONG USOIL H1 CB>=4+RSI<20                              n=10    hold= 50 WR=100.0% n=10 avg=5.124% ✅
+  LONG USOIL H1 CB>=3+RSI<25                              n=28    hold= 50 WR=82.1% n=28 avg=3.258% ✅
+  LONG USOIL H1 CB>=4+RSI<25                              n=17    hold= 50 WR=94.1% n=17 avg=4.425% ✅
+  LONG USOIL H1 CB>=5+RSI<25                              n=9     hold= 50 WR=100.0% n=9 avg=4.508% ✅
+  SHORT USOIL H1 CBull>=3+RSI>75                          n=67    hold= 30 WR=54.7% n=64 avg=1.704%
+  SHORT USOIL H1 CBull>=4+RSI>75                          n=45    hold= 30 WR=59.5% n=42 avg=2.458%
+  SHORT USOIL H1 CBull>=4+RSI>80                          n=30    hold= 30 WR=71.4% n=28 avg=3.803% ✅
+  SHORT USOIL H1 CBull>=5+RSI>80                          n=20    hold= 30 WR=83.3% n=18 avg=5.748% ✅
+  InsideBar+RSI<20 USOIL H1                               n=9     hold= 40 WR=88.9% n=9 avg=1.287% ✅
+  InsideBar+RSI>80 USOIL H1                               n=21    hold= 29 WR=55.0% n=20 avg=-0.054%
+  ThreeWhiteSoldiers USOIL H1                             n=242   hold= 15 WR=58.5% n=241 avg=0.985%
+  ThreeBlackCrows USOIL H1                                n=148   hold=  7 WR=47.3% n=148 avg=-0.180%
+  LONG USTEC H1 CB>=3+RSI<20                              n=23    hold=100 WR=72.7% n=22 avg=0.975% ✅
+  LONG USTEC H1 CB>=4+RSI<20                              n=16    hold=100 WR=73.3% n=15 avg=0.963% ✅
+  LONG USTEC H1 CB>=3+RSI<25                              n=37    hold=120 WR=77.1% n=35 avg=1.719% ✅
+  LONG USTEC H1 CB>=4+RSI<25                              n=21    hold=120 WR=80.0% n=20 avg=1.834% ✅
+  LONG USTEC H1 CB>=5+RSI<25                              n=10    hold=110 WR=90.0% n=10 avg=1.860% ✅
+  SHORT USTEC H1 CBull>=3+RSI>75                          n=73    hold= 50 WR=40.6% n=69 avg=-0.333%
+  SHORT USTEC H1 CBull>=4+RSI>75                          n=45    hold=150 WR=46.4% n=28 avg=-0.852%
+  SHORT USTEC H1 CBull>=4+RSI>80                          n=36    hold= 50 WR=51.5% n=33 avg=-0.003%
+  SHORT USTEC H1 CBull>=5+RSI>80                          n=22    hold=150 WR=58.3% n=12 avg=-0.050%
+  InsideBar+RSI<20 USTEC H1                               n=3     hold=  1 WR=66.7% n=3 avg=0.141% ✅
+  InsideBar+RSI>80 USTEC H1                               n=16    hold=  9 WR=50.0% n=16 avg=-0.167%
+  ThreeWhiteSoldiers USTEC H1                             n=249   hold= 29 WR=58.3% n=240 avg=0.192%
+  ThreeBlackCrows USTEC H1                                n=180   hold= 19 WR=44.1% n=177 avg=-0.329%
+  LONG XAGUSD H1 CB>=3+RSI<20                             n=15    hold= 30 WR=73.3% n=15 avg=2.866% ✅
+  LONG XAGUSD H1 CB>=4+RSI<20                             n=10    hold= 40 WR=80.0% n=10 avg=3.336% ✅
+  LONG XAGUSD H1 CB>=3+RSI<25                             n=34    hold= 40 WR=73.5% n=34 avg=1.700% ✅
+  LONG XAGUSD H1 CB>=4+RSI<25                             n=21    hold= 40 WR=66.7% n=21 avg=1.263% ✅
+  LONG XAGUSD H1 CB>=5+RSI<25                             n=11    hold= 90 WR=81.8% n=11 avg=5.728% ✅
+  SHORT XAGUSD H1 CBull>=3+RSI>75                         n=49    hold=150 WR=54.3% n=35 avg=-0.165%
+  SHORT XAGUSD H1 CBull>=4+RSI>75                         n=29    hold=150 WR=47.6% n=21 avg=-1.449%
+  SHORT XAGUSD H1 CBull>=4+RSI>80                         n=20    hold=150 WR=47.1% n=17 avg=-1.283%
+  SHORT XAGUSD H1 CBull>=5+RSI>80                         n=10    hold=150 WR=40.0% n=10 avg=-2.639%
+  InsideBar+RSI<20 XAGUSD H1                              n=4     hold= 15 WR=100.0% n=4 avg=1.705% ✅
+  InsideBar+RSI>80 XAGUSD H1                              n=11    hold=150 WR=80.0% n=10 avg=4.535% ✅
+  ThreeWhiteSoldiers XAGUSD H1                            n=209   hold= 29 WR=54.6% n=205 avg=0.442%
+  ThreeBlackCrows XAGUSD H1                               n=203   hold= 13 WR=53.7% n=203 avg=0.410%
+  LONG XAUUSD H1 CB>=3+RSI<20                             n=29    hold= 50 WR=50.0% n=28 avg=-1.465%
+  LONG XAUUSD H1 CB>=4+RSI<20                             n=18    hold= 50 WR=44.4% n=18 avg=-2.180%
+  LONG XAUUSD H1 CB>=3+RSI<25                             n=45    hold= 50 WR=58.1% n=43 avg=-0.407%
+  LONG XAUUSD H1 CB>=4+RSI<25                             n=26    hold= 50 WR=52.0% n=25 avg=-1.245%
+  LONG XAUUSD H1 CB>=5+RSI<25                             n=16    hold= 50 WR=43.8% n=16 avg=-1.800%
+  SHORT XAUUSD H1 CBull>=3+RSI>75                         n=40    hold=150 WR=59.3% n=27 avg=0.411%
+  SHORT XAUUSD H1 CBull>=4+RSI>75                         n=27    hold= 70 WR=56.0% n=25 avg=0.070%
+  SHORT XAUUSD H1 CBull>=4+RSI>80                         n=12    hold= 70 WR=66.7% n=12 avg=-0.057% ✅
+  SHORT XAUUSD H1 CBull>=5+RSI>80                         n=9     hold= 70 WR=77.8% n=9 avg=0.183% ✅
+  InsideBar+RSI<20 XAUUSD H1                              n=10    hold= 13 WR=70.0% n=10 avg=0.223% ✅
+  InsideBar+RSI>80 XAUUSD H1                              n=4     hold=  1 WR=100.0% n=4 avg=0.521% ✅
+  ThreeWhiteSoldiers XAUUSD H1                            n=208   hold=  3 WR=52.4% n=208 avg=0.050%
+  ThreeBlackCrows XAUUSD H1                               n=197   hold= 25 WR=63.5% n=192 avg=0.578% ✅
+
+  --- M30 全品种CB+RSI扫描 ---
+  LONG AUDUSD M30 CB>=3+RSI<20                            n=34    hold= 60 WR=76.5% n=34 avg=0.399% ✅
+  LONG AUDUSD M30 CB>=4+RSI<20                            n=23    hold= 60 WR=78.3% n=23 avg=0.378% ✅
+  LONG AUDUSD M30 CB>=3+RSI<25                            n=61    hold=130 WR=67.8% n=59 avg=0.409% ✅
+  LONG AUDUSD M30 CB>=4+RSI<25                            n=40    hold= 60 WR=72.5% n=40 avg=0.329% ✅
+  LONG AUDUSD M30 CB>=5+RSI<25                            n=26    hold= 60 WR=73.1% n=26 avg=0.352% ✅
+  SHORT AUDUSD M30 CBull>=3+RSI>75                        n=79    hold=150 WR=52.6% n=78 avg=-0.209%
+  SHORT AUDUSD M30 CBull>=4+RSI>75                        n=46    hold= 90 WR=52.2% n=46 avg=-0.154%
+  SHORT AUDUSD M30 CBull>=4+RSI>80                        n=33    hold= 90 WR=51.5% n=33 avg=-0.102%
+  SHORT AUDUSD M30 CBull>=5+RSI>80                        n=20    hold= 90 WR=65.0% n=20 avg=0.088% ✅
+  InsideBar+RSI<20 AUDUSD M30                             n=7     hold= 11 WR=85.7% n=7 avg=0.047% ✅
+  InsideBar+RSI>80 AUDUSD M30                             n=18    hold= 15 WR=66.7% n=18 avg=0.013% ✅
+  ThreeWhiteSoldiers AUDUSD M30                           n=372   hold= 19 WR=57.6% n=370 avg=0.046%
+  ThreeBlackCrows AUDUSD M30                              n=375   hold= 19 WR=49.9% n=375 avg=-0.063%
+  LONG EURUSD M30 CB>=3+RSI<20                            n=41    hold= 70 WR=76.9% n=39 avg=0.282% ✅
+  LONG EURUSD M30 CB>=4+RSI<20                            n=32    hold= 70 WR=80.6% n=31 avg=0.302% ✅
+  LONG EURUSD M30 CB>=3+RSI<25                            n=73    hold=120 WR=73.1% n=67 avg=0.249% ✅
+  LONG EURUSD M30 CB>=4+RSI<25                            n=52    hold=120 WR=73.5% n=49 avg=0.252% ✅
+  LONG EURUSD M30 CB>=5+RSI<25                            n=40    hold=120 WR=71.8% n=39 avg=0.218% ✅
+  SHORT EURUSD M30 CBull>=3+RSI>75                        n=62    hold=140 WR=62.9% n=62 avg=0.076% ✅
+  SHORT EURUSD M30 CBull>=4+RSI>75                        n=41    hold=140 WR=73.2% n=41 avg=0.174% ✅
+  SHORT EURUSD M30 CBull>=4+RSI>80                        n=25    hold=140 WR=80.0% n=25 avg=0.237% ✅
+  SHORT EURUSD M30 CBull>=5+RSI>80                        n=16    hold=140 WR=87.5% n=16 avg=0.208% ✅
+  InsideBar+RSI<20 EURUSD M30                             n=11    hold=140 WR=100.0% n=10 avg=0.364% ✅
+  InsideBar+RSI>80 EURUSD M30                             n=16    hold=  5 WR=56.2% n=16 avg=0.010%
+  ThreeWhiteSoldiers EURUSD M30                           n=351   hold= 13 WR=49.9% n=351 avg=-0.012%
+  ThreeBlackCrows EURUSD M30                              n=453   hold=  1 WR=55.6% n=453 avg=0.004%
+  LONG GBPUSD M30 CB>=3+RSI<20                            n=52    hold=110 WR=69.0% n=42 avg=0.268% ✅
+  LONG GBPUSD M30 CB>=4+RSI<20                            n=42    hold=110 WR=71.4% n=35 avg=0.291% ✅
+  LONG GBPUSD M30 CB>=3+RSI<25                            n=88    hold=110 WR=67.1% n=76 avg=0.232% ✅
+  LONG GBPUSD M30 CB>=4+RSI<25                            n=62    hold=110 WR=69.8% n=53 avg=0.262% ✅
+  LONG GBPUSD M30 CB>=5+RSI<25                            n=42    hold=110 WR=68.6% n=35 avg=0.236% ✅
+  SHORT GBPUSD M30 CBull>=3+RSI>75                        n=60    hold=130 WR=65.0% n=60 avg=0.157% ✅
+  SHORT GBPUSD M30 CBull>=4+RSI>75                        n=36    hold=130 WR=69.4% n=36 avg=0.200% ✅
+  SHORT GBPUSD M30 CBull>=4+RSI>80                        n=25    hold=130 WR=68.0% n=25 avg=0.190% ✅
+  SHORT GBPUSD M30 CBull>=5+RSI>80                        n=14    hold= 30 WR=64.3% n=14 avg=0.043% ✅
+  InsideBar+RSI<20 GBPUSD M30                             n=17    hold=100 WR=78.6% n=14 avg=0.172% ✅
+  InsideBar+RSI>80 GBPUSD M30                             n=17    hold=140 WR=70.6% n=17 avg=0.095% ✅
+  ThreeWhiteSoldiers GBPUSD M30                           n=404   hold=  1 WR=51.5% n=404 avg=-0.001%
+  ThreeBlackCrows GBPUSD M30                              n=435   hold= 29 WR=54.5% n=429 avg=-0.022%
+  LONG HK50 M30 CB>=3+RSI<20                              n=52    hold= 50 WR=67.3% n=52 avg=0.703% ✅
+  LONG HK50 M30 CB>=4+RSI<20                              n=34    hold= 50 WR=73.5% n=34 avg=0.699% ✅
+  LONG HK50 M30 CB>=3+RSI<25                              n=79    hold= 50 WR=68.4% n=79 avg=0.634% ✅
+  LONG HK50 M30 CB>=4+RSI<25                              n=50    hold=140 WR=72.0% n=50 avg=0.662% ✅
+  LONG HK50 M30 CB>=5+RSI<25                              n=30    hold= 50 WR=73.3% n=30 avg=0.458% ✅
+  SHORT HK50 M30 CBull>=3+RSI>75                          n=109   hold= 30 WR=59.6% n=109 avg=0.127%
+  SHORT HK50 M30 CBull>=4+RSI>75                          n=72    hold= 30 WR=65.3% n=72 avg=0.211% ✅
+  SHORT HK50 M30 CBull>=4+RSI>80                          n=57    hold= 30 WR=70.2% n=57 avg=0.278% ✅
+  SHORT HK50 M30 CBull>=5+RSI>80                          n=38    hold= 40 WR=68.4% n=38 avg=0.242% ✅
+  InsideBar+RSI<20 HK50 M30                               n=30    hold= 50 WR=73.3% n=30 avg=0.524% ✅
+  InsideBar+RSI>80 HK50 M30                               n=31    hold= 23 WR=74.2% n=31 avg=0.308% ✅
+  ThreeWhiteSoldiers HK50 M30                             n=442   hold=  3 WR=49.1% n=442 avg=-0.050%
+  ThreeBlackCrows HK50 M30                                n=379   hold= 25 WR=51.2% n=373 avg=-0.036%
+  LONG JP225 M30 CB>=3+RSI<20                             n=36    hold=140 WR=94.3% n=35 avg=2.530% ✅
+  LONG JP225 M30 CB>=4+RSI<20                             n=23    hold=140 WR=95.5% n=22 avg=2.375% ✅
+  LONG JP225 M30 CB>=3+RSI<25                             n=71    hold=120 WR=86.2% n=65 avg=1.322% ✅
+  LONG JP225 M30 CB>=4+RSI<25                             n=49    hold=120 WR=81.8% n=44 avg=0.948% ✅
+  LONG JP225 M30 CB>=5+RSI<25                             n=32    hold=120 WR=85.7% n=28 avg=1.100% ✅
+  SHORT JP225 M30 CBull>=3+RSI>75                         n=119   hold= 50 WR=54.2% n=118 avg=-0.171%
+  SHORT JP225 M30 CBull>=4+RSI>75                         n=77    hold=110 WR=63.2% n=76 avg=0.099% ✅
+  SHORT JP225 M30 CBull>=4+RSI>80                         n=50    hold= 50 WR=62.0% n=50 avg=0.036% ✅
+  SHORT JP225 M30 CBull>=5+RSI>80                         n=33    hold= 60 WR=72.7% n=33 avg=0.685% ✅
+  InsideBar+RSI<20 JP225 M30                              n=11    hold=120 WR=100.0% n=11 avg=3.349% ✅
+  InsideBar+RSI>80 JP225 M30                              n=29    hold=  5 WR=55.2% n=29 avg=-0.104%
+  ThreeWhiteSoldiers JP225 M30                            n=445   hold= 15 WR=58.8% n=444 avg=0.134%
+  ThreeBlackCrows JP225 M30                               n=361   hold=  3 WR=51.8% n=361 avg=0.027%
+  LONG UKOIL M30 CB>=3+RSI<20                             n=32    hold= 90 WR=96.8% n=31 avg=4.212% ✅
+  LONG UKOIL M30 CB>=4+RSI<20                             n=23    hold= 60 WR=100.0% n=23 avg=2.839% ✅
+  LONG UKOIL M30 CB>=3+RSI<25                             n=49    hold=140 WR=89.6% n=48 avg=5.368% ✅
+  LONG UKOIL M30 CB>=4+RSI<25                             n=32    hold=140 WR=96.9% n=32 avg=7.110% ✅
+  LONG UKOIL M30 CB>=5+RSI<25                             n=23    hold=100 WR=95.7% n=23 avg=3.362% ✅
+  SHORT UKOIL M30 CBull>=3+RSI>75                         n=117   hold=110 WR=48.2% n=112 avg=-0.238%
+  SHORT UKOIL M30 CBull>=4+RSI>75                         n=73    hold= 90 WR=52.1% n=73 avg=0.522%
+  SHORT UKOIL M30 CBull>=4+RSI>80                         n=56    hold=110 WR=49.1% n=55 avg=0.384%
+  SHORT UKOIL M30 CBull>=5+RSI>80                         n=41    hold=110 WR=45.0% n=40 avg=-0.074%
+  InsideBar+RSI<20 UKOIL M30                              n=21    hold= 60 WR=100.0% n=19 avg=3.391% ✅
+  InsideBar+RSI>80 UKOIL M30                              n=10    hold=  1 WR=60.0% n=10 avg=0.104% ✅
+  ThreeWhiteSoldiers UKOIL M30                            n=477   hold= 27 WR=58.0% n=476 avg=0.663%
+  ThreeBlackCrows UKOIL M30                               n=338   hold=  1 WR=49.3% n=337 avg=0.037%
+  LONG US30 M30 CB>=3+RSI<20                              n=41    hold=120 WR=70.7% n=41 avg=0.541% ✅
+  LONG US30 M30 CB>=4+RSI<20                              n=26    hold=120 WR=73.1% n=26 avg=0.479% ✅
+  LONG US30 M30 CB>=3+RSI<25                              n=65    hold=130 WR=76.9% n=65 avg=0.749% ✅
+  LONG US30 M30 CB>=4+RSI<25                              n=42    hold=120 WR=78.6% n=42 avg=0.626% ✅
+  LONG US30 M30 CB>=5+RSI<25                              n=22    hold= 50 WR=86.4% n=22 avg=0.581% ✅
+  SHORT US30 M30 CBull>=3+RSI>75                          n=108   hold= 70 WR=56.5% n=108 avg=0.066%
+  SHORT US30 M30 CBull>=4+RSI>75                          n=72    hold= 70 WR=58.3% n=72 avg=0.172%
+  SHORT US30 M30 CBull>=4+RSI>80                          n=54    hold= 70 WR=59.3% n=54 avg=0.161%
+  SHORT US30 M30 CBull>=5+RSI>80                          n=34    hold= 70 WR=55.9% n=34 avg=0.197%
+  InsideBar+RSI<20 US30 M30                               n=13    hold=  3 WR=76.9% n=13 avg=0.027% ✅
+  InsideBar+RSI>80 US30 M30                               n=31    hold=  3 WR=54.8% n=31 avg=-0.046%
+  ThreeWhiteSoldiers US30 M30                             n=428   hold= 15 WR=56.5% n=428 avg=0.061%
+  ThreeBlackCrows US30 M30                                n=395   hold= 29 WR=52.1% n=390 avg=-0.026%
+  LONG US500 M30 CB>=3+RSI<20                             n=36    hold=140 WR=83.3% n=36 avg=0.933% ✅
+  LONG US500 M30 CB>=4+RSI<20                             n=30    hold=140 WR=83.3% n=30 avg=1.019% ✅
+  LONG US500 M30 CB>=3+RSI<25                             n=64    hold=140 WR=79.0% n=62 avg=1.030% ✅
+  LONG US500 M30 CB>=4+RSI<25                             n=46    hold=140 WR=82.2% n=45 avg=1.116% ✅
+  LONG US500 M30 CB>=5+RSI<25                             n=28    hold=140 WR=88.9% n=27 avg=1.483% ✅
+  SHORT US500 M30 CBull>=3+RSI>75                         n=118   hold= 60 WR=52.1% n=117 avg=-0.044%
+  SHORT US500 M30 CBull>=4+RSI>75                         n=72    hold= 60 WR=52.8% n=72 avg=0.003%
+  SHORT US500 M30 CBull>=4+RSI>80                         n=49    hold= 50 WR=55.1% n=49 avg=0.066%
+  SHORT US500 M30 CBull>=5+RSI>80                         n=34    hold= 50 WR=61.8% n=34 avg=0.202% ✅
+  InsideBar+RSI<20 US500 M30                              n=10    hold= 15 WR=90.0% n=10 avg=0.253% ✅
+  InsideBar+RSI>80 US500 M30                              n=28    hold= 70 WR=50.0% n=28 avg=-0.261%
+  ThreeWhiteSoldiers US500 M30                            n=426   hold= 11 WR=58.5% n=426 avg=0.058%
+  ThreeBlackCrows US500 M30                               n=357   hold=  3 WR=50.4% n=357 avg=0.001%
+  LONG USDCHF M30 CB>=3+RSI<20                            n=51    hold=100 WR=64.7% n=51 avg=0.019% ✅
+  LONG USDCHF M30 CB>=4+RSI<20                            n=32    hold=100 WR=65.6% n=32 avg=0.046% ✅
+  LONG USDCHF M30 CB>=3+RSI<25                            n=72    hold=100 WR=65.3% n=72 avg=0.045% ✅
+  LONG USDCHF M30 CB>=4+RSI<25                            n=45    hold=100 WR=66.7% n=45 avg=0.019% ✅
+  LONG USDCHF M30 CB>=5+RSI<25                            n=27    hold=100 WR=66.7% n=27 avg=0.033% ✅
+  SHORT USDCHF M30 CBull>=3+RSI>75                        n=102   hold=140 WR=63.0% n=92 avg=0.189% ✅
+  SHORT USDCHF M30 CBull>=4+RSI>75                        n=73    hold=120 WR=59.1% n=66 avg=0.234%
+  SHORT USDCHF M30 CBull>=4+RSI>80                        n=48    hold=140 WR=71.7% n=46 avg=0.301% ✅
+  SHORT USDCHF M30 CBull>=5+RSI>80                        n=32    hold= 40 WR=68.8% n=32 avg=0.168% ✅
+  InsideBar+RSI<20 USDCHF M30                             n=15    hold= 70 WR=80.0% n=15 avg=0.099% ✅
+  InsideBar+RSI>80 USDCHF M30                             n=12    hold= 50 WR=75.0% n=12 avg=0.136% ✅
+  ThreeWhiteSoldiers USDCHF M30                           n=462   hold=  1 WR=52.2% n=462 avg=-0.002%
+  ThreeBlackCrows USDCHF M30                              n=332   hold= 15 WR=52.7% n=332 avg=0.031%
+  LONG USDJPY M30 CB>=3+RSI<20                            n=32    hold=150 WR=75.0% n=32 avg=0.148% ✅
+  LONG USDJPY M30 CB>=4+RSI<20                            n=20    hold=110 WR=75.0% n=20 avg=-0.010% ✅
+  LONG USDJPY M30 CB>=3+RSI<25                            n=50    hold=100 WR=68.0% n=50 avg=-0.002% ✅
+  LONG USDJPY M30 CB>=4+RSI<25                            n=33    hold=100 WR=69.7% n=33 avg=0.035% ✅
+  LONG USDJPY M30 CB>=5+RSI<25                            n=22    hold=100 WR=68.2% n=22 avg=-0.038% ✅
+  SHORT USDJPY M30 CBull>=3+RSI>75                        n=75    hold= 60 WR=65.3% n=75 avg=0.318% ✅
+  SHORT USDJPY M30 CBull>=4+RSI>75                        n=44    hold=120 WR=73.8% n=42 avg=0.207% ✅
+  SHORT USDJPY M30 CBull>=4+RSI>80                        n=30    hold=110 WR=75.9% n=29 avg=0.149% ✅
+  SHORT USDJPY M30 CBull>=5+RSI>80                        n=19    hold=110 WR=83.3% n=18 avg=0.206% ✅
+  InsideBar+RSI<20 USDJPY M30                             n=11    hold= 80 WR=81.8% n=11 avg=0.182% ✅
+  InsideBar+RSI>80 USDJPY M30                             n=21    hold=  5 WR=71.4% n=21 avg=0.028% ✅
+  ThreeWhiteSoldiers USDJPY M30                           n=445   hold= 29 WR=55.2% n=444 avg=-0.046%
+  ThreeBlackCrows USDJPY M30                              n=325   hold=  1 WR=47.4% n=325 avg=-0.001%
+  LONG USOIL M30 CB>=3+RSI<20                             n=33    hold=100 WR=80.6% n=31 avg=2.459% ✅
+  LONG USOIL M30 CB>=4+RSI<20                             n=27    hold=110 WR=80.8% n=26 avg=2.314% ✅
+  LONG USOIL M30 CB>=3+RSI<25                             n=54    hold=110 WR=75.0% n=52 avg=2.630% ✅
+  LONG USOIL M30 CB>=4+RSI<25                             n=40    hold=110 WR=79.5% n=39 avg=3.299% ✅
+  LONG USOIL M30 CB>=5+RSI<25                             n=27    hold=110 WR=77.8% n=27 avg=1.947% ✅
+  SHORT USOIL M30 CBull>=3+RSI>75                         n=107   hold=140 WR=52.0% n=102 avg=0.147%
+  SHORT USOIL M30 CBull>=4+RSI>75                         n=61    hold=140 WR=56.9% n=58 avg=0.820%
+  SHORT USOIL M30 CBull>=4+RSI>80                         n=41    hold=140 WR=60.5% n=38 avg=1.318% ✅
+  SHORT USOIL M30 CBull>=5+RSI>80                         n=24    hold=140 WR=54.5% n=22 avg=1.117%
+  InsideBar+RSI<20 USOIL M30                              n=19    hold= 80 WR=100.0% n=15 avg=3.685% ✅
+  InsideBar+RSI>80 USOIL M30                              n=17    hold=130 WR=64.7% n=17 avg=3.031% ✅
+  ThreeWhiteSoldiers USOIL M30                            n=468   hold= 29 WR=55.4% n=466 avg=0.465%
+  ThreeBlackCrows USOIL M30                               n=325   hold=  3 WR=48.3% n=325 avg=0.024%
+  LONG USTEC M30 CB>=3+RSI<20                             n=37    hold= 30 WR=75.7% n=37 avg=0.740% ✅
+  LONG USTEC M30 CB>=4+RSI<20                             n=30    hold= 30 WR=80.0% n=30 avg=0.818% ✅
+  LONG USTEC M30 CB>=3+RSI<25                             n=71    hold=140 WR=72.7% n=66 avg=1.261% ✅
+  LONG USTEC M30 CB>=4+RSI<25                             n=48    hold=140 WR=79.1% n=43 avg=1.344% ✅
+  LONG USTEC M30 CB>=5+RSI<25                             n=32    hold=140 WR=82.1% n=28 avg=1.641% ✅
+  SHORT USTEC M30 CBull>=3+RSI>75                         n=119   hold= 60 WR=40.7% n=118 avg=-0.292%
+  SHORT USTEC M30 CBull>=4+RSI>75                         n=70    hold= 60 WR=42.9% n=70 avg=-0.297%
+  SHORT USTEC M30 CBull>=4+RSI>80                         n=48    hold=100 WR=41.7% n=48 avg=-0.510%
+  SHORT USTEC M30 CBull>=5+RSI>80                         n=25    hold= 50 WR=40.0% n=25 avg=-0.409%
+  InsideBar+RSI<20 USTEC M30                              n=15    hold= 15 WR=80.0% n=15 avg=0.500% ✅
+  InsideBar+RSI>80 USTEC M30                              n=32    hold=  1 WR=56.2% n=32 avg=0.003%
+  ThreeWhiteSoldiers USTEC M30                            n=439   hold=  7 WR=59.2% n=439 avg=0.056%
+  ThreeBlackCrows USTEC M30                               n=366   hold=  9 WR=50.7% n=365 avg=-0.001%
+  LONG XAGUSD M30 CB>=3+RSI<20                            n=32    hold= 40 WR=65.6% n=32 avg=-2.036% ✅
+  LONG XAGUSD M30 CB>=4+RSI<20                            n=18    hold= 40 WR=61.1% n=18 avg=-3.313% ✅
+  LONG XAGUSD M30 CB>=3+RSI<25                            n=64    hold=150 WR=65.1% n=63 avg=1.102% ✅
+  LONG XAGUSD M30 CB>=4+RSI<25                            n=35    hold=150 WR=67.6% n=34 avg=1.393% ✅
+  LONG XAGUSD M30 CB>=5+RSI<25                            n=22    hold=150 WR=71.4% n=21 avg=1.817% ✅
+  SHORT XAGUSD M30 CBull>=3+RSI>75                        n=86    hold= 40 WR=69.4% n=85 avg=1.145% ✅
+  SHORT XAGUSD M30 CBull>=4+RSI>75                        n=46    hold= 40 WR=73.9% n=46 avg=1.304% ✅
+  SHORT XAGUSD M30 CBull>=4+RSI>80                        n=32    hold=100 WR=78.6% n=28 avg=3.710% ✅
+  SHORT XAGUSD M30 CBull>=5+RSI>80                        n=21    hold=100 WR=82.4% n=17 avg=4.562% ✅
+  InsideBar+RSI<20 XAGUSD M30                             n=12    hold= 30 WR=66.7% n=12 avg=0.312% ✅
+  InsideBar+RSI>80 XAGUSD M30                             n=16    hold= 15 WR=56.2% n=16 avg=-0.177%
+  ThreeWhiteSoldiers XAGUSD M30                           n=400   hold= 11 WR=51.5% n=400 avg=-0.214%
+  ThreeBlackCrows XAGUSD M30                              n=356   hold=  9 WR=53.1% n=356 avg=0.073%
+  LONG XAUUSD M30 CB>=3+RSI<20                            n=37    hold= 30 WR=37.8% n=37 avg=-0.651%
+  LONG XAUUSD M30 CB>=4+RSI<20                            n=24    hold= 30 WR=33.3% n=24 avg=-0.709%
+  LONG XAUUSD M30 CB>=3+RSI<25                            n=58    hold=140 WR=44.8% n=58 avg=-0.821%
+  LONG XAUUSD M30 CB>=4+RSI<25                            n=40    hold=140 WR=47.5% n=40 avg=-0.730%
+  LONG XAUUSD M30 CB>=5+RSI<25                            n=27    hold=100 WR=40.7% n=27 avg=-0.567%
+  SHORT XAUUSD M30 CBull>=3+RSI>75                        n=69    hold= 80 WR=65.2% n=69 avg=0.733% ✅
+  SHORT XAUUSD M30 CBull>=4+RSI>75                        n=48    hold= 80 WR=66.7% n=48 avg=0.686% ✅
+  SHORT XAUUSD M30 CBull>=4+RSI>80                        n=23    hold= 80 WR=69.6% n=23 avg=0.813% ✅
+  SHORT XAUUSD M30 CBull>=5+RSI>80                        n=18    hold= 80 WR=72.2% n=18 avg=0.932% ✅
+  InsideBar+RSI<20 XAUUSD M30                             n=12    hold=  1 WR=41.7% n=12 avg=-0.041%
+  InsideBar+RSI>80 XAUUSD M30                             n=16    hold=  7 WR=87.5% n=16 avg=0.274% ✅
+  ThreeWhiteSoldiers XAUUSD M30                           n=410   hold=  5 WR=49.8% n=410 avg=-0.014%
+  ThreeBlackCrows XAUUSD M30                              n=396   hold= 25 WR=52.0% n=392 avg=0.154%
+
+========================================================================================================================
+🥇 05 — XAUUSD H1/M30 黄金策略专项
+========================================================================================================================
+
+  --- H1 XAUUSD CB+RSI 做多 ---
+  XAUUSD H1 LONG CB>=3+RSI<20                             n=29    hold= 45 WR=53.6% n=28 avg=-1.915%
+  XAUUSD H1 LONG CB>=3+RSI<25                             n=45    hold= 45 WR=60.5% n=43 avg=-0.633% ✅
+  XAUUSD H1 LONG CB>=4+RSI<20                             n=18    hold= 15 WR=44.4% n=18 avg=-0.125%
+  XAUUSD H1 LONG CB>=4+RSI<25                             n=26    hold= 45 WR=52.0% n=25 avg=-1.746%
+  XAUUSD H1 LONG CB>=5+RSI<25                             n=16    hold= 15 WR=43.8% n=16 avg=0.168%
+  XAUUSD H1 LONG CB>=3+RSI<30                             n=62    hold=  5 WR=57.4% n=61 avg=0.167%
+
+  --- H1 XAUUSD CBull+RSI 做空 ---
+  XAUUSD H1 SHORT CBull>=3+RSI>75                         n=40    hold= 70 WR=57.9% n=38 avg=0.292%
+  XAUUSD H1 SHORT CBull>=4+RSI>75                         n=27    hold= 70 WR=56.0% n=25 avg=0.070%
+  XAUUSD H1 SHORT CBull>=4+RSI>80                         n=12    hold= 70 WR=66.7% n=12 avg=-0.057% ✅
+  XAUUSD H1 SHORT CBull>=5+RSI>80                         n=9     hold= 70 WR=77.8% n=9 avg=0.183% ✅
+
+  --- H1 XAUUSD Doji组合 ---
+  XAUUSD H1 Doji+RSI>75+us                                n=6     hold= 95 WR=100.0% n=6 avg=2.886% ✅
+  XAUUSD H1 Doji+RSI<25+us                                n=8     hold= 20 WR=62.5% n=8 avg=-0.389% ✅
+  XAUUSD H1 Doji+RSI>75+europe                            n=6     hold= 60 WR=100.0% n=6 avg=1.884% ✅
+  XAUUSD H1 Doji+RSI<25+europe                            n=2      跳过(<3)
+
+  --- H1 XAUUSD Hammer ---
+  XAUUSD H1 Hammer+RSI<25                                 n=6     hold=  5 WR=66.7% n=6 avg=1.199% ✅
+  XAUUSD H1 Hammer+RSI>75                                 n=5     hold=  5 WR=60.0% n=5 avg=0.107% ✅
+
+  --- M30 XAUUSD CB+RSI 做多 ---
+  XAUUSD M30 LONG CB>=3+RSI<20                            n=37    hold= 10 WR=56.8% n=37 avg=-0.144%
+  XAUUSD M30 LONG CB>=3+RSI<25                            n=58    hold=  5 WR=58.6% n=58 avg=0.035%
+  XAUUSD M30 LONG CB>=4+RSI<20                            n=24    hold= 10 WR=62.5% n=24 avg=-0.016% ✅
+  XAUUSD M30 LONG CB>=4+RSI<25                            n=40    hold=  5 WR=60.0% n=40 avg=0.179% ✅
+  XAUUSD M30 LONG CB>=5+RSI<25                            n=27    hold= 10 WR=59.3% n=27 avg=0.391%
+  XAUUSD M30 LONG CB>=3+RSI<30                            n=101   hold=  5 WR=58.4% n=101 avg=0.002%
+
+  --- M30 XAUUSD CBull+RSI 做空 ---
+  XAUUSD M30 SHORT CBull>=3+RSI>75                        n=69    hold= 80 WR=65.2% n=69 avg=0.733% ✅
+  XAUUSD M30 SHORT CBull>=4+RSI>75                        n=48    hold= 80 WR=66.7% n=48 avg=0.686% ✅
+  XAUUSD M30 SHORT CBull>=4+RSI>80                        n=23    hold= 80 WR=69.6% n=23 avg=0.813% ✅
+  XAUUSD M30 SHORT CBull>=5+RSI>80                        n=18    hold= 80 WR=72.2% n=18 avg=0.932% ✅
+
+  --- M30 XAUUSD Doji组合 ---
+  XAUUSD M30 Doji+RSI>75+us                               n=12    hold= 35 WR=100.0% n=12 avg=0.873% ✅
+  XAUUSD M30 Doji+RSI<25+us                               n=14    hold= 10 WR=71.4% n=14 avg=0.096% ✅
+  XAUUSD M30 Doji+RSI>75+europe                           n=4     hold= 15 WR=100.0% n=4 avg=0.251% ✅
+  XAUUSD M30 Doji+RSI<25+europe                           n=7     hold=  5 WR=71.4% n=7 avg=-0.067% ✅
+
+  --- M30 XAUUSD Hammer ---
+  XAUUSD M30 Hammer+RSI<25                                n=10    hold=  5 WR=80.0% n=10 avg=0.301% ✅
+  XAUUSD M30 Hammer+RSI>75                                n=7     hold=  5 WR=71.4% n=7 avg=0.059% ✅
+
+========================================================================================================================
+📊 06 — H1 跨品种信号强度对比
+========================================================================================================================
+
+  --- H1 做多信号强度 (最佳CB+RSI组合) ---
+  品种         条件                   n      WR       hold   avg%      
+  ---------- -------------------- ------ -------- ------ ----------
+  AUDUSD     CB>=3+RSI<25         31     51.6%    30     -0.177%
+  EURUSD     CB>=3+RSI<25         28     53.6%    30     0.069%
+  GBPUSD     CB>=3+RSI<25         38     47.4%    30     0.083%
+  HK50       CB>=3+RSI<25         41     48.8%    30     0.351%
+  JP225      CB>=3+RSI<25         36     77.8%    30     1.437%
+  UKOIL      CB>=3+RSI<25         25     76.0%    30     2.265%
+  US30       CB>=3+RSI<25         35     71.4%    30     0.562%
+  US500      CB>=3+RSI<25         29     79.3%    30     0.783%
+  USDCHF     CB>=3+RSI<25         41     65.9%    30     0.178%
+  USDJPY     CB>=3+RSI<25         38     71.1%    30     0.141%
+  USOIL      CB>=3+RSI<25         28     75.0%    30     1.923%
+  USTEC      CB>=3+RSI<25         35     60.0%    30     0.555%
+  XAGUSD     CB>=3+RSI<25         34     58.8%    30     1.610%
+  XAUUSD     CB>=3+RSI<25         43     37.2%    30     -0.670%
+
+  --- H1 做空信号强度 (最佳CBull+RSI组合) ---
+  品种         条件                   n      WR       hold   avg%      
+  ---------- -------------------- ------ -------- ------ ----------
+  AUDUSD     CBull>=3+RSI>75      35     48.6%    30     -0.028%
+  EURUSD     CBull>=3+RSI>75      33     66.7%    30     0.028%
+  GBPUSD     CBull>=3+RSI>75      29     62.1%    30     0.120%
+  HK50       CBull>=3+RSI>75      74     51.4%    30     0.027%
+  JP225      CBull>=3+RSI>75      67     40.3%    30     -0.496%
+  UKOIL      CBull>=3+RSI>75      65     55.4%    30     0.882%
+  US30       CBull>=3+RSI>75      43     60.5%    30     -0.104%
+  US500      CBull>=3+RSI>75      65     38.5%    30     -0.279%
+  USDCHF     CBull>=3+RSI>75      33     48.5%    30     0.064%
+  USDJPY     CBull>=3+RSI>75      31     58.1%    30     0.368%
+  USOIL      CBull>=3+RSI>75      64     54.7%    30     1.704%
+  USTEC      CBull>=3+RSI>75      69     33.3%    30     -0.431%
+  XAGUSD     CBull>=3+RSI>75      48     27.1%    30     -1.436%
+  XAUUSD     CBull>=3+RSI>75      40     40.0%    30     0.043%
+
+  --- M30 做多信号强度 (最佳CB+RSI组合) ---
+  品种         条件                   n      WR       hold   avg%      
+  ---------- -------------------- ------ -------- ------ ----------
+  AUDUSD     CB>=3+RSI<25         61     39.3%    30     0.097%
+  EURUSD     CB>=3+RSI<25         70     48.6%    30     0.030%
+  GBPUSD     CB>=3+RSI<25         87     49.4%    30     0.012%
+  HK50       CB>=3+RSI<25         79     50.6%    30     0.354%
+  JP225      CB>=3+RSI<25         71     76.1%    30     0.762%
+  UKOIL      CB>=3+RSI<25         48     68.8%    30     0.791%
+  US30       CB>=3+RSI<25         65     58.5%    30     0.197%
+  US500      CB>=3+RSI<25         64     67.2%    30     0.291%
+  USDCHF     CB>=3+RSI<25         72     44.4%    30     -0.112%
+  USDJPY     CB>=3+RSI<25         50     48.0%    30     -0.123%
+  USOIL      CB>=3+RSI<25         52     51.9%    30     0.808%
+  USTEC      CB>=3+RSI<25         71     66.2%    30     0.436%
+  XAGUSD     CB>=3+RSI<25         64     50.0%    30     -0.298%
+  XAUUSD     CB>=3+RSI<25         58     43.1%    30     -0.223%
+
+  --- M30 做空信号强度 (最佳CBull+RSI组合) ---
+  品种         条件                   n      WR       hold   avg%      
+  ---------- -------------------- ------ -------- ------ ----------
+  AUDUSD     CBull>=3+RSI>75      79     38.0%    30     -0.113%
+  EURUSD     CBull>=3+RSI>75      62     33.9%    30     -0.070%
+  GBPUSD     CBull>=3+RSI>75      60     53.3%    30     -0.020%
+  HK50       CBull>=3+RSI>75      109    59.6%    30     0.127%
+  JP225      CBull>=3+RSI>75      118    53.4%    30     0.057%
+  UKOIL      CBull>=3+RSI>75      117    46.2%    30     -0.737%
+  US30       CBull>=3+RSI>75      108    38.0%    30     -0.082%
+  US500      CBull>=3+RSI>75      117    40.2%    30     -0.017%
+  USDCHF     CBull>=3+RSI>75      101    54.5%    30     0.043%
+  USDJPY     CBull>=3+RSI>75      75     50.7%    30     0.071%
+  USOIL      CBull>=3+RSI>75      107    46.7%    30     -1.001%
+  USTEC      CBull>=3+RSI>75      118    35.6%    30     -0.243%
+  XAGUSD     CBull>=3+RSI>75      85     61.2%    30     0.380%
+  XAUUSD     CBull>=3+RSI>75      69     56.5%    30     0.189%
+
+========================================================================================================================
+🔬 07 — Hold参数敏感性分析 (XAGUSD M30 CBull>=4+RSI>80)
+========================================================================================================================
+
+  Hold敏感性扫描 (CBull>=4+RSI>80):
+  hold     n      WR       avg%      
+  -------- ------ -------- ----------
+  10       32     50.0%    -0.145%
+  15       32     56.2%    0.065%
+  20       32     62.5%    0.410%
+  25       32     59.4%    0.659%
+  30       32     71.9%    0.699% ✅
+  35       32     71.9%    1.265% ✅
+  40       32     78.1%    1.858% ✅
+  45       32     75.0%    1.707% ✅
+  50       32     68.8%    1.501%
+  55       32     65.6%    2.345%
+  60       32     59.4%    2.932%
+  65       32     68.8%    3.644%
+  70       32     62.5%    3.687%
+  75       32     62.5%    2.965%
+  80       32     65.6%    3.022%
+  85       32     65.6%    2.808%
+  90       32     62.5%    2.674%
+  95       29     72.4%    3.436% ✅
+  100      28     78.6%    3.710% ✅
+  105      28     78.6%    3.134% ✅
+  110      28     78.6%    2.722% ✅
+  115      28     75.0%    2.503% ✅
+  120      28     78.6%    1.909% ✅
+  125      28     78.6%    2.642% ✅
+  130      28     78.6%    3.118% ✅
+  135      28     78.6%    3.422% ✅
+  140      28     78.6%    3.332% ✅
+  145      28     67.9%    2.672%
+  150      28     67.9%    2.635%
+  155      28     67.9%    2.932%
+  160      28     67.9%    2.839%
+
+  最优hold=100 WR=78.6%
+
+  跨周期验证 (hold=100):
+    P1: n=11 WR=63.6% avg=1.500% ✅
+    P2: n=10 WR=100.0% avg=5.853% ✅
+    P3: n=7 WR=71.4% avg=4.121% ✅
+
+========================================================================================================================
+🔄 08 — H1 vs M30 跨框架一致性检查
+========================================================================================================================
+
+  --- XAGUSD CBull>=4+RSI>80 H1 vs M30 ---
+  XAGUSD H1 CBull>=4+RSI>80                               n=20    hold= 25 WR=45.0% n=20 avg=-2.009%
+    Bootstrap 95% CI: [25.0%, 65.0%] (n=20)
+  XAGUSD M30 CBull>=4+RSI>80                              n=32    hold=100 WR=78.6% n=28 avg=3.710% ✅
+    Bootstrap 95% CI: [64.3%, 92.9%] (n=28)
+
+========================================================================================================================
+🏆 09 — Round 35 最佳发现排名
+========================================================================================================================
+
+  排名    策略                                                      WR       n      Hold     avg%      
+  ----- ------------------------------------------------------- -------- ------ -------- ----------
+  1     LONG_UKOIL_M30_CB>=4_RSI<20                             100.0%    23     60       2.839%
+  2     LONG_UKOIL_H1_CB>=3_RSI<20                              100.0%    20     80       6.826%
+  3     LONG_UKOIL_M30_InsideBar+RSI<20                         100.0%    19     60       3.391%
+  4     USDJPY_H1_LONG_CB>=5_RSI<25                             100.0%    17     190      0.595%
+  5     LONG_JP225_H1_CB>=5_RSI<25                              100.0%    16     40       2.791%
+  6     LONG_USOIL_M30_InsideBar+RSI<20                         100.0%    15     80       3.685%
+  7     LONG_USDCHF_H1_InsideBar+RSI<20                         100.0%    12     70       0.535%
+  8     SHORT_XAUUSD_M30_Doji_RSI>75_us                         100.0%    12     35       0.873%
+  9     EURUSD_H1_LONG_CB>=3_RSI<20                             100.0%    11     60       0.318%
+  10    LONG_EURUSD_H1_CB>=3_RSI<20                             100.0%    11     60       0.318%
+  11    LONG_US500_H1_CB>=4_RSI<20                              100.0%    11     30       1.025%
+  12    LONG_JP225_M30_InsideBar+RSI<20                         100.0%    11     120      3.349%
+  13    LONG_UKOIL_H1_CB>=4_RSI<20                              100.0%    10     80       6.389%
+  14    LONG_US30_H1_InsideBar+RSI<20                           100.0%    10     23       0.906%
+  15    LONG_USOIL_H1_CB>=4_RSI<20                              100.0%    10     50       5.124%
+  16    LONG_EURUSD_M30_InsideBar+RSI<20                        100.0%    10     140      0.364%
+  17    LONG_UKOIL_H1_CB>=5_RSI<25                              100.0%    9      50       3.036%
+  18    LONG_UKOIL_H1_InsideBar+RSI<20                          100.0%    9      120      8.844%
+  19    SHORT_USDJPY_H1_CBull>=4_RSI>80                         100.0%    9      60       0.567%
+  20    LONG_USOIL_H1_CB>=5_RSI<25                              100.0%    9      50       4.508%
+  21    LONG_US500_H1_CB>=5_RSI<25                              100.0%    8      30       0.943%
+  22    XAGUSD_M30_SHORT_CBull>=6_RSI>80_us                     100.0%    7      35       3.462%
+  23    XAGUSD_M30_SHORT_CBull>=6_RSI>82_us                     100.0%    7      35       3.462%
+  24    LONG_JP225_H1_InsideBar+RSI<20                          100.0%    7      5        0.521%
+  25    LONG_EURUSD_H1_CB>=4_RSI<20                             100.0%    6      60       0.345%
+  26    SHORT_EURUSD_H1_CBull>=5_RSI>80                         100.0%    6      70       0.245%
+  27    SHORT_USDJPY_H1_CBull>=5_RSI>80                         100.0%    6      40       0.857%
+  28    LONG_USDJPY_H1_InsideBar+RSI<20                         100.0%    6      29       0.257%
+  29    SHORT_USDJPY_H1_InsideBar+RSI>80                        100.0%    6      60       0.734%
+  30    SHORT_XAUUSD_H1_Doji_RSI>75_us                          100.0%    6      95       2.886%
+  31    SHORT_XAUUSD_H1_Doji_RSI>75_europe                      100.0%    6      60       1.884%
+  32    SHORT_EURUSD_H1_InsideBar+RSI>80                        100.0%    5      19       0.201%
+  33    LONG_XAGUSD_H1_InsideBar+RSI<20                         100.0%    4      15       1.705%
+  34    SHORT_XAUUSD_H1_InsideBar+RSI>80                        100.0%    4      1        0.521%
+  35    LONG_UKOIL_M30_CB>=4_RSI<25                             96.9%    32     140      7.110%
+  36    LONG_UKOIL_M30_CB>=3_RSI<20                             96.8%    31     90       4.212%
+  37    LONG_UKOIL_M30_CB>=5_RSI<25                             95.7%    23     100      3.362%
+  38    LONG_JP225_M30_CB>=4_RSI<20                             95.5%    22     140      2.375%
+  39    LONG_JP225_H1_CB>=4_RSI<20                              94.7%    19     50       2.771%
+  40    LONG_US500_H1_CB>=3_RSI<20                              94.4%    18     30       0.997%
+  ... 还有 256 个发现未显示
+
+========================================================================================================================
+ROUND 35 COMPLETE
+完成于: 2026-05-13 22:29 UTC
+下一步: 生成报告 → reports/round35_h1m30_report.md
+========================================================================================================================

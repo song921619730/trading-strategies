@@ -1,0 +1,4 @@
+import sys
+sys.path.insert(0, '/mnt/f/AIcoding_space/Hermes/strategies/futures/scripts')
+with open('/mnt/f/AIcoding_space/Hermes/strategies/futures/scripts/_run_verify.py') as f:
+    exec(compile(f.read(), '_run_verify.py', 'exec'))

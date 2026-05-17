@@ -1,0 +1,126 @@
+# ============================================================
+# 风控官 (Risk Manager) — XAGUSD 风险审查报告
+# Triumvirate Strategy | Magic 234004
+# Timestamp: 2026-05-13 16:17 BJT
+# Session: 美盘 (US Session)
+# Account Equity: ~$2,103
+# ============================================================
+
+risk_assessment:
+  meta:
+    symbol: XAGUSD
+    direction: BUY
+    current_price: 86.48
+    atr_14_h1: 0.77
+    equity: 2103.0
+    risk_budget_5pct: 105.15
+    account_type: 模拟
+    magic: 234004
+
+  proposed_lots: 0.01             # Conservative sizing
+
+  # ── Current Positions (Magic 234004) ──
+  existing_positions:
+    - symbol: USOIL
+      type: BUY
+      volume: 0.03
+      floating_pnl: -3.60
+      group: 商品组
+    - symbol: USDJPY
+      type: BUY
+      volume: 0.1
+      floating_pnl: +3.04
+      group: 主要组
+
+  # ────────────────────────────────────────────────────────
+  # 规则 1: 盈亏比 ≥ 1:1
+  # ────────────────────────────────────────────────────────
+  rule1_rr_check:
+    scenario: BUY
+    entry: 86.48
+    sl: 85.324
+    tp: 88.785
+    sl_distance: 1.156
+    tp_distance: 2.305
+    rr: 2.0
+    verdict: "PASS"
+    detail: "RR = 2.305 / 1.156 = 2.0 ≥ 1.0 ✅ — 1:2 盈亏比达标"
+
+  # ────────────────────────────────────────────────────────
+  # 规则 2: 单笔风险 ≤ 5% 净值
+  # ────────────────────────────────────────────────────────
+  rule2_risk_check:
+    proposed_lots: 0.01
+    sl_distance: 1.156
+    risk_usd: 52.57              # 1.156 × (per-lot dollar risk factor 4547) × 0.01
+    risk_pct: 2.5                # 52.57 / 2103
+    risk_limit: 105.15           # 5% of equity
+    verdict: "PASS"
+    detail: "风险 = $52.57 = 2.5% 权益 ✅ — 远低于5%上限。0.01手安全"
+    recommendation: "0.01手合适 (风险2.5%)。若信心强可调至0.015手(3.75%)，但贵金属组风险暴露需监控"
+
+  # ────────────────────────────────────────────────────────
+  # 规则 3: 相关性风险
+  # ────────────────────────────────────────────────────────
+  rule3_correlation_check:
+    group: 贵金属组 (XAUUSD, XAGUSD)
+    magic_234004_holdings_in_group:
+      - none                                     # Our magic holds no precious metals
+    other_magic_holdings_in_group:
+      - symbol: XAUUSD
+        magic: 234003
+        direction: BUY
+        volume: 0.03
+        note: "不同Magic系统，不纳入本Magic风控硬计算，但存在品种联动风险"
+    proposed_new_risk: 2.5%                       # XAGUSD 0.01 lot
+    existing_group_risk: 0%                       # Our magic: 0 in 贵金属组
+    combined_risk_pct: 2.5%                       # Only our magic's positions
+    max_allowed: 10.0
+    verdict: "PASS"
+    detail: "Magic 234004在贵金属组无现有持仓。合并风险2.5%远<10% ✅"
+    warning: "⚠️ XAUUSD由Magic 234003持有(BUY 0.03)，与XAGUSD BUY同向贵金属暴露。虽跨Magic不触发硬否决，但需知金银联动可能导致同时浮动。建议监控XAUUSD走势作为参考信号。"
+
+  # ────────────────────────────────────────────────────────
+  # 规则 4: SL 合理性
+  # ────────────────────────────────────────────────────────
+  rule4_sl_sanity:
+    sl: 85.324
+    sl_distance: 1.156
+    atr_14: 0.769
+    sl_vs_atr: "1.156 ≥ 0.769 ✅ (1.50 × ATR)"
+    sl_below_entry: true                          # 86.48 > 85.324 ✅
+    structural_level: |
+      SL(85.324) 位于:
+      - 低于近期所有回调低点 (85.977, 85.615) ✅
+      - 高于14周期支撑 (84.894) — 有~0.43缓冲
+      - 远高于May12危机低点 (83.03) — 牛市结构未被破坏
+      若价格跌破85.324，则H1回调低点(85.615)已被有效下破，
+      第二段行情结构证伪。SL逻辑清晰: 证伪回调低点支撑。
+    verdict: "PASS"
+    detail: "✅ SL距离≥ATR(1.50×)。SL低于所有近期回调低点，是有效的结构证伪位。此前85.56被拒的理由(接近已被跌破的85.49)在当前SL 85.324下已不适用。"
+
+  # ────────────────────────────────────────────────────────
+  # 规则 5: 连亏记录
+  # ────────────────────────────────────────────────────────
+  rule5_consecutive_losses:
+    status: "CLEAR"
+    last_5_closed:
+      - "Previous report (10:18): 30d内仅1笔平仓(JP225 SELL LOSS -$2.38)"
+    # 当前浮亏/浮盈: USOIL -$3.60 (未平仓), USDJPY +$3.04 (未平仓)
+    last_3_losses: 1
+    verdict: "PASS"
+    detail: "最近3笔平仓中亏损<2笔，连亏规则不触发 ✅。未平仓部分存在浮动亏损但未计入连亏统计。"
+
+  # ────────────────────────────────────────────────────────
+  # 综合裁决
+  # ────────────────────────────────────────────────────────
+  summary:
+    rule1_rr: "PASS (RR=2.0 ✅)"
+    rule2_risk: "PASS (2.5% ✅)"
+    rule3_correlation: "PASS (2.5% < 10% ✅)"
+    rule4_sl_sanity: "PASS (SL=结构证伪位 ✅)"
+    rule5_consecutive_losses: "PASS (CLEAR ✅)"
+    all_filters_passed: true
+    verdict: "PASS"
+    block_reason: ""
+    recommendation: "全部5条硬过滤通过。建议0.01手入场，SL 85.324严格执行。注意美盘流动性更好，但与美股PPI数据(20:30BJT)冲突，建议数据发布后入场或控制手数。"

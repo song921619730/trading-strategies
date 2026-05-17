@@ -1,0 +1,199 @@
+# ============================================================
+# 风控官 (Risk Manager) — EURUSD 第一轮风险评估
+# Triumvirate Strategy — Magic 234004
+# 审查时间: 2026-05-13 11:49 BJT (欧盘)
+# ============================================================
+
+risk_assessment:
+  meta:
+    timestamp: "2026-05-13 11:49 BJT"
+    symbol: EURUSD
+    current_price: 1.17364
+    atr_14_h1: 0.002 (20 pips)
+    support_14: 1.17214
+    resistance_14: 1.17465
+    equity: 2065.49
+    balance: 2082.68
+    risk_budget_5pct: 103.27
+    session: "欧盘 (European Session 8-13 — 趋势启动窗口, 流动性增加)"
+    previous_rounds:
+      - "08:55 → FAIL (Analyst FAIL 3, President NEUTRAL, RM PASS_BORDERLINE)"
+      - "10:18 → NO_TRADE (Analyst FAIL 3, President SUPPORT, RM PASS_BORDERLINE)"
+      - "10:58 → NO_TRADE (Analyst FAIL 2, RM PASS_BORDERLINE_CONDITIONAL)"
+    price_change: "从10:18分析(1.17382)至今几乎无变化(-0.2pip)"
+
+  existing_positions:
+    - "USOIL BUY 0.03 (ticket 1785484192) @ 97.981, SL=96.45, TP=100.95, 浮亏=-$17.19"
+    note: "USOIL浮亏-$17.19拖累equity。此前XAUUSD已平仓亏损，现仅持有USOIL。"
+
+  # ════════════════════════════════════════════════════════════
+  # 提议参数 (源自 pre_analyze 114750)
+  # ════════════════════════════════════════════════════════════
+  proposed_params:
+    source: "pre_analyze (20260513_114750)"
+    recommended_lot: 0.34
+    sl_distance: 0.003 (30 pips = 1.5× ATR)
+    tp_distance: 0.006 (60 pips = 3.0× ATR)
+    buy:
+      entry: 1.17364
+      sl: 1.17064
+      tp: 1.17964
+      rr: 2.0
+    sell:
+      entry: 1.17364
+      sl: 1.17664
+      tp: 1.16764
+      rr: 2.0
+
+  # ════════════════════════════════════════════════════════════
+  # 规则 1: 盈亏比 ≥ 1:1 (一票否决)
+  # ════════════════════════════════════════════════════════════
+  rule1_rr:
+    status: "PASS ✅"
+    buy:
+      rr: 2.0
+      detail: "RR = |1.17964-1.17364| / |1.17364-1.17064| = 0.006/0.003 = 2.0 ≥ 1.0 ✅"
+      verdict: "PASS"
+    sell:
+      rr: 2.0
+      detail: "RR = |1.17364-1.16764| / |1.17664-1.17364| = 0.006/0.003 = 2.0 ≥ 1.0 ✅"
+      verdict: "PASS"
+
+  # ════════════════════════════════════════════════════════════
+  # 规则 2: 单笔风险 ≤ 5% 净值 (一票否决)
+  # ════════════════════════════════════════════════════════════
+  rule2_risk:
+    status: "PASS ⚠️ (边界)"
+    calculation:
+      pip_value: "$10/标准手/pip (EURUSD)"
+      sl_pips: 30
+      risk_per_standard_lot: 300.0
+      proposed_lots: 0.34
+      risk_usd: 102.00
+      equity: 2065.49
+      risk_pct: 4.94
+      max_allowed_pct: 5.0
+      buffer_pct: 0.06
+      buffer_usd: 1.27
+    verdict: "PASS (边界)"
+    detail: "4.94% ≤ 5% ✅ — 缓冲仅0.06%($1.27)。滑点1pip即达4.99%, 2pip即突破5%红线。"
+    recommendation: "降仓至0.25手($75.00=3.63%)或0.20手($60.00=2.90%)以获得安全边际"
+    equity_trend:
+      - "09:05 equity=$2,151.88"
+      - "10:18 equity=$2,107.61 (↓$44.27)"
+      - "10:58 equity=$2,059.16 (↓$48.45)"
+      - "11:49 equity=$2,065.49 (↑$6.33, USOIL浮亏减轻)"
+      - "总变化: -$86.39 (-4.0%) since 09:05"
+
+  # ════════════════════════════════════════════════════════════
+  # 规则 3: 相关性风险 (一票否决)
+  # ════════════════════════════════════════════════════════════
+  rule3_correlation:
+    status: "PASS ✅"
+    group: "欧系组 (EURUSD, GBPUSD, USDCHF)"
+    existing_in_group: []
+    other_positions:
+      - "USOIL BUY 0.03 (商品组 — 不同组别, 浮亏-$17.19)"
+    analysis:
+      group_risk_pct: 0.0
+      proposed_risk_pct: 4.94
+      combined_risk_pct: 4.94
+      limit_pct: 10.0
+      buffer_pct: 5.06
+    verdict: "PASS"
+    detail: "欧系组无现有持仓, GBP/USD、USD/CHF均未持有。USOIL属商品组, 无相关性冲突。合并风险4.94% < 10% ✅"
+
+  # ════════════════════════════════════════════════════════════
+  # 规则 4: SL 合理性 (一票否决)
+  # ════════════════════════════════════════════════════════════
+  rule4_sl_sanity:
+    status: "PASS ✅"
+    buy:
+      sl_below_entry: true  # 1.17064 < 1.17364 ✅
+      sl_distance_atr_ratio: 1.5  # 30/20 = 1.5× ATR ≥ 1.0× ✅
+      sl_vs_support_14:
+        support_14: 1.17214
+        sl_is_below_support: true  # 1.17064 < 1.17214 ✅
+        buffer_below_support: -0.00150 (-15.0 pips)
+      structural_valid: true
+      detail: "SL位于支撑_14(1.17214)下方15pips。跌破支撑证伪多头结构 ✅"
+      caveat: "1.5×ATR偏紧。欧盘流动性增加但SL仍可能被正常波动触及。"
+      verdict: "PASS ✅"
+    sell:
+      sl_above_entry: true  # 1.17664 > 1.17364 ✅
+      sl_distance_atr_ratio: 1.5
+      sl_vs_resistance_14:
+        resistance_14: 1.17465
+        sl_is_above_resistance: true  # 1.17664 > 1.17465 ✅
+        buffer_above_resistance: 0.00199 (19.9 pips)
+      structural_valid: true
+      detail: "SL位于阻力_14(1.17465)上方19.9pips。突破阻力证伪空头结构 ✅"
+      caveat: "D1趋势偏多(总统判定BULLISH), 做空需谨慎。"
+      verdict: "PASS ✅"
+    overall: "两个方向SL均通过量化+结构双重校验 ✅"
+
+  # ════════════════════════════════════════════════════════════
+  # 规则 5: 连亏记录 (降手50%或放弃)
+  # ════════════════════════════════════════════════════════════
+  rule5_consecutive_losses:
+    status: "TRIGGERED ⚠️ — 连亏警戒激活"
+    last_5_closed: ["LOSS(JP225 SELL 1.0lot)", "LOSS(XAUUSD BUY 0.03)"]
+    total_available: 2
+    losses_in_last_3: 2
+    win_rate_30d: "0% (0胜2负, 总亏-$97.11)"
+    trigger_condition: "最近3笔中≥2笔亏损 = 2/2 = 100% ✅ 触发"
+    consequence: "降手数50%或放弃交易"
+    action_required: "若继续交易, 手数必须≤0.17(原0.34的50%)。0.17手风险=$51.00=2.47% ✅"
+    note: "Triumvirate自运行以来所有已平仓交易均为亏损。USOIL BUY目前浮亏中。"
+
+  # ════════════════════════════════════════════════════════════
+  # 综合裁决
+  # ════════════════════════════════════════════════════════════
+  summary:
+    rule1_rr: "PASS ✅ (RR=2.0 ≥ 1:1)"
+    rule2_risk: "PASS ⚠️ (4.94% ≤ 5% — 边界, 仅剩$1.27缓冲)"
+    rule3_correlation: "PASS ✅ (欧系组无持仓, 合并4.94% < 10%)"
+    rule4_sl_sanity: "PASS ✅ (1.5×ATR, 方向正确, 结构证伪位清晰)"
+    rule5_consecutive_losses: "TRIGGERED ⚠️ (2/2亏损, 0%胜率, 必须降手数50%)"
+    all_filters_passed: true  # 硬性通过, 但规则5强制降仓
+
+  verdict:
+    symbol: EURUSD
+    direction: "N/A — 双向均不建议"
+    proposed_lots: 0.34
+    sl_sanity: "PASS ✅"
+    rr_check: "PASS (1:2.0)"
+    risk_amount: 102.00
+    risk_pct: 4.94%
+    correlation_check:
+      - "欧系组无现有持仓 ✅"
+      - "USOIL属商品组, 无冲突 ✅"
+      - "合并风险4.94% < 10% ✅"
+    consecutive_losses:
+      status: "ALERT (2 losses in 2 trades, 0% win rate)"
+      action: "强制降手数至≤0.17或放弃"
+    final_verdict: "FAIL ❌"
+    block_reason: >
+      综合否决。理由如下:
+      【否决原因1 - 系统连亏】Triumvirate过去30天已平仓2笔均为亏损(-$97.11, 胜率0%)。
+      这是系统性亏损模式而非统计噪声, 继续开仓有负期望值风险。
+      
+      【否决原因2 - 结构无改善】EURUSD价格1.17364与10:18(1.17382)/10:58(1.17384)几乎无变化。
+      分析师已给出2-3/10的低分且双向FAIL。H1仍在1.17214-1.17465窄幅横盘, 无新结构信号。
+      同一品种已在今日被两次拒绝, 条件未变则结论不应变。
+      
+      【否决原因3 - 权益萎缩】equity从$2,151.88(09:05)降至$2,065.49(当前),
+      缩水$86.39(-4.0%)。USOIL BUY仍在浮亏。账户压力持续累积。
+      
+      【否决原因4 - 风控边界】规则2风险4.94%距5%红线仅$1.27缓冲。规则5强制将手数
+      从0.34降至0.17(或放弃)。即使技术性通过, 有效仓位仅0.17手($51风险=2.47%),
+      交易价值大幅降低。
+      
+      【否决原因5 - 时机不适】欧盘8-13为趋势启动窗口, 但EURUSD当前处于横盘僵局,
+      无趋势启动信号。硬在僵局中开仓赌突破, 不符合风险管理原则。
+
+  recommendation:
+    action: "完全放弃本轮EURUSD交易"
+    reason: "市场条件与两次已拒绝的分析完全相同, 无任何新变量支持改变结论。"
+    alternative: "如必须交易, 最大手数0.17(规则5强制), 风险$51.00(2.47%)"
+    priority_before_eurusd: "等待USOIL持仓了结, 等待EURUSD出现新结构信号(突破1.17465或跌破1.17214)"

@@ -1,0 +1,181 @@
+# ============================================================
+# 风控官 (Risk Manager) — XAGUSD 风险审查报告
+# Triumvirate Strategy | Magic 234004
+# 时间: 2026-05-13 10:18 BJT (亚盘低流动性)
+# 账户: 模拟 | Equity=$2,107.61
+# ============================================================
+
+risk_assessment:
+  meta:
+    symbol: XAGUSD
+    current_price: 86.944
+    atr_14_h1: 0.9225
+    equity: 2107.61
+    risk_budget_5pct: 105.38
+    account_type: 模拟
+    magic: 234004
+    existing_positions:
+      - symbol: XAUUSD
+        type: BUY
+        volume: 0.03
+        open_price: 4719.738
+        sl: 4695.0
+        tp: 4781.859
+        current_price: 4703.309
+        floating_pnl: -49.28
+        group: 贵金属组
+        group_risk_pct: 3.52%  # 见下方计算
+    session: 亚盘 (Asian Session — 低流动性)
+
+  # ────────────────────────────────────────────────────────
+  # 规则 1: 盈亏比 ≥ 1:1 (一票否决)
+  # ────────────────────────────────────────────────────────
+  rule1_rr_check:
+    buy_scenario:
+      entry: 86.944
+      sl: 85.56
+      tp: 89.712
+      sl_distance: 1.384
+      tp_distance: 2.768
+      rr: 2.0
+      verdict: "PASS"
+      detail: "RR=2.0 ≥ 1.0 ✅ — 1:2 盈亏比达标"
+
+    sell_scenario:
+      entry: 86.944
+      sl: 88.328
+      tp: 84.176
+      sl_distance: 1.384
+      tp_distance: 2.768
+      rr: 2.0
+      verdict: "PASS"
+      detail: "RR=2.0 ≥ 1.0 ✅"
+
+  # ────────────────────────────────────────────────────────
+  # 规则 2: 单笔风险 ≤ 5% 净值 (一票否决)
+  # ────────────────────────────────────────────────────────
+  rule2_risk_check:
+    # 风险计算:
+    # Risk = $105.38 (系统预设 5% × $2,107.61)
+    # 对应手数: 0.02
+    recommended_lots: 0.02
+    sl_distance: 1.384
+    risk_usd: 105.38
+    risk_pct: 5.0
+    risk_limit: 105.38
+    verdict: "PASS (边界)"
+    detail: "风险=5.0% 等于5%上限 — 属于边界允许范围 (≤5% 不触发否决)"
+    recommendation: "⚠️ 建议降仓至 0.01-0.015 手(风险 2.5%-3.75%)。原因: (1) 亚盘低流动性可能扩大滑点; (2) 已有 XAUUSD 贵金属持仓占总仓位; (3) 5% 边界无安全余量。"
+
+  # ────────────────────────────────────────────────────────
+  # 规则 3: 相关性风险 (一票否决) — ★ 关键变更 ★
+  # ────────────────────────────────────────────────────────
+  rule3_correlation_check:
+    group: 贵金属组 (XAUUSD, XAGUSD)
+    existing_positions_in_group:
+      - symbol: XAUUSD
+        direction: BUY
+        volume: 0.03
+        risk_calc:
+          sl_distance: 24.738            # 4719.738 - 4695.0
+          tick_size: 0.01
+          tick_value_per_lot: 1.0        # 100 oz × 0.01 = $1
+          ticks_at_risk: 2474
+          risk_per_lot: 2474.0
+          total_risk: 74.21              # 2474.0 × 0.03
+          risk_pct: 3.52                 # 74.21 / 2107.61
+    proposed_risk_pct: 5.0               # XAGUSD 0.02 lots
+    existing_risk_pct: 3.52              # XAUUSD existing
+    combined_risk_pct: 8.52              # 3.52% + 5.0%
+    max_allowed: 10.0
+    verdict: "PASS"
+    detail: "合并风险 8.52% < 10% ✅ — 贵金属组未超限"
+    warning: "⚠️ 8.52% 已接近限值 10%。若 XAUUSD 浮亏扩大导致 equity 下降，实际风险 % 将被动上升。建议 XAGUSD 降仓至 0.01 手(合并风险降至 6.02%) 以留安全余量。"
+    directional_note: "XAUUSD 为 BUY 方向。若 XAGUSD 开 BUY → 双倍贵金属多头暴露。若 XAGUSD 开 SELL → 组内对冲降低方向风险。此为非硬性提示，不影响裁决。"
+
+  # ────────────────────────────────────────────────────────
+  # 规则 4: SL 合理性 (一票否决)
+  # ────────────────────────────────────────────────────────
+  rule4_sl_sanity:
+    buy_scenario:
+      sl: 85.56
+      sl_distance: 1.384
+      atr_14: 0.9225
+      sl_vs_atr: "1.384 ≥ 0.9225 ✅ (1.5×ATR)"
+      sl_below_entry: true
+      structural_level: |
+        SL(85.56) 略高于 May12 02:00 低点 85.49 (mini-support)。
+        但 May12 13:00-15:00 价格已跌破此位至 83.494，说明 85.49 并非强支撑。
+        支撑_14=83.03 是下方唯一明确结构位，SL 距此尚有 2.53 空间。
+        SL 不是基于明确结构证伪位，而是基于 ATR 倍数倒推。
+      verdict: "FAIL (弱证据 — 非结构证伪位)"
+      detail: "❌ SL(85.56) 在近期已跌破过的价位(85.49)附近，不是可靠的结构证伪位。May12 已有效下破 85.49→83.494，说明此位置不是结构支撑。BUY 场景缺乏清晰的 invalidation level。"
+
+    sell_scenario:
+      sl: 88.328
+      sl_distance: 1.384
+      atr_14: 0.9225
+      sl_vs_atr: "1.384 ≥ 0.9225 ✅ (1.5×ATR)"
+      sl_above_entry: true
+      structural_level: |
+        SL(88.328) 高于:
+        - 阻力_14 = 87.815 (May13 09:00 high) ✅
+        - 近期高点 87.664 (May13 08:00 high) ✅
+        - 近期高点 87.317 (May13 07:00 high) ✅
+        - 近期高点 87.208 (May12 07:00 high) ✅
+        若价格突破所有近期高点和14周期阻力 → 空头结构完全证伪。
+        这是清晰的结构证伪位 ✅
+      verdict: "PASS"
+      detail: "✅ SL距离≥ATR ✅。SL高于阻力_14(87.815)和所有近期swing high，结构证伪逻辑清晰。SELL 场景 SL 合格。"
+
+  # ────────────────────────────────────────────────────────
+  # 规则 5: 连亏记录 (一票否决)
+  # ────────────────────────────────────────────────────────
+  rule5_consecutive_losses:
+    status: "CLEAR"
+    last_5_trades:
+      - "JP225 SELL 1.0 lot → LOSS (-$2.38)"  # 30天内唯一平仓
+    last_3_losses: 1                           # 仅1笔亏损，未达≥2阈值
+    verdict: "PASS"
+    detail: "30日内仅1笔平仓(亏损$2.38)。最近3笔中亏损<2笔，连亏规则不触发 ✅"
+
+  # ────────────────────────────────────────────────────────
+  # 综合裁决
+  # ────────────────────────────────────────────────────────
+  summary:
+    rule1_rr: "PASS (RR=2.0)"
+    rule2_risk: "PASS (边界 5.0%)"
+    rule3_correlation: "PASS (合并风险 8.52% < 10%)"
+    rule4_sl_sanity_buy: "FAIL ❌ — SL(85.56) 不是结构证伪位"
+    rule4_sl_sanity_sell: "PASS ✅ — SL(88.328) 高于所有近期高点和阻力"
+    rule5_consecutive_losses: "PASS"
+    all_filters_passed: false
+    verdict: "FAIL"
+    block_reason: "规则4 BUY 场景 SL 不满足结构证伪要求。SL(85.56) 基于 ATR 倍数倒推，非明确结构位。85.49 支撑已被 May12 下午盘有效跌破(低至 83.494)，不可作为 invalidation level。"
+
+  # ────────────────────────────────────────────────────────
+  # 方向建议与条件
+  # ────────────────────────────────────────────────────────
+  direction_notes:
+    h1_structure_observation: |
+      XAGUSD H1 (截至 10:00):
+      - 从支撑_14(83.03) → 阻力_14(87.815) 的完整 V 型反弹
+      - 09:00 精确触及 87.815 阻力后回落至 86.72(↓1.3%)
+      - 10:00 十字星收于 86.921，量能骤降至 2124 (较 09:00 12238 ↓83%)
+      - 价格仍在阻力区附近盘整，未有效突破
+    preferred_direction: "SELL (阻力拒否结构更清晰)"
+    buy_viable: false    # SL 结构不合格
+    sell_viable: true    # SL 结构清晰
+    reasoning: |
+      - SELL SL(88.328) 结构逻辑清晰: 高于阻力_14 + 所有 swing high
+      - BUY SL(85.56) 结构证据薄弱: 非明确支撑位
+      - 如执行 SELL，建议 0.01-0.015 手以降低合并风险
+
+  conditions:
+    - "❌ BUY 方向被风控否决 — SL 非结构证伪位"
+    - "✅ SELL 方向通过全部 5 条硬过滤"
+    - "⚠️ 若执行 SELL: 强制降仓至 0.01-0.015 手(风险 2.5%-3.75%)"
+    - "⚠️ SELL SL=88.328 严格执行，不可下移"
+    - "⚠️ 若价格站稳 87.815(阻力_14)上方，结构证伪，放弃 SELL"
+    - "⚠️ 亚盘低流动性时段点差可能扩大，注意入场时机"
+    - "⚠️ XAUUSD BUY 现有持仓浮亏 -$49.28，贵金属组合并风险 8.52% 需密切监控"

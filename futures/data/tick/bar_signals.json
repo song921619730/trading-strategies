@@ -1,0 +1,575 @@
+{
+  "signals": {
+    "USTEC_M1": {
+      "time": 1778878440,
+      "symbol": "USTEC",
+      "timeframe": "M1",
+      "detected_at": 1778878440.6999476
+    },
+    "US30_M1": {
+      "time": 1778878440,
+      "symbol": "US30",
+      "timeframe": "M1",
+      "detected_at": 1778878442.7890348
+    },
+    "JP225_M1": {
+      "time": 1778878440,
+      "symbol": "JP225",
+      "timeframe": "M1",
+      "detected_at": 1778878440.7035224
+    },
+    "USOIL_M1": {
+      "time": 1778878560,
+      "symbol": "USOIL",
+      "timeframe": "M1",
+      "detected_at": 1778878560.3216588
+    },
+    "USDJPY_M1": {
+      "time": 1778878680,
+      "symbol": "USDJPY",
+      "timeframe": "M1",
+      "detected_at": 1778878679.8252585
+    },
+    "XAUUSD_M1": {
+      "time": 1778878620,
+      "symbol": "XAUUSD",
+      "timeframe": "M1",
+      "detected_at": 1778878619.5522203
+    },
+    "XAGUSD_M1": {
+      "time": 1778878620,
+      "symbol": "XAGUSD",
+      "timeframe": "M1",
+      "detected_at": 1778878620.6054394
+    },
+    "UKOIL_M1": {
+      "time": 1778878380,
+      "symbol": "UKOIL",
+      "timeframe": "M1",
+      "detected_at": 1778878380.4161694
+    },
+    "EURUSD_M1": {
+      "time": 1778878680,
+      "symbol": "EURUSD",
+      "timeframe": "M1",
+      "detected_at": 1778878680.88187
+    },
+    "GBPUSD_M1": {
+      "time": 1778878680,
+      "symbol": "GBPUSD",
+      "timeframe": "M1",
+      "detected_at": 1778878679.8221738
+    },
+    "AUDUSD_M1": {
+      "time": 1778878620,
+      "symbol": "AUDUSD",
+      "timeframe": "M1",
+      "detected_at": 1778878620.612943
+    },
+    "USDCHF_M1": {
+      "time": 1778878680,
+      "symbol": "USDCHF",
+      "timeframe": "M1",
+      "detected_at": 1778878679.8282595
+    },
+    "DXY_M1": {
+      "time": 1778878680,
+      "symbol": "DXY",
+      "timeframe": "M1",
+      "detected_at": 1778878679.8317618
+    },
+    "USDCAD_M1": {
+      "time": 1778878680,
+      "symbol": "USDCAD",
+      "timeframe": "M1",
+      "detected_at": 1778878680.8857117
+    },
+    "NZDUSD_M1": {
+      "time": 1778878680,
+      "symbol": "NZDUSD",
+      "timeframe": "M1",
+      "detected_at": 1778878679.8347673
+    },
+    "XNGUSD_M1": {
+      "time": 1778877660,
+      "symbol": "XNGUSD",
+      "timeframe": "M1",
+      "detected_at": 1778877661.9569423
+    },
+    "XCUUSD_M1": {
+      "time": 1778867640,
+      "symbol": "XCUUSD",
+      "timeframe": "M1",
+      "detected_at": 1778867643.228669
+    },
+    "US500_M1": {
+      "time": 1778878440,
+      "symbol": "US500",
+      "timeframe": "M1",
+      "detected_at": 1778878442.7925408
+    },
+    "XAUUSD_M5": {
+      "time": 1778878500,
+      "symbol": "XAUUSD",
+      "timeframe": "M5",
+      "detected_at": 1778878498.8770938
+    },
+    "XAGUSD_M5": {
+      "time": 1778878500,
+      "symbol": "XAGUSD",
+      "timeframe": "M5",
+      "detected_at": 1778878501.026337
+    },
+    "USTEC_M5": {
+      "time": 1778878200,
+      "symbol": "USTEC",
+      "timeframe": "M5",
+      "detected_at": 1778878199.3935995
+    },
+    "US30_M5": {
+      "time": 1778878200,
+      "symbol": "US30",
+      "timeframe": "M5",
+      "detected_at": 1778878199.3995981
+    },
+    "US500_M5": {
+      "time": 1778878200,
+      "symbol": "US500",
+      "timeframe": "M5",
+      "detected_at": 1778878199.4061084
+    },
+    "USOIL_M5": {
+      "time": 1778878500,
+      "symbol": "USOIL",
+      "timeframe": "M5",
+      "detected_at": 1778878499.9680963
+    },
+    "EURUSD_M5": {
+      "time": 1778878500,
+      "symbol": "EURUSD",
+      "timeframe": "M5",
+      "detected_at": 1778878498.8844876
+    },
+    "USDJPY_M5": {
+      "time": 1778878500,
+      "symbol": "USDJPY",
+      "timeframe": "M5",
+      "detected_at": 1778878498.8976283
+    },
+    "AUDUSD_M5": {
+      "time": 1778878500,
+      "symbol": "AUDUSD",
+      "timeframe": "M5",
+      "detected_at": 1778878499.9754064
+    },
+    "USDCHF_M5": {
+      "time": 1778878500,
+      "symbol": "USDCHF",
+      "timeframe": "M5",
+      "detected_at": 1778878498.9051368
+    },
+    "DXY_M5": {
+      "time": 1778878500,
+      "symbol": "DXY",
+      "timeframe": "M5",
+      "detected_at": 1778878498.9111369
+    },
+    "USDCAD_M5": {
+      "time": 1778878500,
+      "symbol": "USDCAD",
+      "timeframe": "M5",
+      "detected_at": 1778878498.918163
+    },
+    "NZDUSD_M5": {
+      "time": 1778878500,
+      "symbol": "NZDUSD",
+      "timeframe": "M5",
+      "detected_at": 1778878498.9252
+    },
+    "XCUUSD_M5": {
+      "time": 1778867400,
+      "symbol": "XCUUSD",
+      "timeframe": "M5",
+      "detected_at": 1778867431.1098707
+    },
+    "JP225_M5": {
+      "time": 1778878200,
+      "symbol": "JP225",
+      "timeframe": "M5",
+      "detected_at": 1778878199.4126155
+    },
+    "UKOIL_M5": {
+      "time": 1778878200,
+      "symbol": "UKOIL",
+      "timeframe": "M5",
+      "detected_at": 1778878200.5186803
+    },
+    "GBPUSD_M5": {
+      "time": 1778878500,
+      "symbol": "GBPUSD",
+      "timeframe": "M5",
+      "detected_at": 1778878498.8904877
+    },
+    "XNGUSD_M5": {
+      "time": 1778877600,
+      "symbol": "XNGUSD",
+      "timeframe": "M5",
+      "detected_at": 1778877643.1931472
+    },
+    "XAUUSD_M15": {
+      "time": 1778877900,
+      "symbol": "XAUUSD",
+      "timeframe": "M15",
+      "detected_at": 1778877898.9718943
+    },
+    "XAUUSD_M30": {
+      "time": 1778877000,
+      "symbol": "XAUUSD",
+      "timeframe": "M30",
+      "detected_at": 1778876999.1444197
+    },
+    "XAUUSD_H1": {
+      "time": 1778875200,
+      "symbol": "XAUUSD",
+      "timeframe": "H1",
+      "detected_at": 1778875199.0564709
+    },
+    "XAGUSD_M15": {
+      "time": 1778877900,
+      "symbol": "XAGUSD",
+      "timeframe": "M15",
+      "detected_at": 1778877898.9813979
+    },
+    "XAGUSD_M30": {
+      "time": 1778877000,
+      "symbol": "XAGUSD",
+      "timeframe": "M30",
+      "detected_at": 1778876999.1569247
+    },
+    "XAGUSD_H1": {
+      "time": 1778875200,
+      "symbol": "XAGUSD",
+      "timeframe": "H1",
+      "detected_at": 1778875199.0721502
+    },
+    "USTEC_M15": {
+      "time": 1778877900,
+      "symbol": "USTEC",
+      "timeframe": "M15",
+      "detected_at": 1778877898.99141
+    },
+    "USTEC_M30": {
+      "time": 1778877000,
+      "symbol": "USTEC",
+      "timeframe": "M30",
+      "detected_at": 1778876999.169428
+    },
+    "USTEC_H1": {
+      "time": 1778875200,
+      "symbol": "USTEC",
+      "timeframe": "H1",
+      "detected_at": 1778875199.0884135
+    },
+    "US500_M15": {
+      "time": 1778877900,
+      "symbol": "US500",
+      "timeframe": "M15",
+      "detected_at": 1778877899.0115104
+    },
+    "US500_M30": {
+      "time": 1778877000,
+      "symbol": "US500",
+      "timeframe": "M30",
+      "detected_at": 1778876999.1949813
+    },
+    "US500_H1": {
+      "time": 1778875200,
+      "symbol": "US500",
+      "timeframe": "H1",
+      "detected_at": 1778875199.1196365
+    },
+    "JP225_M15": {
+      "time": 1778877900,
+      "symbol": "JP225",
+      "timeframe": "M15",
+      "detected_at": 1778877900.1473982
+    },
+    "JP225_M30": {
+      "time": 1778877000,
+      "symbol": "JP225",
+      "timeframe": "M30",
+      "detected_at": 1778876999.2076578
+    },
+    "JP225_H1": {
+      "time": 1778875200,
+      "symbol": "JP225",
+      "timeframe": "H1",
+      "detected_at": 1778875199.134645
+    },
+    "USOIL_M15": {
+      "time": 1778877900,
+      "symbol": "USOIL",
+      "timeframe": "M15",
+      "detected_at": 1778877900.1578205
+    },
+    "USOIL_M30": {
+      "time": 1778877000,
+      "symbol": "USOIL",
+      "timeframe": "M30",
+      "detected_at": 1778876999.220587
+    },
+    "USOIL_H1": {
+      "time": 1778875200,
+      "symbol": "USOIL",
+      "timeframe": "H1",
+      "detected_at": 1778875200.2427506
+    },
+    "UKOIL_M15": {
+      "time": 1778877900,
+      "symbol": "UKOIL",
+      "timeframe": "M15",
+      "detected_at": 1778877899.0205142
+    },
+    "UKOIL_M30": {
+      "time": 1778877000,
+      "symbol": "UKOIL",
+      "timeframe": "M30",
+      "detected_at": 1778877000.3174143
+    },
+    "UKOIL_H1": {
+      "time": 1778875200,
+      "symbol": "UKOIL",
+      "timeframe": "H1",
+      "detected_at": 1778875200.2596974
+    },
+    "EURUSD_M15": {
+      "time": 1778877900,
+      "symbol": "EURUSD",
+      "timeframe": "M15",
+      "detected_at": 1778877899.0306683
+    },
+    "EURUSD_M30": {
+      "time": 1778877000,
+      "symbol": "EURUSD",
+      "timeframe": "M30",
+      "detected_at": 1778876999.2326035
+    },
+    "EURUSD_H1": {
+      "time": 1778875200,
+      "symbol": "EURUSD",
+      "timeframe": "H1",
+      "detected_at": 1778875200.275306
+    },
+    "GBPUSD_M15": {
+      "time": 1778877900,
+      "symbol": "GBPUSD",
+      "timeframe": "M15",
+      "detected_at": 1778877899.0401797
+    },
+    "GBPUSD_M30": {
+      "time": 1778877000,
+      "symbol": "GBPUSD",
+      "timeframe": "M30",
+      "detected_at": 1778876999.2451158
+    },
+    "GBPUSD_H1": {
+      "time": 1778875200,
+      "symbol": "GBPUSD",
+      "timeframe": "H1",
+      "detected_at": 1778875200.2908196
+    },
+    "USDJPY_M15": {
+      "time": 1778877900,
+      "symbol": "USDJPY",
+      "timeframe": "M15",
+      "detected_at": 1778877899.0496864
+    },
+    "USDJPY_M30": {
+      "time": 1778877000,
+      "symbol": "USDJPY",
+      "timeframe": "M30",
+      "detected_at": 1778876999.2571635
+    },
+    "USDJPY_H1": {
+      "time": 1778875200,
+      "symbol": "USDJPY",
+      "timeframe": "H1",
+      "detected_at": 1778875199.151662
+    },
+    "AUDUSD_M15": {
+      "time": 1778877900,
+      "symbol": "AUDUSD",
+      "timeframe": "M15",
+      "detected_at": 1778877899.0591905
+    },
+    "AUDUSD_M30": {
+      "time": 1778877000,
+      "symbol": "AUDUSD",
+      "timeframe": "M30",
+      "detected_at": 1778877000.331229
+    },
+    "AUDUSD_H1": {
+      "time": 1778875200,
+      "symbol": "AUDUSD",
+      "timeframe": "H1",
+      "detected_at": 1778875200.3065417
+    },
+    "USDCHF_M15": {
+      "time": 1778877900,
+      "symbol": "USDCHF",
+      "timeframe": "M15",
+      "detected_at": 1778877899.0687017
+    },
+    "USDCHF_M30": {
+      "time": 1778877000,
+      "symbol": "USDCHF",
+      "timeframe": "M30",
+      "detected_at": 1778877000.3437548
+    },
+    "USDCHF_H1": {
+      "time": 1778875200,
+      "symbol": "USDCHF",
+      "timeframe": "H1",
+      "detected_at": 1778875200.3220527
+    },
+    "DXY_M15": {
+      "time": 1778877900,
+      "symbol": "DXY",
+      "timeframe": "M15",
+      "detected_at": 1778877899.0785677
+    },
+    "DXY_M30": {
+      "time": 1778877000,
+      "symbol": "DXY",
+      "timeframe": "M30",
+      "detected_at": 1778877000.3552706
+    },
+    "DXY_H1": {
+      "time": 1778875200,
+      "symbol": "DXY",
+      "timeframe": "H1",
+      "detected_at": 1778875199.1681821
+    },
+    "USDCAD_M15": {
+      "time": 1778877900,
+      "symbol": "USDCAD",
+      "timeframe": "M15",
+      "detected_at": 1778877899.089098
+    },
+    "USDCAD_M30": {
+      "time": 1778877000,
+      "symbol": "USDCAD",
+      "timeframe": "M30",
+      "detected_at": 1778876999.2706754
+    },
+    "USDCAD_H1": {
+      "time": 1778875200,
+      "symbol": "USDCAD",
+      "timeframe": "H1",
+      "detected_at": 1778875199.1831987
+    },
+    "NZDUSD_M15": {
+      "time": 1778877900,
+      "symbol": "NZDUSD",
+      "timeframe": "M15",
+      "detected_at": 1778877899.0981429
+    },
+    "NZDUSD_M30": {
+      "time": 1778877000,
+      "symbol": "NZDUSD",
+      "timeframe": "M30",
+      "detected_at": 1778877000.3682916
+    },
+    "NZDUSD_H1": {
+      "time": 1778875200,
+      "symbol": "NZDUSD",
+      "timeframe": "H1",
+      "detected_at": 1778875200.33851
+    },
+    "XNGUSD_M15": {
+      "time": 1778877000,
+      "symbol": "XNGUSD",
+      "timeframe": "M15",
+      "detected_at": 1778877008.8364
+    },
+    "XNGUSD_M30": {
+      "time": 1778877000,
+      "symbol": "XNGUSD",
+      "timeframe": "M30",
+      "detected_at": 1778877008.8394
+    },
+    "XNGUSD_H1": {
+      "time": 1778875200,
+      "symbol": "XNGUSD",
+      "timeframe": "H1",
+      "detected_at": 1778875201.3903515
+    },
+    "XCUUSD_M15": {
+      "time": 1778867100,
+      "symbol": "XCUUSD",
+      "timeframe": "M15",
+      "detected_at": 1778867112.8370638
+    },
+    "XCUUSD_M30": {
+      "time": 1778866200,
+      "symbol": "XCUUSD",
+      "timeframe": "M30",
+      "detected_at": 1778866199.510005
+    },
+    "XCUUSD_H1": {
+      "time": 1778864400,
+      "symbol": "XCUUSD",
+      "timeframe": "H1",
+      "detected_at": 1778864401.071256
+    },
+    "US30_M15": {
+      "time": 1778877900,
+      "symbol": "US30",
+      "timeframe": "M15",
+      "detected_at": 1778877899.0014973
+    },
+    "US30_M30": {
+      "time": 1778877000,
+      "symbol": "US30",
+      "timeframe": "M30",
+      "detected_at": 1778876999.181009
+    },
+    "US30_H1": {
+      "time": 1778875200,
+      "symbol": "US30",
+      "timeframe": "H1",
+      "detected_at": 1778875199.1046157
+    },
+    "HK50_M1": {
+      "time": 1778875140,
+      "symbol": "HK50",
+      "timeframe": "M1",
+      "detected_at": 1778875139.788762
+    },
+    "HK50_M5": {
+      "time": 1778874900,
+      "symbol": "HK50",
+      "timeframe": "M5",
+      "detected_at": 1778874900.641214
+    },
+    "HK50_M15": {
+      "time": 1778874300,
+      "symbol": "HK50",
+      "timeframe": "M15",
+      "detected_at": 1778874300.5357342
+    },
+    "HK50_M30": {
+      "time": 1778873400,
+      "symbol": "HK50",
+      "timeframe": "M30",
+      "detected_at": 1778873399.7898698
+    },
+    "HK50_H1": {
+      "time": 1778871600,
+      "symbol": "HK50",
+      "timeframe": "H1",
+      "detected_at": 1778871600.4409306
+    }
+  },
+  "_updated_at": "2026-05-16T15:44:47.364004+00:00"
+}

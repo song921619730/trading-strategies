@@ -1,0 +1,1 @@
+cd /mnt/f/AIcoding_space/Hermes/strategies/futures/scripts && python3 _verify_indicators.py

@@ -1,0 +1,92 @@
+
+
+========================================================================================================================
+ROUND 42 COMPLETE — 2026-05-14 01:26 UTC
+========================================================================================================================
+Total patterns tested: 305
+Unique findings: 290
+
+
+Top Findings Ranking:
+Rank  Strategy                                                    WR     n  Hold     avg%
+-------------------------------------------------------------------------------------
+1     US30_M1_EU_H8_CB>=4_RSI<14                              100.0%    17    10   0.056%
+2     JP225_H1_LONG_CB>=5_RSI<25                              100.0%    16    40   2.791%
+3     GBPUSD_H1_US_CB>=3_RSI<25                               100.0%    12    10   0.179%
+4     JP225_H1_LONG_CB>=5_RSI<20                              100.0%    12    40   2.656%
+5     JP225_M30_LONG_CB>=5_RSI<20                             100.0%    12    45   1.872%
+6     EURUSD_H1_LONG_CB>=3_RSI<20                             100.0%    11    60   0.318%
+7     US30_M1_EU_H9_CB>=4_RSI<14                              100.0%    10     5   0.049%
+8     XAGUSD_M30_SHORT_US_CBull>=4_RSI>85                     100.0%    10    35   3.069%
+9     USTEC_H1_LONG_CB>=5_RSI<25                              100.0%    10   115   2.138%
+10    UKOIL_M30_Hammer_RSI<30_LONG                            100.0%    10    95   3.491%
+11    JP225_M30_Hammer_RSI<30_LONG                            100.0%     9    40   1.473%
+12    JP225_H1_EngulfBull_RSI<30_LONG                         100.0%     8   105   2.509%
+13    AUDUSD_M30_US_CB>=4_RSI<20                              100.0%     7   115   0.608%
+14    USTEC_H1_EUROPE_CB>=3_RSI<25                            100.0%     7    10   1.246%
+15    AUDUSD_M30_EngulfBull_RSI<30_LONG                       100.0%     7    60   0.474%
+16    HK50_M30_Hammer_RSI<25_LONG                             100.0%     7    70   1.061%
+17    AUDUSD_H1_US_CB>=3_RSI<20                               100.0%     6    70   0.351%
+18    XAUUSD_M30_Hammer_RSI<25_LONG                           100.0%     6    15   1.821%
+19    JP225_M30_Hammer_RSI<25_LONG                            100.0%     6    20   1.001%
+20    GBPUSD_H1_EUROPE_CB>=3_RSI<20                           100.0%     5    70   0.598%
+21    AUDUSD_M30_EUROPE_CB>=4_RSI<20                          100.0%     5    50   0.365%
+22    USDJPY_H1_Doji_RSI>80_SHORT                             100.0%     5    60   0.582%
+23    USDJPY_M30_Hammer_RSI<25_LONG                           100.0%     5    15   0.274%
+24    AUDUSD_H1_ShootingStar_RSI>75_SHORT                     100.0%     5    40   0.483%
+25    US30_H1_EngulfBull_RSI<30_LONG                          100.0%     5    15   0.654%
+26    US30_H1_Hammer_RSI<30_LONG                              100.0%     5    15   0.494%
+27    JP225_H1_Hammer_RSI<30_LONG                             100.0%     5    30   2.368%
+28    HK50_H1_ShootingStar_RSI>70_SHORT                       100.0%     5    25   1.075%
+29    USOIL_H1_Hammer_RSI<30_LONG                             100.0%     5    50   0.953%
+30    XAUUSD_M1_EU_CB>=3_RSI<10                                97.2%    36    55   0.328%
+31    XAGUSD_M5_EU_CB>=2_RSI<8                                 96.4%    28    35   0.705%
+32    JP225_M30_LONG_CB>=4_RSI<20                              95.5%    22   135   2.468%
+33    JP225_H1_LONG_CB>=4_RSI<20                               94.7%    19    50   2.771%
+34    JP225_M30_LONG_CB>=3_RSI<20                              94.3%    35   135   2.581%
+35    XAGUSD_M30_SHORT_CBull>=4_RSI>85                         93.8%    16    40   2.698%
+36    XAUUSD_H1_Doji_RSI>75_SHORT                              93.3%    15    60   1.660%
+37    HK50_M30_ShootingStar_RSI>70_SHORT                       93.3%    15    20   0.369%
+38    JP225_H1_LONG_CB>=4_RSI<25                               92.3%    26    40   2.203%
+39    XAGUSD_M30_SHORT_CBull>=5_RSI>85                         92.3%    13    35   2.705%
+40    HK50_M30_ShootingStar_RSI>75_SHORT                       92.3%    13    20   0.373%
+41    USTEC_M30_LONG_CB>=4_RSI<18                              92.0%    25    30   1.092%
+42    USDCHF_H1_US_CB>=3_RSI<20                                91.7%    12    65   0.487%
+43    HK50_M30_Hammer_RSI<30_LONG                              91.7%    12    75   0.663%
+44    USDCHF_H1_LONG_CB>=3_RSI<18                              90.9%    22    65   0.454%
+45    US30_M30_ShootingStar_RSI>70_SHORT                       90.9%    11    40   0.432%
+46    USTEC_M30_LONG_CB>=4_RSI<20                              90.0%    30    35   0.928%
+47    USTEC_H1_LONG_CB>=4_RSI<18                               90.0%    10   115   1.708%
+48    JP225_M30_EngulfBull_RSI<25_LONG                         90.0%    10    90   0.797%
+49    USTEC_M30_LONG_CB>=3_RSI<18                              89.7%    29    35   0.896%
+50    XAUUSD_M30_Doji_RSI>75_SHORT                             89.3%    28    35   1.022%
+51    USTEC_M30_EUROPE_CB>=4_RSI<20                            88.9%     9    30   0.564%
+52    XAUUSD_M30_Doji_RSI>80_SHORT                             88.9%     9    15   0.306%
+53    AUDUSD_H1_US_CB>=3_RSI<25                                88.2%    17    70   0.367%
+54    USDCHF_M30_US_CB>=3_RSI<20                               88.2%    17   100   0.297%
+55    USTEC_M30_US_CB>=4_RSI<20                                88.2%    17    35   0.938%
+56    JP225_H1_LONG_CB>=3_RSI<20                               88.0%    25    40   1.959%
+57    USDCHF_H1_LONG_CB>=2_RSI<18                              87.5%    32    65   0.388%
+58    GBPUSD_M30_US_CB>=3_RSI<20                               87.5%    16   115   0.532%
+59    AUDUSD_M30_EUROPE_CB>=3_RSI<20                           87.5%     8    50   0.279%
+60    XAGUSD_M30_Hammer_RSI<25_LONG                            87.5%     8    35   2.809%
+61    GBPUSD_H1_Doji_RSI>80_SHORT                              87.5%     8    20   0.255%
+62    USDJPY_M30_EngulfBear_RSI>70_SHORT                       87.5%     8    90   0.192%
+63    AUDUSD_M30_EngulfBear_RSI>70_SHORT                       87.5%     8    70   0.323%
+64    US30_M30_ShootingStar_RSI>75_SHORT                       87.5%     8    30   0.336%
+65    US500_M30_Hammer_RSI<30_LONG                             87.5%     8    15   0.036%
+66    HK50_M30_EngulfBear_RSI>75_SHORT                         87.5%     8    55   0.596%
+67    USOIL_M30_Hammer_RSI<30_LONG                             87.5%     8    75   0.889%
+68    XAUUSD_M1_US_CB>=3_RSI<10                                87.0%    46    30   0.211%
+69    USDCHF_H1_LONG_CB>=3_RSI<20                              86.7%    30    65   0.493%
+70    JP225_M30_InsideBar_RSI<25                               86.7%    30   115   1.922%
+71    EURUSD_H1_LONG_CB>=4_RSI<25                              86.7%    15    60   0.210%
+72    GBPUSD_M30_US_CB>=4_RSI<20                               86.7%    15   115   0.458%
+73    XAUUSD_M1_DUAL_CB>=3_RSI<10                              86.6%    82    55   0.267%
+74    HK50_H1_LONG_CB>=3_RSI<18                                86.4%    22   100   1.201%
+75    JP225_M30_LONG_CB>=3_RSI<25                              86.2%    65   120   1.322%
+76    JP225_H1_LONG_CB>=3_RSI<25                               86.1%    36    50   2.116%
+77    JP225_M30_LONG_CB>=5_RSI<25                              85.7%    28   120   1.100%
+78    HK50_H1_LONG_CB>=5_RSI<25                                85.7%    14    65   1.145%
+79    USDCHF_H1_US_CB>=4_RSI<20                                85.7%     7    50   0.520%
+80    XAUUSD_M30_Hammer_RSI<30_LONG                            85.7%     7    10   1.199%
