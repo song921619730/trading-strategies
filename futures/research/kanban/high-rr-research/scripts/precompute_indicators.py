@@ -14,6 +14,13 @@ from typing import Optional
 import numpy as np
 import pandas as pd
 
+# 使用 indicators.py 的向量化包装器（保证与实时引擎 100% 一致）
+import sys
+_SCRIPT_DIR = Path(__file__).resolve().parent.parent.parent.parent.parent / "scripts"
+if str(_SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(_SCRIPT_DIR))
+from indicators import compute_all_trading_indicators_vectorized
+
 logging.basicConfig(level=logging.INFO,
                     format="%(asctime)s [%(levelname)s] %(message)s")
 log = logging.getLogger("precompute")
@@ -22,17 +29,319 @@ BASE = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE / "data"
 
 SYMBOLS = ['XAUUSD','XAGUSD','USTEC','US30','US500','JP225','HK50',
-           'USOIL','UKOIL','EURUSD','GBPUSD','USDJPY','AUDUSD','USDCHF']
+           'USOIL','UKOIL','EURUSD','GBPUSD','USDJPY','AUDUSD','USDCHF',
+           'DXY','USDCAD','NZDUSD','XNGUSD','XCUUSD']
 
 TIMEFRAMES = ["H1", "M5"]
 
 
 def compute_all_indicators(df: pd.DataFrame, tf: str = "M5", n: int = 0, total: int = 0) -> pd.DataFrame:
-    """在 DataFrame 上计算全部技术指标"""
-    df = df.copy()
+    """在 DataFrame 上计算全部技术指标（与 indicators.py 同源保证一致性）
+
+    核心指标 (320个): 委托 compute_all_trading_indicators_vectorized 计算
+    研究增强 (~100+): 在此基础上添加更多周期扩展、统计特征、时间特征等
+    """
+    # ── 确保必要列存在 ──
+    for col in ['open', 'high', 'low', 'close']:
+        if col not in df.columns:
+            log.warning("Missing column: %s", col)
+            return df
+    if 'volume' not in df.columns and 'tick_volume' in df.columns:
+        df['volume'] = df['tick_volume']
+    elif 'volume' not in df.columns:
+        df['volume'] = 0
+
+    # 确保 time 列存在（向量化方法需要，转 Unix 秒）
+    if 'time' not in df.columns:
+        ts = df.index.asi8
+        dtype_str = str(df.index.dtype)
+        if 'ns' in dtype_str:
+            ts = ts // 10**9
+        elif 'us' in dtype_str:
+            ts = ts // 10**6
+        elif 'ms' in dtype_str:
+            ts = ts // 10**3
+        # else: already seconds
+        df['time'] = ts
 
     # ═══════════════════════════════════════════
-    # 1. OHLC 衍生
+    # A. 核心指标 compute_all_trading_indicators (与实时引擎 100% 一致)
+    # ═══════════════════════════════════════════
+    try:
+        core_df = compute_all_trading_indicators_vectorized(df)
+        # 去掉 core_df 中与 df 重复的列（如 time, volume）
+        dupes = [c for c in core_df.columns if c in df.columns]
+        core_df = core_df.drop(columns=dupes)
+        # 用 concat 替代逐列插入，避免 PerformanceWarning
+        df = pd.concat([df, core_df], axis=1)
+    except Exception as e:
+        log.warning("Core indicator computation failed: %s", str(e))
+
+    # ═══════════════════════════════════════════
+    # B. 研究增强指标 (Pandas 向量化，更多周期性扩展)
+    # ═══════════════════════════════════════════
+
+    closes = df['close'].values
+
+    # 收益率 (更多周期)
+    for p in [1, 2, 3, 5, 10, 20]:
+        df[f'return_{p}'] = df['close'].pct_change(p) * 100
+
+    # 缺口检测
+    df['gap_pct'] = (df['open'] - df['close'].shift(1)) / df['close'].shift(1).replace(0, np.nan) * 100
+    df['gap_up'] = (df['gap_pct'] > 0.5).astype(int)
+    df['gap_down'] = (df['gap_pct'] < -0.5).astype(int)
+
+    # K线实体/影线衍生
+    df['upper_shadow'] = df['high'] - df[['open', 'close']].max(axis=1)
+    df['lower_shadow'] = df[['open', 'close']].min(axis=1) - df['low']
+    wick_range = (df['high'] - df['low']).replace(0, np.nan)
+    df['wick_ratio'] = (df['upper_shadow'] + df['lower_shadow']) / wick_range
+
+    # MA 斜率对齐 (补充 indicators.py 未覆盖的额外周期)
+    for p in [3, 8, 13, 21, 34, 55, 89, 144]:
+        ma_v = df['close'].rolling(p).mean()
+        df[f'ma{p}'] = ma_v
+        df[f'ma{p}_slope'] = ma_v.diff(5) / ma_v.shift(5).replace(0, np.nan) * 100
+
+    # EMA 对齐指标
+    for p in [10]:
+        df[f'ema{p}'] = df['close'].ewm(span=p).mean()
+    df['ema5_above_ema13'] = (df['ema5'] > df['ema13']).astype(int) if 'ema5' in df.columns and 'ema13' in df.columns else 0
+    df['ema12_above_ema26'] = (df['ema12'] > df['ema26']).astype(int) if 'ema12' in df.columns and 'ema26' in df.columns else 0
+    for fast, slow in [(5, 13), (12, 26)]:
+        fn, sn = f'ema{fast}', f'ema{slow}'
+        if fn in df.columns and sn in df.columns:
+            df[f'ema_cross_{fast}_{slow}'] = (df[fn] > df[sn]).astype(int).diff().clip(0, 1)
+
+    # MA 交叉事件 (基于 indicators.py 已有 ma 列)
+    for pair in [(5, 20), (10, 30), (20, 50)]:
+        fn, sn = f'ma{pair[0]}', f'ma{pair[1]}'
+        if fn in df.columns and sn in df.columns:
+            df[f'ma_cross_{pair[0]}_{pair[1]}'] = (df[fn] > df[sn]).astype(int).diff().clip(0, 1)
+
+    # Guppy 百分比扩展
+    if 'guppy_short_spread' in df.columns and 'guppy_long_spread' in df.columns:
+        df['guppy_short_spread_pct'] = df['guppy_short_spread'] / df['close'].replace(0, np.nan) * 100
+        df['guppy_long_spread_pct'] = df['guppy_long_spread'] / df['close'].replace(0, np.nan) * 100
+
+    # MACD 额外 (raw signal + zero cross)
+    if 'macd_hist' in df.columns:
+        df['macd'] = df.get('ema12', df['close']) - df.get('ema26', df['close'].rolling(26).mean())
+        df['macd_zero_cross'] = (df['macd'] > 0).astype(int).diff().clip(0, 1)
+
+    # RSI 多周期额外
+    for p in [5, 9, 10, 25]:
+        delta = df['close'].diff()
+        gain = delta.clip(lower=0)
+        loss = (-delta).clip(lower=0)
+        avg_g = gain.rolling(p, min_periods=p).mean()
+        avg_l = loss.rolling(p, min_periods=p).mean()
+        rs = avg_g / avg_l.replace(0, np.nan)
+        df[f'rsi{p}'] = 100.0 - (100.0 / (1.0 + rs))
+    # RSI 背离
+    if 'rsi14' in df.columns:
+        df['rsi_divergence'] = ((df['close'].diff(5) > 0) & (df['rsi14'].diff(5) < -2)).astype(int)
+
+    # Stochastic 多周期
+    for stoch_p in [5, 8, 14, 21]:
+        low_s = df['low'].rolling(stoch_p).min()
+        high_s = df['high'].rolling(stoch_p).max()
+        df[f'stoch_k_{stoch_p}'] = (df['close'] - low_s) / (high_s - low_s).replace(0, np.nan) * 100
+        df[f'stoch_d_{stoch_p}'] = df[f'stoch_k_{stoch_p}'].rolling(3).mean()
+    if 'stoch_k_14' in df.columns:
+        df['stoch_k_14_oversold'] = (df['stoch_k_14'] < 20).astype(int)
+        df['stoch_k_14_overbought'] = (df['stoch_k_14'] > 80).astype(int)
+
+    # Williams 额外信号
+    if 'williams_r_14' in df.columns:
+        df['williams_oversold'] = (df['williams_r_14'] < -80).astype(int)
+        df['williams_overbought'] = (df['williams_r_14'] > -20).astype(int)
+
+    # CCI 多周期
+    for cci_p in [50]:
+        tp_c = (df['high'] + df['low'] + df['close']) / 3
+        sma_c = tp_c.rolling(cci_p).mean()
+        mad_c = tp_c.rolling(cci_p).apply(lambda x: np.mean(np.abs(x - np.mean(x))), raw=True)
+        df[f'cci_{cci_p}'] = (tp_c - sma_c) / (0.015 * mad_c.replace(0, np.nan))
+
+    # ATR 额外 (跳过 percentile/high/low，core_df 已有)
+    if 'atr14' in df.columns:
+        df['atr14_ratio_ema'] = df['atr14'] / df['atr14'].ewm(span=50).mean().replace(0, np.nan)
+    # ATR7 percentile 是研究增强（core_df 无 atr7_pct 列的 percentile）
+
+    # Bollinger Band 多配置 (研究版 3×3 = 9 组配置)
+    for bb_p in [10, 20, 50]:
+        for bb_std in [1.5, 2.0, 2.5]:
+            mid_p = df['close'].rolling(bb_p).mean()
+            std_p = df['close'].rolling(bb_p).std()
+            sfx = f'{bb_p}_{bb_std}'
+            df[f'bb_{sfx}_upper'] = mid_p + bb_std * std_p
+            df[f'bb_{sfx}_lower'] = mid_p - bb_std * std_p
+            df[f'bb_{sfx}_width'] = (df[f'bb_{sfx}_upper'] - df[f'bb_{sfx}_lower']) / mid_p.replace(0, np.nan) * 100
+            df[f'bb_{sfx}_pos'] = (df['close'] - df[f'bb_{sfx}_lower']) / (df[f'bb_{sfx}_upper'] - df[f'bb_{sfx}_lower']).replace(0, np.nan) * 100
+        df[f'bb_{bb_p}_touch_up'] = (df['high'] >= df[f'bb_{bb_p}_2.0_upper']).astype(int)
+        df[f'bb_{bb_p}_touch_down'] = (df['low'] <= df[f'bb_{bb_p}_2.0_lower']).astype(int)
+
+    # ADX 多周期
+    for adx_p in [7, 14, 21, 50]:
+        high = df['high']; low = df['low']
+        up_move = high.diff()
+        down_move = -low.diff()
+        plus_dm = ((up_move > down_move) & (up_move > 0)).astype(int) * up_move
+        minus_dm = ((down_move > up_move) & (down_move > 0)).astype(int) * down_move
+        tr_p = pd.concat([high - low, (high - df['close'].shift()).abs(), (low - df['close'].shift()).abs()], axis=1).max(axis=1)
+        tr_sm = tr_p.rolling(adx_p).sum()
+        pdi = 100 * plus_dm.rolling(adx_p).sum() / tr_sm.replace(0, np.nan)
+        mdi = 100 * minus_dm.rolling(adx_p).sum() / tr_sm.replace(0, np.nan)
+        dx_v = abs(pdi - mdi) / (pdi + mdi).replace(0, np.nan) * 100
+        df[f'adx_{adx_p}'] = dx_v.rolling(adx_p).mean()
+        df[f'plus_di_{adx_p}'] = pdi
+        df[f'minus_di_{adx_p}'] = mdi
+        df[f'adx_di_cross_{adx_p}'] = (pdi > mdi).astype(int).diff().clip(0, 1)
+    if 'adx_14' in df.columns:
+        df['trend_strength'] = pd.cut(df['adx_14'], bins=[0, 20, 25, 40, 100],
+                                      labels=['weak', 'mild', 'moderate', 'strong']).astype(str)
+
+    # Aroon 多周期
+    for ar_p in [10, 14, 25, 50]:
+        ar_len = ar_p + 1
+        if len(df) < ar_len:
+            continue
+        # Rolling apply variant for aroon
+        def _aroon_up_f(x):
+            if len(x) != ar_len: return np.nan
+            return (ar_p - np.argmax(x)) / ar_p * 100
+        def _aroon_down_f(x):
+            if len(x) != ar_len: return np.nan
+            return (ar_p - np.argmin(x)) / ar_p * 100
+        df[f'aroon_up_{ar_p}'] = df['high'].rolling(ar_len).apply(_aroon_up_f, raw=True)
+        df[f'aroon_down_{ar_p}'] = df['low'].rolling(ar_len).apply(_aroon_down_f, raw=True)
+        df[f'aroon_osc_{ar_p}'] = df[f'aroon_up_{ar_p}'] - df[f'aroon_down_{ar_p}']
+    if 'aroon_osc_14' in df.columns:
+        df['aroon_strong_trend'] = (df['aroon_osc_14'].abs() > 50).astype(int)
+
+    # TRIX 多周期
+    for trix_p in [9, 14, 21]:
+        ema1 = df['close'].ewm(span=trix_p).mean()
+        ema2 = ema1.ewm(span=trix_p).mean()
+        ema3 = ema2.ewm(span=trix_p).mean()
+        df[f'trix_{trix_p}'] = ema3.pct_change() * 100
+        df[f'trix_{trix_p}_signal'] = df[f'trix_{trix_p}'].ewm(span=9).mean()
+        df[f'trix_{trix_p}_cross'] = (df[f'trix_{trix_p}'] > df[f'trix_{trix_p}_signal']).astype(int).diff().clip(0, 1)
+
+    # Choppiness 额外周期
+    # 先计算 True Range（被多个指标共用）
+    tr = pd.concat([
+        df['high'] - df['low'],
+        (df['high'] - df['close'].shift()).abs(),
+        (df['low'] - df['close'].shift()).abs(),
+    ], axis=1).max(axis=1)
+    for chop_p in [10]:
+        hi_ch = df['high'].rolling(chop_p).max()
+        lo_ch = df['low'].rolling(chop_p).min()
+        df[f'chop_{chop_p}'] = (np.log(tr.rolling(chop_p).sum() / (hi_ch - lo_ch).replace(0, np.nan)) / np.log(chop_p)) * 100
+    if 'chop_14' in df.columns:
+        df['choppy'] = (df['chop_14'] > 61.8).astype(int)
+        df['trending'] = (df['chop_14'] < 38.2).astype(int)
+
+    # Ichimoku (研究版用独立列名)
+    if 'ichi_tenkan_sen' in df.columns:
+        df['tenkan_sen'] = df['ichi_tenkan_sen']
+        df['kijun_sen'] = df['ichi_kijun_sen']
+        df['senkou_span_a'] = df['ichi_senkou_a']
+        df['senkou_span_b'] = df['ichi_senkou_b']
+        df['chikou_span'] = df['ichi_chikou']
+        df['tk_cross'] = df['ichi_tk_cross']
+        df['cloud_color_green'] = df['ichi_cloud_green']
+        df['price_above_cloud'] = df['ichi_above_cloud']
+        if 'kijun_sen' in df.columns and df['kijun_sen'].notna().any():
+            df['close_vs_kijun'] = (df['close'] - df['kijun_sen']) / df['kijun_sen'].replace(0, np.nan) * 100
+
+    # PSAR 别名
+    if 'psar_psar' in df.columns:
+        df['psar'] = df['psar_psar']
+        df['above_psar'] = df['psar_above_psar']
+
+    # 成交量增强
+    if 'volume' in df.columns:
+        vol = df['volume']
+        for vp in [50]:
+            df[f'volume_ma{vp}'] = vol.rolling(vp).mean()
+            df[f'volume_ratio_{vp}'] = vol / df[f'volume_ma{vp}'].replace(0, np.nan)
+        if 'volume_ratio_20' in df.columns:
+            df['volume_squeeze'] = (df['volume_ratio_20'] < 0.5).astype(int)
+        # Parabolic SAR 研究别名
+        if 'psar_above_psar' in df.columns:
+            df['above_psar'] = df['psar_above_psar']
+
+    # 动量多周期 (补充 indicators.py 已有的)
+    for mom_p in [14, 21, 50]:
+        df[f'mom_{mom_p}'] = df['close'] - df['close'].shift(mom_p)
+    for roc_p in [50, 100]:
+        df[f'roc_{roc_p}'] = df['close'].pct_change(roc_p) * 100
+
+    # HΗ/LL 额外周期
+    for lookback in [100]:
+        df[f'hh_{lookback}'] = df['high'].rolling(lookback).max()
+        df[f'll_{lookback}'] = df['low'].rolling(lookback).min()
+        df[f'hh_{lookback}_breakout'] = (df['high'] > df[f'hh_{lookback}'].shift()).astype(int)
+        df[f'll_{lookback}_breakout'] = (df['low'] < df[f'll_{lookback}'].shift()).astype(int)
+
+    # Pivot Points 多周期
+    for pp_p in [5, 10]:
+        if len(df) < pp_p + 1:
+            continue
+        pp_high = df['high'].rolling(pp_p, min_periods=pp_p).max().shift(pp_p)
+        pp_low = df['low'].rolling(pp_p, min_periods=pp_p).min().shift(pp_p)
+        pp_close = df['close'].rolling(pp_p, min_periods=pp_p).mean().shift(pp_p)
+        pp_pivot = (pp_high + pp_low + pp_close) / 3
+        df[f'pp_{pp_p}_pivot'] = pp_pivot
+        df[f'pp_{pp_p}_r1'] = 2 * pp_pivot - pp_low
+        df[f'pp_{pp_p}_s1'] = 2 * pp_pivot - pp_high
+        df[f'pp_{pp_p}_r2'] = pp_pivot + (pp_high - pp_low)
+        df[f'pp_{pp_p}_s2'] = pp_pivot - (pp_high - pp_low)
+        df[f'pp_{pp_p}_above_pivot'] = (df['close'] > pp_pivot).astype(int)
+
+    # K线形态增强
+    body_size = abs(df['close'] - df['open'])
+    total_range = df['high'] - df['low']
+    avg_body = body_size.rolling(20).mean()
+    avg_range = total_range.rolling(20).mean()
+    upper_wick = df['high'] - df[['open', 'close']].max(axis=1)
+    lower_wick = df[['open', 'close']].min(axis=1) - df['low']
+
+    df['pin_bar'] = (((upper_wick > total_range * 0.6) | (lower_wick > total_range * 0.6)) & (body_size < total_range * 0.4)).astype(int)
+    df['rising_three'] = ((df['close'] > df['open']) & (body_size > avg_body * 1.2) &
+                          (df['close'].shift(3) > df['open'].shift(3)) &
+                          (body_size.shift(2) < avg_body.shift(2) * 0.5) &
+                          (body_size.shift(1) < avg_body.shift(1) * 0.5)).astype(int)
+    df['falling_three'] = ((df['close'] < df['open']) & (body_size > avg_body * 1.2) &
+                           (df['close'].shift(3) < df['open'].shift(3)) &
+                           (body_size.shift(2) < avg_body.shift(2) * 0.5) &
+                           (body_size.shift(1) < avg_body.shift(1) * 0.5)).astype(int)
+
+    # 斐波那契 (双周期)
+    for fib_p in [50, 100]:
+        hi_f = df['high'].rolling(fib_p).max()
+        lo_f = df['low'].rolling(fib_p).min()
+        rng = hi_f - lo_f
+        for level in [0.236, 0.382, 0.500, 0.618, 0.786]:
+            retrace = hi_f - rng * level
+            pct = int(level * 1000)
+            df[f'fib_{pct}_{fib_p}'] = (abs(df['close'] - retrace) / rng.replace(0, np.nan) * 100 < 5).astype(int)
+
+    # 时间特征
+    if isinstance(df.index, pd.DatetimeIndex):
+        df['hour'] = df.index.hour
+        df['minute'] = df.index.minute
+        df['day_of_week'] = df.index.dayofweek
+        df['is_monday'] = (df['day_of_week'] == 0).astype(int)
+        df['is_friday'] = (df['day_of_week'] == 4).astype(int)
+        df['is_month_start'] = (df.index.day < 5).astype(int)
+        df['is_month_end'] = (df.index.day > 25).astype(int)
+
+    return df
     # ═══════════════════════════════════════════
     df["body"] = abs(df["close"] - df["open"])
     df["upper_shadow"] = df["high"] - df[["open", "close"]].max(axis=1)

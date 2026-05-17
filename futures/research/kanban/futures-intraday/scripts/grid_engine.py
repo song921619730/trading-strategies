@@ -38,6 +38,8 @@ log = logging.getLogger("grid_engine")
 _PERIODS_PER_YEAR: Dict[str, int] = {
     "H1": 6_000,
     "M30": 12_000,
+    "M5": 72_000,    # 5 min bars: ~23h/day × 12 bars/h × 365 ≈ 100,740; use 72,000 as conservative
+    "M1": 360_000,   # 1 min bars: ~23h/day × 60 bars/h × 365 ≈ 503,700; use 360,000 as conservative
 }
 
 # ---------------------------------------------------------------------------

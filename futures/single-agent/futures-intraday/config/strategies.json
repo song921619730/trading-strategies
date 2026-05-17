@@ -1072,6 +1072,1219 @@
       "_auto_injected": true,
       "_injected_at": "2026-05-13T14:12:01.965642",
       "_source": "round56_best_002"
+    },
+    {
+      "id": "auto_any_us500_m30_l_6",
+      "group": "indices_any",
+      "symbols": [
+        "US500"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": null,
+        "conditions": [
+          {
+            "i": "hour",
+            "op": ">=",
+            "v": 8
+          },
+          {
+            "i": "hour",
+            "op": "<",
+            "v": 13
+          },
+          {
+            "i": "rsi14",
+            "op": "<",
+            "v": 35
+          },
+          {
+            "i": "atr14_pct",
+            "op": ">",
+            "v": 0.25
+          }
+        ]
+      },
+      "best_hold": 40,
+      "min_signals_for_entry": 1,
+      "win_rate": 70.5,
+      "signal_count": 149,
+      "avg_return": 0.34,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-14T10:49:32.267428",
+      "_source": "round49_best_002"
+    },
+    {
+      "id": "auto_any_us30_m30_l_5",
+      "group": "indices_any",
+      "symbols": [
+        "US30"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": null,
+        "conditions": [
+          {
+            "i": "hour",
+            "op": ">=",
+            "v": 8
+          },
+          {
+            "i": "hour",
+            "op": "<",
+            "v": 13
+          },
+          {
+            "i": "rsi14",
+            "op": "<",
+            "v": 25
+          },
+          {
+            "i": "atr14_pct",
+            "op": ">",
+            "v": 0.2
+          }
+        ]
+      },
+      "best_hold": 40,
+      "min_signals_for_entry": 1,
+      "win_rate": 70.3,
+      "signal_count": 64,
+      "avg_return": 0.18,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-14T10:49:32.267428",
+      "_source": "round49_best_003"
+    },
+    {
+      "id": "auto_asia_eurusd_h1_l",
+      "group": "fx_asia",
+      "symbols": [
+        "EURUSD"
+      ],
+      "timeframe": "H1",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "asia",
+        "conditions": [
+          {
+            "i": "session",
+            "op": "==",
+            "v": "asia"
+          },
+          {
+            "i": "rsi14",
+            "op": "<",
+            "v": 40
+          },
+          {
+            "i": "atr14_pct",
+            "op": ">",
+            "v": 0.2
+          }
+        ]
+      },
+      "best_hold": 7,
+      "min_signals_for_entry": 1,
+      "win_rate": 71.9,
+      "signal_count": 128,
+      "avg_return": 0.09,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-14T10:49:32.267428",
+      "_source": "round36_001"
+    },
+    {
+      "id": "auto_asia_us500_m30_l_4",
+      "group": "indices_asia",
+      "symbols": [
+        "US500"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "asia",
+        "conditions": [
+          {
+            "i": "session",
+            "op": "==",
+            "v": "asia"
+          },
+          {
+            "i": "rsi14",
+            "op": "<",
+            "v": 20
+          },
+          {
+            "i": "atr14_pct",
+            "op": ">",
+            "v": 0.2
+          }
+        ]
+      },
+      "best_hold": 50,
+      "min_signals_for_entry": 1,
+      "win_rate": 73.9,
+      "signal_count": 69,
+      "avg_return": 0.49,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-14T10:49:32.267428",
+      "_source": "round43_best_001"
+    },
+    {
+      "id": "auto_any_us500_m30_l_7",
+      "group": "indices_any",
+      "symbols": [
+        "US500"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": null,
+        "conditions": [
+          {
+            "i": "hour",
+            "op": ">=",
+            "v": 8
+          },
+          {
+            "i": "hour",
+            "op": "<",
+            "v": 13
+          },
+          {
+            "i": "rsi14",
+            "op": "<",
+            "v": 25
+          },
+          {
+            "i": "atr14_pct",
+            "op": ">",
+            "v": 0.2
+          }
+        ]
+      },
+      "best_hold": 40,
+      "min_signals_for_entry": 1,
+      "win_rate": 80.7,
+      "signal_count": 62,
+      "avg_return": 0.43,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-14T10:49:32.267428",
+      "_source": "round47_best_004"
+    },
+    {
+      "id": "auto_asia_jp225_m30_l_6",
+      "group": "indices_asia",
+      "symbols": [
+        "JP225"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "asia",
+        "conditions": [
+          {
+            "i": "session",
+            "op": "==",
+            "v": "asia"
+          },
+          {
+            "i": "rsi14",
+            "op": "<",
+            "v": 25
+          },
+          {
+            "i": "atr14_pct",
+            "op": ">",
+            "v": 0.35000000000000003
+          },
+          {
+            "i": "consecutive_bear_count",
+            "op": ">=",
+            "v": 3
+          }
+        ]
+      },
+      "best_hold": 30,
+      "min_signals_for_entry": 1,
+      "win_rate": 73.5,
+      "signal_count": 83,
+      "avg_return": 0.96,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-14T10:49:32.267428",
+      "_source": "round50_best_004"
+    },
+    {
+      "id": "auto_any_jp225_m30_l_3",
+      "group": "indices_any",
+      "symbols": [
+        "JP225"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": null,
+        "conditions": [
+          {
+            "i": "hour",
+            "op": ">=",
+            "v": 0
+          },
+          {
+            "i": "hour",
+            "op": "<",
+            "v": 6
+          },
+          {
+            "i": "rsi14",
+            "op": "<",
+            "v": 25
+          },
+          {
+            "i": "atr14_pct",
+            "op": ">",
+            "v": 0.35000000000000003
+          }
+        ]
+      },
+      "best_hold": 30,
+      "min_signals_for_entry": 1,
+      "win_rate": 76.9,
+      "signal_count": 147,
+      "avg_return": 0.79,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-14T10:49:32.267428",
+      "_source": "round51_best_002"
+    },
+    {
+      "id": "auto_any_us500_m30_l_8",
+      "group": "indices_any",
+      "symbols": [
+        "US500"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": null,
+        "conditions": [
+          {
+            "i": "hour",
+            "op": ">=",
+            "v": 8
+          },
+          {
+            "i": "hour",
+            "op": "<",
+            "v": 14
+          },
+          {
+            "i": "rsi14",
+            "op": "<",
+            "v": 25
+          },
+          {
+            "i": "atr14_pct",
+            "op": ">",
+            "v": 0.2
+          }
+        ]
+      },
+      "best_hold": 30,
+      "min_signals_for_entry": 1,
+      "win_rate": 72.9,
+      "signal_count": 70,
+      "avg_return": 0.3,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-14T10:49:32.267428",
+      "_source": "round51_best_004"
+    },
+    {
+      "id": "auto_europe_hk50_m30_l_1",
+      "group": "indices_europe",
+      "symbols": [
+        "HK50"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "europe",
+        "conditions": [
+          {
+            "i": "session",
+            "op": "==",
+            "v": "europe"
+          },
+          {
+            "i": "rsi14",
+            "op": "<",
+            "v": 25
+          },
+          {
+            "i": "atr14_pct",
+            "op": ">",
+            "v": 0.35000000000000003
+          }
+        ]
+      },
+      "best_hold": 5,
+      "min_signals_for_entry": 1,
+      "win_rate": 68.6,
+      "signal_count": 105,
+      "avg_return": 0.25,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-14T10:49:32.267428",
+      "_source": "round52_best_004"
+    },
+    {
+      "id": "auto_us_jp225_m30_l",
+      "group": "indices_us",
+      "symbols": [
+        "JP225"
+      ],
+      "timeframe": "M30",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "us",
+        "conditions": [
+          {
+            "i": "session",
+            "op": "==",
+            "v": "us"
+          },
+          {
+            "i": "rsi14",
+            "op": "<",
+            "v": 25
+          },
+          {
+            "i": "atr14_pct",
+            "op": ">",
+            "v": 0.35000000000000003
+          }
+        ]
+      },
+      "best_hold": 45,
+      "min_signals_for_entry": 1,
+      "win_rate": 76.0,
+      "signal_count": 96,
+      "avg_return": 0.9,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-14T10:49:32.267428",
+      "_source": "round56_best_001"
+    },
+    {
+      "id": "hrr_fakeo_dxy_m15_s",
+      "group": "hrr_dxy_fakeout",
+      "symbols": [
+        "DXY"
+      ],
+      "timeframe": "M15",
+      "direction": "short",
+      "entry_conditions": {
+        "session": "europe",
+        "sl_multiple": 1.2,
+        "tp_multiple": 6.0,
+        "conditions": [
+          {
+            "i": "session",
+            "op": "==",
+            "v": "europe"
+          },
+          {
+            "i": "rsi14",
+            "op": ">",
+            "v": 65
+          },
+          {
+            "i": "consecutive_bear",
+            "op": ">=",
+            "v": 1
+          },
+          {
+            "i": "consecutive_bull",
+            "op": ">=",
+            "v": 2
+          },
+          {
+            "i": "_h1_close_vs_ma50",
+            "op": "<",
+            "v": 0
+          }
+        ]
+      },
+      "best_hold": 48,
+      "min_signals_for_entry": 1,
+      "win_rate": 37.3,
+      "signal_count": 59,
+      "sharpe": 87.56,
+      "profit_factor": 2.41,
+      "avg_return_pct": 0.0337,
+      "max_dd_pct": 0.25,
+      "priority": 5,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-14T17:06:42.973057+00:00",
+      "_source": "hrr_014_DXY_fakeout_reversal_s",
+      "_pattern_type": "fakeout_reversal"
+    },
+    {
+      "id": "hrr_fakeo_xauusd_m5_l",
+      "group": "hrr_metals_fakeout",
+      "symbols": [
+        "XAUUSD"
+      ],
+      "timeframe": "M5",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "us",
+        "sl_multiple": 1.0,
+        "tp_multiple": 6.0,
+        "conditions": [
+          {
+            "i": "session",
+            "op": "==",
+            "v": "us"
+          },
+          {
+            "i": "rsi14",
+            "op": "<",
+            "v": 30
+          },
+          {
+            "i": "consecutive_bear",
+            "op": ">=",
+            "v": 3
+          },
+          {
+            "i": "consecutive_bull",
+            "op": ">=",
+            "v": 2
+          },
+          {
+            "i": "_h1_close_vs_ma50",
+            "op": ">",
+            "v": 0
+          }
+        ]
+      },
+      "best_hold": 48,
+      "min_signals_for_entry": 1,
+      "win_rate": 25.8,
+      "signal_count": 31,
+      "sharpe": 66.48,
+      "profit_factor": 2.18,
+      "avg_return_pct": 0.1318,
+      "max_dd_pct": 0.68,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-14T17:06:42.973093+00:00",
+      "_source": "hrr_003_XAUUSD_fakeout_reversal_l",
+      "_pattern_type": "fakeout_reversal"
+    },
+    {
+      "id": "hrr_fakeo_ustec_m15_l",
+      "group": "hrr_indices_fakeout",
+      "symbols": [
+        "USTEC"
+      ],
+      "timeframe": "M15",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "us",
+        "sl_multiple": 1.0,
+        "tp_multiple": 8.0,
+        "conditions": [
+          {
+            "i": "session",
+            "op": "==",
+            "v": "us"
+          },
+          {
+            "i": "rsi14",
+            "op": "<",
+            "v": 45
+          },
+          {
+            "i": "consecutive_bear",
+            "op": ">=",
+            "v": 3
+          },
+          {
+            "i": "consecutive_bull",
+            "op": ">=",
+            "v": 1
+          },
+          {
+            "i": "_h1_close_vs_ma50",
+            "op": ">",
+            "v": 0
+          }
+        ]
+      },
+      "best_hold": 48,
+      "min_signals_for_entry": 1,
+      "win_rate": 30.4,
+      "signal_count": 69,
+      "sharpe": 64.59,
+      "profit_factor": 2.04,
+      "avg_return_pct": 0.082,
+      "max_dd_pct": 1.08,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-14T17:06:42.973102+00:00",
+      "_source": "hrr_003_USTEC_fakeout_reversal_l",
+      "_pattern_type": "fakeout_reversal"
+    },
+    {
+      "id": "hrr_trend_xauusd_m5_s",
+      "group": "hrr_metals_pullback",
+      "symbols": [
+        "XAUUSD"
+      ],
+      "timeframe": "M5",
+      "direction": "short",
+      "entry_conditions": {
+        "session": "us",
+        "sl_multiple": 1.0,
+        "tp_multiple": 5.0,
+        "conditions": [
+          {
+            "i": "session",
+            "op": "==",
+            "v": "us"
+          },
+          {
+            "i": "rsi14",
+            "op": ">",
+            "v": 60
+          },
+          {
+            "i": "consecutive_bear",
+            "op": ">=",
+            "v": 3
+          },
+          {
+            "i": "consecutive_bull",
+            "op": ">=",
+            "v": 1
+          },
+          {
+            "i": "_h1_close_vs_ma50",
+            "op": "<",
+            "v": 0
+          }
+        ]
+      },
+      "best_hold": 48,
+      "min_signals_for_entry": 1,
+      "win_rate": 31.7,
+      "signal_count": 82,
+      "sharpe": 62.88,
+      "profit_factor": 2.1,
+      "avg_return_pct": 0.134,
+      "max_dd_pct": 2.37,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-14T17:06:42.973108+00:00",
+      "_source": "hrr_009_XAUUSD_trend_pullback_s",
+      "_pattern_type": "trend_pullback"
+    },
+    {
+      "id": "hrr_struc_eurusd_m5_l",
+      "group": "hrr_fx_breakout",
+      "symbols": [
+        "EURUSD"
+      ],
+      "timeframe": "M5",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "asia",
+        "sl_multiple": 0.8,
+        "tp_multiple": 8.0,
+        "conditions": [
+          {
+            "i": "session",
+            "op": "==",
+            "v": "asia"
+          },
+          {
+            "i": "rsi14",
+            "op": "<",
+            "v": 35
+          },
+          {
+            "i": "consecutive_bear",
+            "op": ">=",
+            "v": 1
+          },
+          {
+            "i": "consecutive_bull",
+            "op": ">=",
+            "v": 1
+          },
+          {
+            "i": "_h1_close_vs_ma50",
+            "op": ">",
+            "v": 0
+          }
+        ]
+      },
+      "best_hold": 48,
+      "min_signals_for_entry": 1,
+      "win_rate": 23.4,
+      "signal_count": 64,
+      "sharpe": 61.78,
+      "profit_factor": 2.24,
+      "avg_return_pct": 0.0173,
+      "max_dd_pct": 0.3,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-14T17:06:42.973112+00:00",
+      "_source": "hrr_006_EURUSD_structure_breakout_l",
+      "_pattern_type": "structure_breakout"
+    },
+    {
+      "id": "hrr_fakeo_eurusd_m15_l",
+      "group": "hrr_fx_fakeout",
+      "symbols": [
+        "EURUSD"
+      ],
+      "timeframe": "M15",
+      "direction": "long",
+      "entry_conditions": {
+        "sl_multiple": 1.0,
+        "tp_multiple": 8.0,
+        "conditions": [
+          {
+            "i": "rsi14",
+            "op": "<",
+            "v": 30
+          },
+          {
+            "i": "consecutive_bear",
+            "op": ">=",
+            "v": 2
+          },
+          {
+            "i": "consecutive_bull",
+            "op": ">=",
+            "v": 1
+          },
+          {
+            "i": "_h1_close_vs_ma50",
+            "op": ">",
+            "v": 0
+          }
+        ]
+      },
+      "best_hold": 48,
+      "min_signals_for_entry": 1,
+      "win_rate": 27.7,
+      "signal_count": 130,
+      "sharpe": 61.72,
+      "profit_factor": 2.05,
+      "avg_return_pct": 0.0219,
+      "max_dd_pct": 0.36,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-14T17:06:42.973117+00:00",
+      "_source": "hrr_009_EURUSD_fakeout_reversal_l",
+      "_pattern_type": "fakeout_reversal"
+    },
+    {
+      "id": "hrr_fakeo_usdchf_m5_l",
+      "group": "hrr_fx_fakeout",
+      "symbols": [
+        "USDCHF"
+      ],
+      "timeframe": "M5",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "us",
+        "sl_multiple": 1.0,
+        "tp_multiple": 8.0,
+        "conditions": [
+          {
+            "i": "session",
+            "op": "==",
+            "v": "us"
+          },
+          {
+            "i": "rsi14",
+            "op": "<",
+            "v": 30
+          },
+          {
+            "i": "consecutive_bear",
+            "op": ">=",
+            "v": 2
+          },
+          {
+            "i": "consecutive_bull",
+            "op": ">=",
+            "v": 1
+          },
+          {
+            "i": "_h1_close_vs_ma50",
+            "op": ">",
+            "v": 0
+          }
+        ]
+      },
+      "best_hold": 48,
+      "min_signals_for_entry": 1,
+      "win_rate": 27.5,
+      "signal_count": 40,
+      "sharpe": 60.7,
+      "profit_factor": 2.07,
+      "avg_return_pct": 0.0296,
+      "max_dd_pct": 0.53,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-14T17:06:42.973123+00:00",
+      "_source": "hrr_003_USDCHF_fakeout_reversal_l",
+      "_pattern_type": "fakeout_reversal"
+    },
+    {
+      "id": "hrr_struc_usdcad_m5_l",
+      "group": "hrr_fx_breakout",
+      "symbols": [
+        "USDCAD"
+      ],
+      "timeframe": "M5",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "us",
+        "sl_multiple": 0.8,
+        "tp_multiple": 8.0,
+        "conditions": [
+          {
+            "i": "session",
+            "op": "==",
+            "v": "us"
+          },
+          {
+            "i": "rsi14",
+            "op": "<",
+            "v": 30
+          },
+          {
+            "i": "consecutive_bear",
+            "op": ">=",
+            "v": 1
+          },
+          {
+            "i": "consecutive_bull",
+            "op": ">=",
+            "v": 2
+          },
+          {
+            "i": "_h1_close_vs_ma50",
+            "op": ">",
+            "v": 0
+          }
+        ]
+      },
+      "best_hold": 48,
+      "min_signals_for_entry": 1,
+      "win_rate": 27.6,
+      "signal_count": 156,
+      "sharpe": 59.32,
+      "profit_factor": 2.2,
+      "avg_return_pct": 0.0148,
+      "max_dd_pct": 0.24,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-14T17:06:42.973133+00:00",
+      "_source": "hrr_014_USDCAD_structure_breakout_l",
+      "_pattern_type": "structure_breakout"
+    },
+    {
+      "id": "hrr_struc_usdcad_m5_l_2",
+      "group": "hrr_fx_breakout",
+      "symbols": [
+        "USDCAD"
+      ],
+      "timeframe": "M5",
+      "direction": "long",
+      "entry_conditions": {
+        "sl_multiple": 0.8,
+        "tp_multiple": 6.0,
+        "conditions": [
+          {
+            "i": "rsi14",
+            "op": "<",
+            "v": 30
+          },
+          {
+            "i": "consecutive_bear",
+            "op": ">=",
+            "v": 2
+          },
+          {
+            "i": "consecutive_bull",
+            "op": ">=",
+            "v": 3
+          },
+          {
+            "i": "_h1_close_vs_ma50",
+            "op": ">",
+            "v": 0
+          }
+        ]
+      },
+      "best_hold": 48,
+      "min_signals_for_entry": 1,
+      "win_rate": 25.7,
+      "signal_count": 366,
+      "sharpe": 58.83,
+      "profit_factor": 2.09,
+      "avg_return_pct": 0.0122,
+      "max_dd_pct": 0.19,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-14T17:06:42.973139+00:00",
+      "_source": "hrr_013_USDCAD_structure_breakout_l",
+      "_pattern_type": "structure_breakout"
+    },
+    {
+      "id": "hrr_trend_usoil_m5_l",
+      "group": "hrr_energy_pullback",
+      "symbols": [
+        "USOIL"
+      ],
+      "timeframe": "M5",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "us",
+        "sl_multiple": 1.2,
+        "tp_multiple": 5.0,
+        "conditions": [
+          {
+            "i": "session",
+            "op": "==",
+            "v": "us"
+          },
+          {
+            "i": "rsi14",
+            "op": "<",
+            "v": 50
+          },
+          {
+            "i": "consecutive_bear",
+            "op": ">=",
+            "v": 3
+          },
+          {
+            "i": "consecutive_bull",
+            "op": ">=",
+            "v": 2
+          },
+          {
+            "i": "_h1_close_vs_ma50",
+            "op": ">",
+            "v": 0
+          }
+        ]
+      },
+      "best_hold": 48,
+      "min_signals_for_entry": 1,
+      "win_rate": 34.0,
+      "signal_count": 141,
+      "sharpe": 58.82,
+      "profit_factor": 2.01,
+      "avg_return_pct": 0.2885,
+      "max_dd_pct": 4.26,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-14T17:06:42.973145+00:00",
+      "_source": "hrr_010_USOIL_trend_pullback_l",
+      "_pattern_type": "trend_pullback"
+    },
+    {
+      "id": "hrr_struc_ustec_m5_l",
+      "group": "hrr_indices_breakout",
+      "symbols": [
+        "USTEC"
+      ],
+      "timeframe": "M5",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "us",
+        "sl_multiple": 0.8,
+        "tp_multiple": 10.0,
+        "conditions": [
+          {
+            "i": "session",
+            "op": "==",
+            "v": "us"
+          },
+          {
+            "i": "rsi14",
+            "op": "<",
+            "v": 45
+          },
+          {
+            "i": "consecutive_bear",
+            "op": ">=",
+            "v": 1
+          },
+          {
+            "i": "consecutive_bull",
+            "op": ">=",
+            "v": 1
+          },
+          {
+            "i": "_h1_close_vs_ma50",
+            "op": ">",
+            "v": 0
+          }
+        ]
+      },
+      "best_hold": 48,
+      "min_signals_for_entry": 1,
+      "win_rate": 28.3,
+      "signal_count": 127,
+      "sharpe": 58.6,
+      "profit_factor": 1.94,
+      "avg_return_pct": 0.0644,
+      "max_dd_pct": 1.31,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-14T17:06:42.973150+00:00",
+      "_source": "hrr_002_USTEC_structure_breakout_l",
+      "_pattern_type": "structure_breakout"
+    },
+    {
+      "id": "hrr_fakeo_us500_m5_l",
+      "group": "hrr_indices_fakeout",
+      "symbols": [
+        "US500"
+      ],
+      "timeframe": "M5",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "europe",
+        "sl_multiple": 1.2,
+        "tp_multiple": 8.0,
+        "conditions": [
+          {
+            "i": "session",
+            "op": "==",
+            "v": "europe"
+          },
+          {
+            "i": "rsi14",
+            "op": "<",
+            "v": 50
+          },
+          {
+            "i": "consecutive_bear",
+            "op": ">=",
+            "v": 2
+          },
+          {
+            "i": "consecutive_bull",
+            "op": ">=",
+            "v": 1
+          },
+          {
+            "i": "_h1_close_vs_ma50",
+            "op": ">",
+            "v": 0
+          }
+        ]
+      },
+      "best_hold": 48,
+      "min_signals_for_entry": 1,
+      "win_rate": 29.3,
+      "signal_count": 58,
+      "sharpe": 58.27,
+      "profit_factor": 1.86,
+      "avg_return_pct": 0.0379,
+      "max_dd_pct": 1.05,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-14T17:06:42.973154+00:00",
+      "_source": "hrr_002_US500_fakeout_reversal_l",
+      "_pattern_type": "fakeout_reversal"
+    },
+    {
+      "id": "hrr_trend_eurusd_m5_l",
+      "group": "hrr_fx_pullback",
+      "symbols": [
+        "EURUSD"
+      ],
+      "timeframe": "M5",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "us",
+        "sl_multiple": 1.2,
+        "tp_multiple": 5.0,
+        "conditions": [
+          {
+            "i": "session",
+            "op": "==",
+            "v": "us"
+          },
+          {
+            "i": "rsi14",
+            "op": "<",
+            "v": 30
+          },
+          {
+            "i": "consecutive_bear",
+            "op": ">=",
+            "v": 1
+          },
+          {
+            "i": "consecutive_bull",
+            "op": ">=",
+            "v": 1
+          },
+          {
+            "i": "_h1_close_vs_ma50",
+            "op": ">",
+            "v": 0
+          }
+        ]
+      },
+      "best_hold": 48,
+      "min_signals_for_entry": 1,
+      "win_rate": 36.0,
+      "signal_count": 50,
+      "sharpe": 58.02,
+      "profit_factor": 1.88,
+      "avg_return_pct": 0.0216,
+      "max_dd_pct": 0.32,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-14T17:06:42.973160+00:00",
+      "_source": "hrr_006_EURUSD_trend_pullback_l",
+      "_pattern_type": "trend_pullback"
+    },
+    {
+      "id": "hrr_struc_ukoil_m15_l",
+      "group": "hrr_energy_breakout",
+      "symbols": [
+        "UKOIL"
+      ],
+      "timeframe": "M15",
+      "direction": "long",
+      "entry_conditions": {
+        "session": "us",
+        "sl_multiple": 0.8,
+        "tp_multiple": 8.0,
+        "conditions": [
+          {
+            "i": "session",
+            "op": "==",
+            "v": "us"
+          },
+          {
+            "i": "rsi14",
+            "op": "<",
+            "v": 50
+          },
+          {
+            "i": "consecutive_bear",
+            "op": ">=",
+            "v": 2
+          },
+          {
+            "i": "consecutive_bull",
+            "op": ">=",
+            "v": 3
+          },
+          {
+            "i": "_h1_close_vs_ma50",
+            "op": ">",
+            "v": 0
+          }
+        ]
+      },
+      "best_hold": 48,
+      "min_signals_for_entry": 1,
+      "win_rate": 26.6,
+      "signal_count": 124,
+      "sharpe": 57.91,
+      "profit_factor": 2.06,
+      "avg_return_pct": 0.1865,
+      "max_dd_pct": 2.82,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-14T17:06:42.973173+00:00",
+      "_source": "hrr_006_UKOIL_structure_breakout_l",
+      "_pattern_type": "structure_breakout"
+    },
+    {
+      "id": "hrr_trend_us500_m15_s",
+      "group": "hrr_indices_pullback",
+      "symbols": [
+        "US500"
+      ],
+      "timeframe": "M15",
+      "direction": "short",
+      "entry_conditions": {
+        "session": "us",
+        "sl_multiple": 1.0,
+        "tp_multiple": 5.0,
+        "conditions": [
+          {
+            "i": "session",
+            "op": "==",
+            "v": "us"
+          },
+          {
+            "i": "rsi14",
+            "op": ">",
+            "v": 50
+          },
+          {
+            "i": "consecutive_bear",
+            "op": ">=",
+            "v": 3
+          },
+          {
+            "i": "consecutive_bull",
+            "op": ">=",
+            "v": 3
+          },
+          {
+            "i": "_near_ma50",
+            "op": "==",
+            "v": 1
+          },
+          {
+            "i": "_h1_close_vs_ma50",
+            "op": "<",
+            "v": 0
+          }
+        ]
+      },
+      "best_hold": 48,
+      "min_signals_for_entry": 1,
+      "win_rate": 29.1,
+      "signal_count": 55,
+      "sharpe": 57.66,
+      "profit_factor": 1.84,
+      "avg_return_pct": 0.0713,
+      "max_dd_pct": 1.3,
+      "priority": 10,
+      "_auto_injected": true,
+      "_injected_at": "2026-05-14T17:06:42.973183+00:00",
+      "_source": "hrr_006_US500_trend_pullback_s",
+      "_pattern_type": "trend_pullback"
     }
   ],
   "risk": {
@@ -1111,10 +2324,41 @@
     }
   },
   "magic_number": 234010,
-  "_last_auto_inject": "2026-05-13T14:12:01.965671",
-  "_auto_inject_count": 58,
+  "_last_auto_inject": "2026-05-14T10:49:32.267428",
+  "_auto_inject_count": 68,
   "_injected_sources": [
+    "hrr_001_HK50_trend_pullback_l",
+    "hrr_001_XAGUSD_trend_pullback_s",
+    "hrr_002_US500_fakeout_reversal_l",
+    "hrr_002_USTEC_structure_breakout_l",
+    "hrr_003_UKOIL_fakeout_reversal_s",
+    "hrr_003_US500_structure_breakout_l",
+    "hrr_003_USDCHF_fakeout_reversal_l",
+    "hrr_003_USTEC_fakeout_reversal_l",
+    "hrr_003_XAUUSD_fakeout_reversal_l",
+    "hrr_004_US500_fakeout_reversal_s",
+    "hrr_004_US500_structure_breakout_l",
+    "hrr_005_EURUSD_trend_pullback_l",
+    "hrr_005_XAGUSD_fakeout_reversal_l",
+    "hrr_005_XAGUSD_trend_pullback_s",
+    "hrr_006_EURUSD_structure_breakout_l",
+    "hrr_006_EURUSD_trend_pullback_l",
+    "hrr_006_UKOIL_structure_breakout_l",
+    "hrr_006_US500_fakeout_reversal_s",
+    "hrr_006_US500_trend_pullback_s",
+    "hrr_008_USDJPY_trend_pullback_l",
+    "hrr_009_EURUSD_fakeout_reversal_l",
+    "hrr_009_GBPUSD_structure_breakout_l",
+    "hrr_009_XAUUSD_trend_pullback_s",
+    "hrr_010_USOIL_trend_pullback_l",
+    "hrr_011_US30_trend_pullback_l",
+    "hrr_012_DXY_trend_pullback_s",
+    "hrr_012_USDCAD_fakeout_reversal_s",
+    "hrr_013_USDCAD_structure_breakout_l",
+    "hrr_014_DXY_fakeout_reversal_s",
+    "hrr_014_USDCAD_structure_breakout_l",
     "round34_best",
+    "round36_001",
     "round36_002",
     "round36_003",
     "round38_best_001",
@@ -1124,6 +2368,7 @@
     "round40_best_002",
     "round40_best_004",
     "round41_best_002",
+    "round43_best_001",
     "round43_best_002",
     "round43_best_004",
     "round44_best_001",
@@ -1134,23 +2379,33 @@
     "round46_best_001",
     "round47_best_001",
     "round47_best_003",
+    "round47_best_004",
     "round48_best_001",
     "round48_best_002",
     "round48_best_003",
     "round48_best_006",
     "round49_best_001",
+    "round49_best_002",
+    "round49_best_003",
     "round49_best_004",
     "round50_best_001",
     "round50_best_002",
     "round50_best_003",
+    "round50_best_004",
     "round51_best_001",
+    "round51_best_002",
+    "round51_best_004",
     "round52_best_001",
     "round52_best_002",
+    "round52_best_004",
     "round53_best_001",
     "round53_best_002",
     "round54_best_001",
     "round55_best_001",
     "round55_best_002",
+    "round56_best_001",
     "round56_best_002"
-  ]
+  ],
+  "_last_auto_inject_highrr": "2026-05-14T17:06:42.973424+00:00",
+  "_auto_inject_highrr_count": 15
 }

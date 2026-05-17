@@ -48,6 +48,11 @@ LOOP_INTERVAL = CFG["loop_interval_sec"]
 INDICATOR_BARS = CFG["indicator_bars"]
 HEARTBEAT_MAX_AGE = CFG["heartbeat_max_age_sec"]
 
+# ─── 日志文件 ───
+LOG_FILE = BASE / "logs" / "tick_engine.log"
+LOG_MAX_BYTES = 10 * 1024 * 1024
+LOG_FILE.parent.mkdir(parents=True, exist_ok=True)
+
 # ─── Session 映射 ───
 SESSION_MAP = {
     "asia":   (0, 8),
@@ -58,18 +63,33 @@ SESSION_MAP = {
 
 def log(msg: str):
     ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
-    print(f"[TickEngine] {ts} | {msg}", flush=True)
+    line = f"[TickEngine] {ts} | {msg}"
+    print(line, flush=True)
+    try:
+        if LOG_FILE.exists() and LOG_FILE.stat().st_size > LOG_MAX_BYTES:
+            bak = LOG_FILE.with_suffix(".log.1")
+            LOG_FILE.rename(bak)
+        with open(LOG_FILE, "a", encoding="utf-8") as f:
+            f.write(line + "\n")
+    except Exception:
+        pass
 
 
 def atomic_write(path: Path, data: dict):
-    """先写 tmp 再 rename，避免 Scanner 读到半截文件"""
+    """先写 tmp 再 replace，兼容 Windows 文件锁"""
     tmp = path.with_suffix(".tmp")
     with open(tmp, "w") as f:
         json.dump(data, f, indent=2, default=str)
-    # Windows rename 要求先删目标
-    if path.exists():
-        os.remove(path)
-    os.rename(tmp, path)
+    try:
+        os.replace(tmp, path)
+    except PermissionError:
+        # Fallback: WSL 读锁或防病毒扫描导致 rename 失败，直接写
+        with open(path, "w") as f:
+            json.dump(data, f, indent=2, default=str)
+        try:
+            tmp.unlink(missing_ok=True)
+        except Exception:
+            pass
 
 
 # ─── 共享指标库 ───

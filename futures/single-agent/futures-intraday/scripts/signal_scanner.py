@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-signal_scanner.py — M30/H1 信号扫描引擎（Tick Engine 版）
+signal_scanner.py — M30/H1 信号扫描引擎（Tick Engine 版，全指标支持）
 
-从 Tick Engine 共享数据读取 tick + 指标 → 匹配 strategies.json → 输出信号
+从 Tick Engine 共享数据读取 tick + 319 指标 → 匹配 strategies.json → 输出信号
 不复连 MT5。DXY 过滤也从共享数据读取。
 
 用法（任意 Python）:
@@ -10,10 +10,10 @@ signal_scanner.py — M30/H1 信号扫描引擎（Tick Engine 版）
 
 输出：JSON 格式的信号列表（stdout）
 """
-
 import json
 import os
 import sys
+import time
 from datetime import datetime, timezone
 
 # ─── 路径 ───
@@ -27,22 +27,23 @@ if _SHARED_SCRIPTS not in sys.path:
     sys.path.insert(0, _SHARED_SCRIPTS)
 
 from tick_reader import TickReader
-from indicators import get_session, SESSION_ALIAS
+from condition_utils import evaluate_entry_conditions, has_old_format
 
 
 def utcnow():
     return datetime.now(timezone.utc)
 
 
-def scan_strategy(symbol: str, config: dict, reader: TickReader, dxy_indicators: dict | None = None) -> list:
+def scan_strategy(symbol: str, config: dict, reader: TickReader,
+                  dxy_indicators: dict | None = None,
+                  h1_indicators: dict | None = None) -> list:
     """扫描单个策略（从 TickReader 读指标，不复连 MT5）"""
     signals = []
     strategy_id = config["id"]
     direction = config["direction"]
     tf_name = config["timeframe"]
-    cond = config["entry_conditions"]
 
-    # 从共享数据读取指标
+    # ── 读取共享指标（全部 319 个字段） ──
     ind = reader.get_indicator(symbol, tf_name)
     if not ind:
         return signals
@@ -53,72 +54,21 @@ def scan_strategy(symbol: str, config: dict, reader: TickReader, dxy_indicators:
         return signals
 
     current_price = ind.get("price", tick.get("bid", tick.get("ask", 0)))
-    rsi = ind.get("rsi14")
     atr = ind.get("atr14")
-    session = ind.get("session", reader.get_session())
-    consecutive_bears = ind.get("consecutive_bear", 0)
-    current_utc_hour = ind.get("utc_hour", 0)
+    entry_conditions = config.get("entry_conditions", {})
 
-    # 逐条件检查
-    matched = True
-    match_reasons = []
-
-    if "session" in cond and cond["session"]:
-        required_session = SESSION_ALIAS.get(cond["session"], cond["session"])
-        if required_session != session:
-            matched = False
-        else:
-            match_reasons.append(f"session={session}")
-
-    if "rsi14_max" in cond:
-        if rsi is None or rsi > cond["rsi14_max"]:
-            matched = False
-        else:
-            match_reasons.append(f"RSI={rsi:.1f}<{cond['rsi14_max']}")
-
-    if "rsi14_min" in cond:
-        if rsi is None or rsi < cond["rsi14_min"]:
-            matched = False
-        else:
-            match_reasons.append(f"RSI={rsi:.1f}>{cond['rsi14_min']}")
-
-    if "atr_min_pct" in cond and atr:
-        atr_pct = atr / current_price if current_price > 0 else 0
-        if atr_pct < cond["atr_min_pct"]:
-            matched = False
-        else:
-            match_reasons.append(f"ATR%={atr_pct*100:.3f}>{cond['atr_min_pct']*100:.2f}%")
-
-    if "consecutive_bear" in cond:
-        if consecutive_bears < cond["consecutive_bear"]:
-            matched = False
-        else:
-            match_reasons.append(f"连阴={consecutive_bears}")
-
-    # DXY 过滤（从 Tick Engine 共享数据读取，不复连 MT5）
-    if dxy_indicators and "dxy_filter" in cond:
-        dxy_filter = cond["dxy_filter"]
-        dxy_rsi = dxy_indicators.get("rsi14")
-        dxy_close = dxy_indicators.get("price", dxy_indicators.get("bar_close"))
-        dxy_ma20 = dxy_indicators.get("ma20")
-
-        if dxy_filter == "down":
-            dxy_down = dxy_close is not None and dxy_ma20 is not None and dxy_close < dxy_ma20
-            if not dxy_down:
-                matched = False
-            else:
-                match_reasons.append(f"DXY↓(close={dxy_close:.3f}<ma20={dxy_ma20:.3f})")
-        elif dxy_filter == "up":
-            dxy_up = dxy_close is not None and dxy_ma20 is not None and dxy_close > dxy_ma20
-            if not dxy_up:
-                matched = False
-            else:
-                match_reasons.append(f"DXY↑(close={dxy_close:.3f}>ma20={dxy_ma20:.3f})")
+    # ── 通用条件求值（兼容新旧格式，支持 319 个指标 + 跨TF） ──
+    matched, match_reasons = evaluate_entry_conditions(
+        entry_conditions, ind, dxy_indicators, h1_indicators,
+    )
 
     if matched and match_reasons:
-        # SL/TP 计算（使用 shared 的 atr）
-        sl_distance = atr * 2.0 if atr else 0
-        tp_distance = atr * 4.0 if atr else 0
+        # SL/TP 计算 — 优先使用策略配置的倍数，否则默认 2.0/4.0
+        ec = entry_conditions
+        sl_mult = ec.get("sl_multiple", 2.0) if isinstance(ec, dict) else 2.0
+        tp_mult = ec.get("tp_multiple", 4.0) if isinstance(ec, dict) else 4.0
+        sl_distance = atr * sl_mult if atr else 0
+        tp_distance = atr * tp_mult if atr else 0
 
         if direction in ("long", "buy", "BUY"):
             sl_price = round(current_price - sl_distance, 5) if sl_distance > 0 else None
@@ -133,17 +83,15 @@ def scan_strategy(symbol: str, config: dict, reader: TickReader, dxy_indicators:
             "timeframe": tf_name,
             "direction": direction,
             "current_price": current_price,
-            "rsi": float(round(rsi, 2)) if rsi else None,
-            "atr": float(round(atr, 5)) if atr else None,
-            "atr_pct": float(round(atr / current_price * 100, 3)) if atr and current_price > 0 else None,
-            "session": session,
-            "consecutive_bears": int(consecutive_bears),
-            "utc_hour": int(current_utc_hour),
+            "rsi": ind.get("rsi14"),
+            "atr": round(atr, 5) if atr else None,
+            "atr_pct": round(atr / current_price * 100, 3) if atr and current_price > 0 else None,
+            "session": ind.get("session"),
             "match_reasons": "; ".join(match_reasons),
             "sl_price": sl_price,
             "tp_price": tp_price,
-            "sl_distance": float(round(sl_distance, 5)) if sl_distance > 0 else None,
-            "tp_distance": float(round(tp_distance, 5)) if tp_distance > 0 else None,
+            "sl_distance": round(sl_distance, 5) if sl_distance > 0 else None,
+            "tp_distance": round(tp_distance, 5) if tp_distance > 0 else None,
             "rr": round(tp_distance / sl_distance, 2) if sl_distance > 0 and tp_distance > 0 else None,
             "detected_at_utc": utcnow().isoformat(),
             "data_source": "tick_engine",
@@ -175,9 +123,13 @@ def main():
     ticks_start = datetime.now()
     detected = []
     for strategy in all_signals:
+        tf_name = strategy.get("timeframe", "M30")
         for sym in strategy.get("symbols", []):
             try:
-                sigs = scan_strategy(sym, strategy, reader, dxy_indicators)
+                # 跨TF: 读取该品种 H1 指标（用于 _h1_* 条件）
+                sym_h1 = (reader.get_indicator(sym, "H1")
+                          if engine_alive and tf_name not in ("H1", "h1") else None)
+                sigs = scan_strategy(sym, strategy, reader, dxy_indicators, sym_h1)
                 detected.extend(sigs)
             except Exception:
                 pass

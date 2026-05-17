@@ -4,7 +4,8 @@
     "XAUUSD","XAGUSD","USTEC","US30","US500",
     "JP225","HK50","USOIL","UKOIL",
     "EURUSD","GBPUSD","USDJPY","AUDUSD","USDCHF",
-    "DXY"
+    "DXY",
+    "USDCAD","NZDUSD","XNGUSD","XCUUSD"
   ],
   "timeframes": ["M1","M5","M15","M30","H1"],
   "loop_interval_sec": 1.0,

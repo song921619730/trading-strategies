@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""data_loader.py — Scalping M1/M5 Data Loader & Indicator Calculator
+"""data_loader.py — Scalping M1/M5 Data Loader
 
 Reads parquet files from ../data/{M1,M5}/{symbol}.parquet.
-Provides functions for listing symbols, loading data, computing technical indicators.
+Provides functions for listing symbols and loading data.
+指标计算请使用 batch_precompute.compute_all_fast() 获得全量 509 列。
 """
 
 from __future__ import annotations
@@ -11,7 +12,6 @@ import logging
 from pathlib import Path
 from typing import Dict, List, Optional
 
-import numpy as np
 import pandas as pd
 
 log = logging.getLogger("data_loader")
@@ -23,11 +23,12 @@ DATA_DIR = PROJECT_DIR / "data"
 TIMEFRAME_DIRS = {
     "M1": DATA_DIR / "M1",
     "M5": DATA_DIR / "M5",
-}
-
-PERIODS_PER_YEAR: Dict[str, int] = {
-    "M1": 360_000,   # 1 min × 60 × 23 × 5.5 × 52
-    "M5": 72_000,    # 5 min × 12 × 23 × 5.5 × 52
+    "M30": DATA_DIR / "M30",
+    "H1": DATA_DIR / "H1",
+    "H4": DATA_DIR / "H4",
+    "D1": DATA_DIR / "D1",
+    "W1": DATA_DIR / "W1",
+    "MN1": DATA_DIR / "MN1",
 }
 
 
@@ -107,64 +108,3 @@ def load_data(timeframe: str = "M5", symbols: Optional[List[str]] = None,
                  df.index[-1].strftime("%Y-%m-%d"))
 
     return result
-
-
-def compute_indicators(df: pd.DataFrame) -> pd.DataFrame:
-    """在 DataFrame 上计算技术指标（原地修改）
-
-    新增列：
-      - rsi14           : 14-period RSI
-      - atr14           : 14-period ATR (absolute value)
-      - atr14_pct       : ATR/close * 100
-      - ma20, ma50      : 简单移动平均线
-      - consecutive_bear: 连续阴线计数
-      - session         : 交易时段 (asia/europe/us)
-    """
-    df = df.copy()
-
-    # ── RSI(14) ──
-    delta = df["close"].diff()
-    gain = delta.clip(lower=0)
-    loss = (-delta).clip(lower=0)
-    avg_gain = gain.rolling(14, min_periods=14).mean()
-    avg_loss = loss.rolling(14, min_periods=14).mean()
-    rs = avg_gain / avg_loss.replace(0, np.nan)
-    df["rsi14"] = 100.0 - (100.0 / (1.0 + rs))
-
-    # ── ATR(14) ──
-    tr = pd.concat([
-        df["high"] - df["low"],
-        (df["high"] - df["close"].shift()).abs(),
-        (df["low"] - df["close"].shift()).abs(),
-    ], axis=1).max(axis=1)
-    df["atr14"] = tr.rolling(14, min_periods=14).mean()
-    df["atr14_pct"] = df["atr14"] / df["close"] * 100
-
-    # ── MA ──
-    df["ma20"] = df["close"].rolling(20).mean()
-    df["ma50"] = df["close"].rolling(50).mean()
-
-    # ── Consecutive bear candles ──
-    bear = (df["close"] < df["open"]).astype(int)
-    df["consecutive_bear"] = bear.groupby((bear == 0).cumsum()).cumsum()
-
-    # ── Consecutive bull candles ──
-    bull = (df["close"] > df["open"]).astype(int)
-    df["consecutive_bull"] = bull.groupby((bull == 0).cumsum()).cumsum()
-
-    # ── Time columns ──
-    df["hour"] = df.index.hour
-    df["minute"] = df.index.minute
-
-    # ── Session ──
-    def _session(h: int) -> str:
-        if 0 <= h < 8:
-            return "asia"
-        elif 8 <= h < 13:
-            return "europe"
-        else:
-            return "us"
-
-    df["session"] = df.index.hour.map(_session)
-
-    return df

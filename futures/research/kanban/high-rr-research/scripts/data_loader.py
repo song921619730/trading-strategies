@@ -8,18 +8,23 @@
 from __future__ import annotations
 
 import logging
+import sys
 from pathlib import Path
 from typing import Dict, List, Optional
 
 import pandas as pd
 
 log = logging.getLogger("high_rr_data_loader")
-
 SCRIPT_DIR = Path(__file__).resolve().parent
-DATA_DIR = SCRIPT_DIR.parent / "data"
+PROJECT_DIR = SCRIPT_DIR.parent
+DATA_DIR = PROJECT_DIR / "data"
 
-SYMBOLS = ['XAUUSD','XAGUSD','USTEC','US30','US500','JP225','HK50',
-           'USOIL','UKOIL','EURUSD','GBPUSD','USDJPY','AUDUSD','USDCHF']
+# 全部 19 个 MT5 品种
+_SCRIPTS = str(SCRIPT_DIR.parent.parent.parent.parent / "scripts")
+if _SCRIPTS not in sys.path:
+    sys.path.insert(0, _SCRIPTS)
+from mt5_symbols import MT5_SYMBOLS_19
+SYMBOLS = MT5_SYMBOLS_19
 
 TIMEFRAME_DIRS = {
     "H1": DATA_DIR / "H1",

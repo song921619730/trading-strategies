@@ -47,7 +47,7 @@ web_search(query="stock market futures sentiment macro news")
 
 ## 步骤 3: Trade Gate 过滤
 
-找出 14 个品种中，同时通过以下 5 条过滤的候选：
+找出全部 19 个品种中，同时通过以下 5 条过滤的候选：
 
 1. 有可用数据（ATR, 价格正常）
 2. 持仓表中该品种没有现有仓位

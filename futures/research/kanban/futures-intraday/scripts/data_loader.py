@@ -14,6 +14,7 @@ DataFrame schema (from fetch_store_data.py):
 from __future__ import annotations
 
 import logging
+import sys
 from pathlib import Path
 from typing import Dict, List, Optional
 
@@ -22,17 +23,36 @@ import pandas as pd
 
 log = logging.getLogger("data_loader")
 
-# --- Path resolution ---
 SCRIPT_DIR = Path(__file__).resolve().parent
-PROJECT_DIR = SCRIPT_DIR.parent  # futures-intraday/
+PROJECT_DIR = SCRIPT_DIR.parent
 DATA_DIR = PROJECT_DIR / "data"
+
+# ── 统一指标引擎 ──
+_IND_SCRIPTS = str(Path(__file__).resolve().parent.parent.parent.parent.parent / "scripts")
+if _IND_SCRIPTS not in sys.path:
+    sys.path.insert(0, _IND_SCRIPTS)
+from batch_precompute import compute_all_fast
 
 H1_DIR = DATA_DIR / "H1"
 M30_DIR = DATA_DIR / "M30"
+M1_DIR = DATA_DIR / "M1"
+M5_DIR = DATA_DIR / "M5"
+M15_DIR = DATA_DIR / "M15"
+H4_DIR = DATA_DIR / "H4"
+D1_DIR = DATA_DIR / "D1"
+W1_DIR = DATA_DIR / "W1"
+MN1_DIR = DATA_DIR / "MN1"
 
 TIMEFRAME_DIRS = {
-    "H1": H1_DIR,
+    "M1": M1_DIR,
+    "M5": M5_DIR,
+    "M15": M15_DIR,
     "M30": M30_DIR,
+    "H1": H1_DIR,
+    "H4": H4_DIR,
+    "D1": D1_DIR,
+    "W1": W1_DIR,
+    "MN1": MN1_DIR,
 }
 
 # ---------------------------------------------------------------------------
@@ -210,56 +230,17 @@ def _consecutive_counts(df: pd.DataFrame) -> tuple[pd.Series, pd.Series]:
 
 
 def compute_indicators(df: pd.DataFrame) -> pd.DataFrame:
-    """Add technical-indicator columns to an OHLCV DataFrame.
+    """在 DataFrame 上计算全部技术指标（统一委托 centralized indicators.py）
 
-    Input DataFrame must have columns
-    ``open, high, low, close`` and a ``DatetimeIndex`` named ``'time'``.
-
-    Added columns
-    -------------
-    atr14                 : Average True Range (14-period)
-    rsi14                 : Relative Strength Index (14-period, Wilder's)
-    ma20, ma50, ma200     : Simple moving averages of close
-    bb_upper, bb_lower    : Bollinger Bands (20,2)
-    pct_chg               : Close-to-close percentage change
-    gap_pct               : (open - prev_close) / prev_close
-    session               : Trading session label ('asia' / 'europe' / 'us')
-    dayofweek             : Day of week (0=Monday … 6=Sunday)
-    hour                  : Hour of day (0–23, UTC)
-    consecutive_bull_count: Number of consecutive bullish candles
-    consecutive_bear_count: Number of consecutive bearish candles
-
-    Returns
-    -------
-    pd.DataFrame
-        Same as input with indicator columns appended.  Rows at the beginning
-        of the series may contain NaN where rolling windows are incomplete.
+    委托 batch_precompute.compute_all_fast() 计算 ~509 列指标，
+    与实盘 tick_engine 完全同源。
     """
     df = df.copy()
-
-    # --- Price-derived indicators ---
-    df["atr14"] = _atr(df, period=14)
-    df["rsi14"] = _rsi(df["close"], period=14)
-
-    df["ma20"] = df["close"].rolling(window=20).mean()
-    df["ma50"] = df["close"].rolling(window=50).mean()
-    df["ma200"] = df["close"].rolling(window=200).mean()
-
-    df["bb_upper"], df["bb_lower"] = _bollinger_bands(df["close"], period=20, n_std=2.0)
-
-    df["pct_chg"] = df["close"].pct_change() * 100.0  # percentage
-    df["gap_pct"] = (df["open"] - df["close"].shift(1)) / df["close"].shift(1) * 100.0
-
-    # --- Temporal / session features ---
-    df["hour"] = df.index.hour
-    df["dayofweek"] = df.index.dayofweek
-    df["session"] = df["hour"].apply(_session_label)
-
-    # --- Consecutive candles ---
-    bull_cnt, bear_cnt = _consecutive_counts(df)
-    df["consecutive_bull_count"] = bull_cnt
-    df["consecutive_bear_count"] = bear_cnt
-
+    if 'tick_volume' in df.columns and 'volume' not in df.columns:
+        df['volume'] = df['tick_volume']
+    if 'volume' not in df.columns:
+        df['volume'] = 0
+    df = compute_all_fast(df, '')
     return df
 
 

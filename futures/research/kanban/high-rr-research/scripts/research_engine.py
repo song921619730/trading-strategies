@@ -8,8 +8,10 @@
 from __future__ import annotations
 
 import logging
-import random
 import math
+import random
+import sys
+from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 from dataclasses import dataclass, field
 
@@ -21,9 +23,12 @@ from data_loader import detect_pullback_to_ma
 
 log = logging.getLogger("high_rr_engine")
 
-# ─── 14个MT5品种 ───
-SYMBOLS = ['XAUUSD','XAGUSD','USTEC','US30','US500','JP225','HK50',
-           'USOIL','UKOIL','EURUSD','GBPUSD','USDJPY','AUDUSD','USDCHF']
+# ─── 全部 19 个 MT5 品种 ───
+_HS = str(Path(__file__).resolve().parent.parent.parent.parent.parent / "scripts")
+if _HS not in sys.path:
+    sys.path.insert(0, _HS)
+from mt5_symbols import MT5_SYMBOLS_19
+SYMBOLS = MT5_SYMBOLS_19
 
 # ─── 可搜索的参数空间 ───
 PARAM_SPACE = {

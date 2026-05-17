@@ -16,18 +16,20 @@ intraday_autopilot.py — Intraday M30/H1 全自动扫描+风控+执行（Tick E
     F:/AIcoding_space/Hermes/strategies/futures/single-agent/futures-intraday/scripts/intraday_autopilot.py --once
 """
 
-import json, os, sys, time, traceback
+import json, os, sys, time, traceback, random
 from datetime import datetime, timezone, timedelta
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONFIG_PATH = os.path.join(BASE, "config", "strategies.json")
 SCAN_LOG_DIR = os.path.join(BASE, "logs", "scans")
 TRIGGER_DIR = os.path.join(BASE, "logs", "triggers")
+LOG_FILE = os.path.join(BASE, "logs", "intraday_autopilot.log")
 
 MAGIC = 234010
-SLEEP_SEC = 2.0
+SLEEP_SEC = 0.5
 LOOP_LOG_INTERVAL = 30
 CST = timezone(timedelta(hours=8))
+LOG_MAX_BYTES = 10 * 1024 * 1024  # 10MB 轮转
 
 os.makedirs(SCAN_LOG_DIR, exist_ok=True)
 os.makedirs(TRIGGER_DIR, exist_ok=True)
@@ -43,8 +45,18 @@ from tick_reader import TickReader
 
 
 def log_msg(msg: str, level: str = "INFO"):
+    """双写：stdout + 持久化日志文件（自动轮转 10MB）"""
     ts = datetime.now(CST).strftime("%Y-%m-%d %H:%M:%S")
-    print(f"[{level}] {ts} | {msg}", flush=True)
+    line = f"[{level}] {ts} | {msg}"
+    print(line, flush=True)
+    try:
+        if os.path.exists(LOG_FILE) and os.path.getsize(LOG_FILE) > LOG_MAX_BYTES:
+            base, ext = os.path.splitext(LOG_FILE)
+            os.rename(LOG_FILE, f"{base}_1{ext}")
+        with open(LOG_FILE, "a", encoding="utf-8") as f:
+            f.write(line + "\n")
+    except Exception:
+        pass
 
 
 def load_config() -> dict:
@@ -143,7 +155,21 @@ def execute_trade(mt5, signal: dict, risk_cfg: dict) -> dict:
         "type_time": mt5_module.ORDER_TIME_GTC,
         "type_filling": mt5_module.ORDER_FILLING_IOC,
     }
-    result = mt5_module.order_send(req)
+    # 尝试不同的填充模式（不同品种/平台支持的填充模式不同）
+    filling_modes = [
+        mt5_module.ORDER_FILLING_IOC,
+        mt5_module.ORDER_FILLING_FOK,
+        mt5_module.ORDER_FILLING_RETURN,
+    ]
+    result = None
+    for fm in filling_modes:
+        req["type_filling"] = fm
+        result = mt5_module.order_send(req)
+        if result and result.retcode == 10009:
+            break
+        if result and result.retcode != 10030:
+            break
+
     if result and result.retcode == 10009:
         return {"status": "SUCCESS", "ticket": result.order, "price": result.price, "lots": lots}
     return {"status": "FAILED", "error": f"Order fail: {result.retcode if result else 'no result'}"}
@@ -158,11 +184,16 @@ def run_once(mt5, reader: TickReader, cfg: dict) -> dict:
 
     detected = []
     for strategy in all_signals:
+        tf_name = strategy.get("timeframe", "M30")
         for sym in strategy.get("symbols", []):
             if sym in positions["held_symbols"]:
                 continue
             try:
-                sigs = scan_strategy(sym, strategy, reader, dxy_indicators)
+                # 跨TF: 读取 H1 指标（用于 High-RR _h1_* 条件）
+                sym_h1 = (reader.get_indicator(sym, "H1")
+                          if reader.is_alive() and tf_name not in ("H1", "h1")
+                          else None)
+                sigs = scan_strategy(sym, strategy, reader, dxy_indicators, sym_h1)
                 detected.extend(sigs)
             except:
                 pass
@@ -199,10 +230,19 @@ def main():
     import MetaTrader5 as mt5_module
     reader = TickReader()
 
-    log_msg(f"🟢 Intraday Autopilot (Tick Engine) Magic={MAGIC}")
-    log_msg(f"    Loop: {SLEEP_SEC}s | Mode: {'ONCE' if once_mode else 'DAEMON'}")
-    if not reader.is_alive():
-        log_msg("⚠️  Tick Engine not running!", "WARN")
+    # ── MT5 并发保护：等 Tick Engine 就绪 + 随机抖动 ──
+    WAIT_MAX = 15
+    for attempt in range(WAIT_MAX):
+        if reader.is_alive():
+            break
+        log_msg(f"⏳ 等待 Tick Engine 就绪... ({attempt+1}s)", "WARN")
+        time.sleep(1)
+    else:
+        log_msg("⚠️  Tick Engine 未运行！降级模式（直连 MT5）", "WARN")
+
+    jitter = random.uniform(3.0, 8.0)
+    log_msg(f"🕒 MT5 连接前等待 {jitter:.1f}s (并发保护)")
+    time.sleep(jitter)
 
     if once_mode:
         path = os.getenv("MT5_PATH", "C:/Program Files/MetaTrader 5/terminal64.exe")

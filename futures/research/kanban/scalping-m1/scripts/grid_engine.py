@@ -22,12 +22,25 @@ Usage:
 from __future__ import annotations
 
 import logging
+import sys
+from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 import numpy as np
 import pandas as pd
 
-from data_loader import compute_indicators, load_data, PERIODS_PER_YEAR
+# 注: 指标计算请直接使用 batch_precompute.compute_all_fast()
+# 此引擎仅做条件回测，不计算指标
+from data_loader import load_data
+
+# 尝试加载 batch_precompute（全量 509 列）
+try:
+    _GS = str(Path(__file__).resolve().parent.parent.parent.parent.parent / "scripts")
+    if _GS not in sys.path:
+        sys.path.insert(0, _GS)
+    from batch_precompute import compute_all_fast as _calc_indicators
+except Exception:
+    _calc_indicators = None
 
 log = logging.getLogger("grid_engine")
 
@@ -81,7 +94,7 @@ def run_grid(config: Dict[str, Any]) -> Dict[str, List[Dict[str, Any]]]:
     hold_periods = config.get("hold_periods", [1, 3, 5, 10])
     exit_at_close = config.get("exit_at_close", True)
 
-    periods_per_year = PERIODS_PER_YEAR.get(timeframe, 72000)
+    periods_per_year = {"M1": 360000, "M5": 72000}.get(timeframe, 72000)
 
     if not entry_condition:
         log.error("entry_condition is empty")
@@ -92,7 +105,7 @@ def run_grid(config: Dict[str, Any]) -> Dict[str, List[Dict[str, Any]]]:
 
     results: Dict[str, List[Dict]] = {}
     for sym, raw_df in data.items():
-        df = compute_indicators(raw_df)
+        df = _calc_indicators(raw_df, timeframe) if _calc_indicators else raw_df
         mask = _evaluate_condition(df, entry_condition)
         entry_prices = df.loc[mask, "close"].values
         entry_indices = df.index[mask]
@@ -107,7 +120,8 @@ def run_grid(config: Dict[str, Any]) -> Dict[str, List[Dict[str, Any]]]:
             for i in range(len(entry_indices)):
                 entry_idx = entry_indices[i]
                 entry_price = entry_prices[i]
-                pos = df.index.get_loc(entry_idx)
+                raw_pos = df.index.get_loc(entry_idx)
+                pos = raw_pos.start if isinstance(raw_pos, slice) else int(raw_pos)
 
                 if exit_at_close:
                     exit_pos = pos + hold

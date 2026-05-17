@@ -36,7 +36,7 @@ SYMBOLS = {
 
 RISK_PER_TRADE_PCT = 0.05   # 单笔风险 5% 净值
 SL_ATR_MULTIPLE = 2.5       # Scalping: SL = ATR × 2.5（放宽止损防噪音扫）
-TP_ATR_MULTIPLE = 3.75      # Scalping: TP = ATR × 3.75（保持 RR=1.5）
+TP_ATR_MULTIPLE = 4.0       # Scalping: TP = ATR × 4.0（RR=1.6，给 spread 留缓冲）
 CONFIG_PATH = os.path.join(SCALPING_DIR, "config", "scalping_strategies.json")
 
 

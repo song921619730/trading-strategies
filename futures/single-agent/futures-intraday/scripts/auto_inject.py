@@ -16,10 +16,22 @@ import re
 import sys
 from datetime import datetime
 
+# 添加共享库路径并导入通用条件解析引擎
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))))), "scripts"))
+from condition_utils import parse_condition_text
+
 RESEARCH_STATE = "/mnt/f/AIcoding_space/Hermes/strategies/futures/research/kanban/futures-intraday/state/research_state.json"
 STRATEGIES_CONFIG = "/mnt/f/AIcoding_space/Hermes/strategies/futures/single-agent/futures-intraday/config/strategies.json"
+if sys.platform == "win32":
+    RESEARCH_STATE = RESEARCH_STATE.replace("/mnt/f/", "F:/")
+    STRATEGIES_CONFIG = STRATEGIES_CONFIG.replace("/mnt/f/", "F:/")
 
 # ── 注入门槛 ──
+# 注入日志
+INJECT_LOG = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "logs", "auto_inject.log")
+INJECT_LOG_MAX = 10 * 1024 * 1024
+
 # 核心指标门槛
 MIN_WIN_RATE = 0.68       # 胜率 > 68%（高胜率策略，可接受小样本）
 MIN_SIGNAL_COUNT = 60     # 样本量 >= 60（用户指定最低门槛）
@@ -129,18 +141,16 @@ def evaluate_signal(bf: dict, existing_ids: set) -> dict | None:
     if avg_return < MIN_AVG_RETURN:
         return None
 
-    # ── 解析 entry_condition ──
+    # ── 生成通用 conditions 数组（支持 320+ 指标） ──
     entry_condition = bf.get("entry_condition", "")
-    if not entry_condition:
-        return None
+    conditions = parse_condition_text(entry_condition)
 
-    params = _parse_condition(entry_condition, symbol, bf)
-
-    # 跳过纯美盘信号（已有）
-    if params.get("session") == "us":
-        return None
-
-    session = params.get("session", "any")
+    # 从 conditions 中提取 session 用于分组
+    session = "any"
+    for c in conditions:
+        if c.get("i") == "session":
+            session = c.get("v", "any")
+            break
 
     # ── 构建 ID ──
     base_id = f"auto_{session}_{symbol.lower()}_{timeframe.lower()}_{direction[:1]}"
@@ -150,8 +160,7 @@ def evaluate_signal(bf: dict, existing_ids: set) -> dict | None:
         new_id = f"{base_id}_{counter}"
         counter += 1
 
-    # 高胜率/高收益 → 高优先级（数字越小越优先）
-    # 美盘信号 priority=1~8，自动注入的从 20 开始
+    # 优先级（数字越小越优先）
     priority = 20
     if win_rate >= 0.65:
         priority = 10
@@ -166,7 +175,10 @@ def evaluate_signal(bf: dict, existing_ids: set) -> dict | None:
         "symbols": [symbol],
         "timeframe": timeframe,
         "direction": direction,
-        "entry_conditions": params,
+        "entry_conditions": {
+            "session": session if session != "any" else None,
+            "conditions": conditions,
+        },
         "best_hold": hold_period,
         "min_signals_for_entry": 1,
         "win_rate": round(win_rate * 100, 1),
@@ -260,6 +272,19 @@ def main():
 
     print(f"\n✅ 已注入 {len(candidates)} 个新信号到 {STRATEGIES_CONFIG}")
     print(f"   当前总策略数: {len(cfg['signals'])}")
+    # 写注入日志
+    try:
+        os.makedirs(os.path.dirname(INJECT_LOG), exist_ok=True)
+        if os.path.exists(INJECT_LOG) and os.path.getsize(INJECT_LOG) > INJECT_LOG_MAX:
+            os.rename(INJECT_LOG, INJECT_LOG + ".1")
+        with open(INJECT_LOG, "a", encoding="utf-8") as f:
+            f.write(f"[{datetime.now().isoformat()}] 注入 {len(candidates)} 个策略\n")
+            for sig in candidates:
+                f.write(f"  + {sig['id']}: {sig['symbols'][0]} {sig['timeframe']} "
+                        f"{sig['direction']} WR={sig['win_rate']}% n={sig['signal_count']}\n")
+            f.write(f"  总策略数: {len(cfg['signals'])}\n\n")
+    except Exception:
+        pass
     return 0
 
 
